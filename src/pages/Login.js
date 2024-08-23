@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { Button, TextField, Container, Typography } from '@mui/material';
+import { TextField, Button, Container, Typography, Alert } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../services/api';
 
@@ -12,6 +12,7 @@ const validationSchema = yup.object({
 
 function Login() {
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState('');
 
   const formik = useFormik({
     initialValues: {
@@ -27,7 +28,7 @@ function Login() {
         navigate('/dashboard');
       } catch (error) {
         console.error('Login failed', error);
-        alert('Login failed. Please check your credentials.');
+        setErrorMessage('Incorrect username or password. Please try again.');
       }
     },
   });
@@ -37,6 +38,11 @@ function Login() {
       <Typography variant="h4" component="h1" gutterBottom>
         Login
       </Typography>
+      {errorMessage && (
+        <Alert severity="error" sx={{ mb: 2 }}>
+          {errorMessage}
+        </Alert>
+      )}
       <form onSubmit={formik.handleSubmit}>
         <TextField
           label="Username"
