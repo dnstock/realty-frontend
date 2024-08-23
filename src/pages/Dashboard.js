@@ -1,12 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Typography, Container } from '@mui/material';
 
 function Dashboard() {
   return (
-    <div>
-      <h1>Welcome to the Dashboard</h1>
-      <Link to="/logout">Logout</Link>
-    </div>
+    <Container maxWidth="lg">
+      <Typography variant="h4" component="h1" gutterBottom>
+        Dashboard
+      </Typography>
+      {/* Add your dashboard content here */}
+      <Typography variant="body1">
+        Welcome to your dashboard! This is a protected page.
+      </Typography>
+    </Container>
   );
 }
 
