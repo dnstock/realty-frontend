@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { login } from '../services/api';
 
 const validationSchema = yup.object({
-  username: yup.string().required('Username is required'),
+  username: yup.string().required('Email is required'),
   password: yup.string().required('Password is required'),
 });
 
@@ -28,7 +28,7 @@ function Login() {
         navigate('/dashboard');
       } catch (error) {
         console.error('Login failed', error);
-        setErrorMessage('Incorrect username or password. Please try again.');
+        setErrorMessage('Incorrect email or password. Please try again.');
       }
     },
   });
@@ -45,7 +45,7 @@ function Login() {
       )}
       <form onSubmit={formik.handleSubmit}>
         <TextField
-          label="Username"
+          label="Email"
           variant="outlined"
           margin="normal"
           fullWidth
