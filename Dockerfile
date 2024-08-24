@@ -16,8 +16,10 @@ COPY . .
 # Build the React app
 RUN npm run build
 
-# Use a lightweight web server image for the final stage
-FROM nginx:alpine
+## Multi-stage build
+
+# Production stage: Use Nginx as the web server
+FROM nginx:alpine AS production
 
 # Copy the build output from the builder stage to the Nginx HTML directory
 COPY --from=builder /app/build /usr/share/nginx/html
@@ -34,3 +36,21 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
 
 # Command to run the app
 CMD ["nginx", "-g", "daemon off;"]
+
+# Development stage: Use Node.js to serve the app
+FROM node:18-alpine AS development
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the build output from the builder stage to the working directory
+COPY --from=builder /app/build /app/build
+
+# Install serve globally for development environment
+RUN npm install -g serve
+
+# Expose the port the app runs on
+EXPOSE 3000
+
+# Command to run the app
+CMD ["serve", "-s", "build", "-l", "3000"]
