@@ -4,6 +4,7 @@ import * as yup from 'yup';
 import { TextField, Button, Container, Typography, Alert } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../services/api';
+import { useAuth } from '../components/AuthContext';
 
 const validationSchema = yup.object({
   username: yup.string().required('Email is required'),
@@ -13,6 +14,7 @@ const validationSchema = yup.object({
 function Login() {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState('');
+  const { login: authLogin } = useAuth();
 
   const formik = useFormik({
     initialValues: {
@@ -23,8 +25,7 @@ function Login() {
     onSubmit: async (values) => {
       try {
         const data = await login(values);
-        localStorage.setItem('token', data.access_token);
-        localStorage.setItem('user', values.username);
+        authLogin(data.access_token, data.user);
         navigate('/dashboard');
       } catch (error) {
         console.error('Login failed', error);

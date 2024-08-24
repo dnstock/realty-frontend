@@ -1,11 +1,10 @@
 import React from 'react';
 import { AppBar, Toolbar, Typography, Button, Container } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useAuth } from './AuthContext';
 
 function Layout({ children }) {
-  const token = localStorage.getItem('token');
-  const isAuthenticated = !!token;
-  const user = localStorage.getItem('user'); // Assuming you store the user's name or email
+  const { isAuthenticated, user } = useAuth();
 
   return (
     <>
@@ -26,7 +25,7 @@ function Layout({ children }) {
                 Logout
               </Button>
               <Typography variant="body1" sx={{ marginLeft: 'auto' }}>
-                Hello, {user}
+                Hello, {user.name}
               </Typography>
             </>
           ) : (
