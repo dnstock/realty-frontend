@@ -1,5 +1,5 @@
-# Use the official Node.js image as the base image for building
-FROM node:18-alpine AS builder
+# Base stage: Install dependencies and copy application code
+FROM node:18-alpine AS base
 
 # Set the working directory in the container
 WORKDIR /app
@@ -13,10 +13,11 @@ RUN npm install
 # Copy the rest of the application code to the container
 COPY . .
 
+# Builder stage: Build the React app
+FROM base AS builder
+
 # Build the React app
 RUN npm run build
-
-## Multi-stage build
 
 # Production stage: Use Nginx as the web server
 FROM nginx:alpine AS production
@@ -38,10 +39,7 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
 CMD ["nginx", "-g", "daemon off;"]
 
 # Development stage: Use Node.js to serve the app
-FROM node:18-alpine AS development
-
-# Set the working directory in the container
-WORKDIR /app
+FROM base AS development
 
 # Copy the build output from the builder stage to the working directory
 COPY --from=builder /app/build /app/build
