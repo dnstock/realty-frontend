@@ -9,6 +9,7 @@ import Login from './pages/Login';
 import Logout from './pages/Logout';
 import Dashboard from './pages/Dashboard';
 import ProtectedRoute from './components/ProtectedRoute';
+import PublicRoute from './components/PublicRoute';
 import { AuthProvider } from './components/AuthContext';
 
 function App() {
@@ -20,12 +21,17 @@ function App() {
           <Layout />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/login" element={
+              <PublicRoute>
+                <Login />
+              </PublicRoute>
+            } />
             <Route path="/logout" element={<Logout />} />
             <Route path="/dashboard" element={
                 <ProtectedRoute>
                   <Dashboard />
                 </ProtectedRoute>
+            } />
           </Routes>
         </Router>
       </AuthProvider>
