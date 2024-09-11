@@ -1,6 +1,6 @@
 import ApiService from '../services/ApiService';
 
-const useApi = (logoutCallback) => {
+export const useApi = (logoutCallback) => {
   // Handle token expiration (401) and refresh the access token
   const handle401Error = async (error) => {
     if (error.response && error.response.status === 401) {
@@ -34,5 +34,3 @@ const useApi = (logoutCallback) => {
     fetchDashboardData: safeFetchDashboardData,
   };
 };
-
-export default useApi;
