@@ -6,7 +6,6 @@ class ApiService {
     this.client = axios.create({
       baseURL: process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000/api/v1',
     });
-
     // Set up request interceptor for authorization header
     this.client.interceptors.request.use(
       (config) => {
@@ -24,14 +23,14 @@ class ApiService {
   _getRefreshToken = () => localStorage.getItem('refresh_token');
   _saveAccessToken = (token) => localStorage.setItem('access_token', token);
   
-  async login(credentials) {
+  login = async (credentials) => {
     credentials.username = credentials.email; // Rename email to username
     return this.client.post('/auth/login', credentials, {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     }).then((response) => response.data);
   }
 
-  async tokenRefresh() {
+  tokenRefresh = async () => {
     return this.client.post('/auth/refresh', {
       refresh_token: this._getRefreshToken(),
     }).then((response) => {
@@ -42,7 +41,7 @@ class ApiService {
   }
 
   // Fetch data with authentication
-  async fetchDashboardData() {
+  fetchDashboardData = async () => {
     return this.client.get('/dashboard').then((response) => response.data);
   }
 }
