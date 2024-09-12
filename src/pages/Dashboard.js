@@ -1,18 +1,28 @@
-import React from 'react';
-import { Typography, Container } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { useAuth } from '../context/AuthContext';
 
-function Dashboard() {
+const Dashboard = () => {
+  const { api } = useAuth();
+  const [dashboardData, setDashboardData] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await api.fetchDashboardData();
+      setDashboardData(data);
+    };
+    fetchData();
+  }, [api]);
+
   return (
-    <Container maxWidth="lg">
-      <Typography variant="h4" component="h1" gutterBottom>
-        Dashboard
-      </Typography>
-      {/* Add your dashboard content here */}
-      <Typography variant="body1">
-        Welcome to your dashboard! This is a protected page.
-      </Typography>
-    </Container>
+    <div>
+      <h1>Dashboard</h1>
+      {dashboardData ? (
+        <pre>{JSON.stringify(dashboardData, null, 2)}</pre>
+      ) : (
+        <p>Loading...</p>
+      )}
+    </div>
   );
-}
+};
 
 export default Dashboard;
