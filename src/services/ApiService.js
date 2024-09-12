@@ -25,6 +25,7 @@ class ApiService {
   _saveAccessToken = (token) => localStorage.setItem('access_token', token);
   
   async login(credentials) {
+    credentials.username = credentials.email; // Rename email to username
     return this.client.post('/auth/login', credentials, {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     }).then((response) => response.data);

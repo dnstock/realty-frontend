@@ -12,11 +12,6 @@ export const useAuthState = () => {
     user: authService.getUser(),
   }));
 
-  const login = useCallback((authToken, refreshToken, userData) => {
-    setAuthState({ accessToken: authToken, refreshToken: refreshToken, user: userData });
-    authService.setAuthData(authToken, refreshToken, userData);
-  }, []);
-
   // redirectDelay is used to add a delay (in seconds) before redirecting to the login page
   // 0 = no delay (default), -1 = do not redirect (useful for testing), >0 = delay in seconds
   const logout = useCallback((redirectDelay = 0, redirectUrl = '/login') => {
@@ -32,6 +27,18 @@ export const useAuthState = () => {
   }, [navigate]);
 
   const api = useApi(logout); // Pass logout callback
+
+  const login = useCallback(async (credentials) => {
+    try {
+      const { access_token, refresh_token, user } = await api.login(credentials); // Await API login response
+      setAuthState({ accessToken: access_token, refreshToken: refresh_token, user });
+      authService.setAuthData(access_token, refresh_token, user);
+      console.log('Login successful');
+    } catch (error) {
+      console.error('Login failed', error);
+      throw error; // Re-throw error to handle it in the login page
+    }
+  }, [api]);
 
   const refreshToken = useCallback(async () => {
     if (!authState.refreshToken) return;
