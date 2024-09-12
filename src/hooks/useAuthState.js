@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import AuthService from '../services/AuthService';
+import authService from '../services/AuthService';
 import { useApi } from './useApi';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,9 +8,9 @@ export const useAuthState = () => {
   const api = useApi(logout); // Pass logout callback
 
   const [authState, setAuthState] = useState(() => ({
-    accessToken: AuthService.getAccessToken(),
-    refreshToken: AuthService.getRefreshToken(),
-    user: AuthService.getUser(),
+    accessToken: authService.getAccessToken(),
+    refreshToken: authService.getRefreshToken(),
+    user: authService.getUser(),
   }));
 
   const refreshToken = async () => {
@@ -30,14 +30,14 @@ export const useAuthState = () => {
 
   const login = (authToken, refreshToken, userData) => {
     setAuthState({ accessToken: authToken, refreshToken: refreshToken, user: userData });
-    AuthService.setAuthData(authToken, refreshToken, userData);
   };
+    authService.setAuthData(authToken, refreshToken, userData);
 
   // redirectDelay is used to add a delay (in seconds) before redirecting to the login page
   // 0 = no delay (default), -1 = do not redirect (useful for testing), >0 = delay in seconds
   const logout = (redirectDelay = 0) => {
     setAuthState({ accessToken: null, refreshToken: null, user: null });
-    AuthService.clearAuthData();
+    authService.clearAuthData();
 
     // Do not redirect 
     if (redirectDelay === -1) return;
@@ -53,7 +53,7 @@ export const useAuthState = () => {
 
   // Check and refresh token on load or when accessToken changes
   useEffect(() => {
-    if (authState.accessToken && AuthService.isTokenExpired(authState.accessToken)) {
+    if (authState.accessToken && authService.isTokenExpired(authState.accessToken)) {
       refreshToken();
     }
   }, [authState.accessToken]);
