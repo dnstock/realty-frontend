@@ -1,15 +1,15 @@
 import apiService from '../services/ApiService';
 
-export const useApi = (logoutCallback) => {
+export const useApi = (refreshTokenCallback, logoutCallback) => {
   // Handle token expiration (401) and refresh the access token
   const handle401Error = async (error) => {
     if (error.response && error.response.status === 401) {
       try {
         // Attempt to refresh the token
-        const data = await apiService.tokenRefresh();
+        const res = await refreshTokenCallback();
 
         // Retry the original request with the new token
-        error.config.headers.Authorization = `Bearer ${data.access_token}`;
+        error.config.headers.Authorization = `Bearer ${res.access_token}`;
         return apiService.client(error.config);  // Retry
       } catch (refreshError) {
         // If refresh fails, log the user out
@@ -19,7 +19,8 @@ export const useApi = (logoutCallback) => {
     return Promise.reject(error);
   };
 
-  // API functions that handle errors and 401 response
+  // API functions that handle authenticated requests and token refresh
+  // Note: These do not include login and token refresh functions
   const safeFetchDashboardData = async () => {
     try {
       return await apiService.fetchDashboardData();
@@ -29,8 +30,6 @@ export const useApi = (logoutCallback) => {
   };
 
   return {
-    login: apiService.login,
-    tokenRefresh: apiService.tokenRefresh,
     fetchDashboardData: safeFetchDashboardData,
   };
 };

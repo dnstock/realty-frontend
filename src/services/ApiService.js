@@ -1,4 +1,5 @@
 import axios from 'axios';
+import authService from './AuthService';
 
 class ApiService {
   constructor() {
@@ -9,7 +10,7 @@ class ApiService {
     // Set up request interceptor for authorization header
     this.client.interceptors.request.use(
       (config) => {
-        const token = this._getAccessToken();
+        const token = authService.getAccessToken();
         if (token) {
           config.headers.Authorization = `Bearer ${token}`;
         }
@@ -18,10 +19,6 @@ class ApiService {
       (error) => Promise.reject(error)
     );
   }
-
-  _getAccessToken = () => localStorage.getItem('access_token');
-  _getRefreshToken = () => localStorage.getItem('refresh_token');
-  _saveAccessToken = (token) => localStorage.setItem('access_token', token);
   
   login = async (credentials) => {
     credentials.username = credentials.email; // Rename email to username
@@ -32,12 +29,8 @@ class ApiService {
 
   tokenRefresh = async () => {
     return this.client.post('/auth/refresh', {
-      refresh_token: this._getRefreshToken(),
-    }).then((response) => {
-      // Save the new access token upon successful refresh
-      this._saveAccessToken(response.data.access_token);
-      return response.data;
-    });
+      refresh_token: authService.getRefreshToken(),
+    }).then((response) => response.data);
   }
 
   // Fetch data with authentication
