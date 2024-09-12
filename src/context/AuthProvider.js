@@ -1,6 +1,6 @@
 import React from 'react';
 import { AuthContext } from './AuthContext';
-import { useAuthState } from './useAuthState';
+import { useAuthState } from '../hooks/useAuthState';
 
 export const AuthProvider = ({ children }) => {
   const authContextValue = useAuthState();
