@@ -1,12 +1,21 @@
+import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Container } from '@mui/material';
+import Sidebar from './Sidebar';
 import Header from './Header';
 import { FlexBox } from '../theme/styledComponents';
 
 const Layout = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
   return (
     <FlexBox flexDirection='column' justifyContent='flex-start' padding='0'>
-      <Header />
+      <Header toggleSidebar={toggleSidebar} />
+      <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
       <Container
         component='main'
         maxWidth='lg'

@@ -1,9 +1,10 @@
 import { Link as RouterLink } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { AppBar, Toolbar, Button, Typography } from '@mui/material';
+import { AppBar, Toolbar, Button, Typography, IconButton } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
 import { HeaderBox } from '../theme/styledComponents';
 
-const Header = () => {
+const Header = ({ toggleSidebar }) => {
   const { isAuthenticated, logout } = useAuth();
 
   return (
@@ -33,6 +34,9 @@ const Header = () => {
               Login
             </Button>
           )}
+          <IconButton edge="start" color="inherit" onClick={toggleSidebar}>
+            <MenuIcon />
+          </IconButton>
         </HeaderBox>
       </Toolbar>
     </AppBar>

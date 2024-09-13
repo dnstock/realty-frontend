@@ -63,6 +63,8 @@ export const SidebarContainer = styled(Drawer)(({ theme }) => ({
   },
 }));
 
-export const ActiveListItem = styled(ListItem)(({ theme, isActive }) => ({
+export const ActiveListItem = styled(({ isActive, button, ...rest }) => (
+  <ListItem {...rest} />
+))(({ theme, isActive }) => ({
   backgroundColor: isActive ? theme.palette.action.selected : 'inherit',
 }));
