@@ -1,25 +1,41 @@
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { AppBar, Toolbar, Button, Typography } from '@mui/material';
+import { HeaderBox } from '../theme/styledComponents';
 
 const Header = () => {
   const { isAuthenticated, logout } = useAuth();
 
   return (
-    <header>
-      <nav>
-        <ul>
-          <li><Link to="/">Home</Link></li>
+    <AppBar position='static' color='primary' aria-label='Main navigation'>
+      <Toolbar>
+        <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
+          Realty App
+        </Typography>
+        <HeaderBox>
+          <Button component={RouterLink} to='/' color='inherit'>
+            Home
+          </Button>
           {isAuthenticated() ? (
             <>
-              <li><Link to="/dashboard">Dashboard</Link></li>
-              <li><button onClick={() => logout()}>Logout</button></li>
+              <Button component={RouterLink} to='/dashboard' color='inherit'>
+                Dashboard
+              </Button>
+              <Button component={RouterLink} to='/profile' color='inherit'>
+                Profile
+              </Button>
+              <Button onClick={logout} color='inherit'>
+                Logout
+              </Button>
             </>
           ) : (
-            <li><Link to="/login">Login</Link></li>
+            <Button component={RouterLink} to='/login' color='inherit'>
+              Login
+            </Button>
           )}
-        </ul>
-      </nav>
-    </header>
+        </HeaderBox>
+      </Toolbar>
+    </AppBar>
   );
 };
 
