@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
 import { CircularProgress, Box, Typography } from '@mui/material';
-import { useAuth } from '../context/AuthContext';
 import { FlexBox } from '../theme/styledComponents';
 import useToast from '../components/ToastNotification';
+import ApiService from '../services/ApiService';
 
 const Dashboard = () => {
-  const { api } = useAuth();
   const [dashboardData, setDashboardData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -14,7 +13,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await api.fetchDashboardData();
+        const data = await ApiService.fetchDashboardData();
         setDashboardData(data);
       } catch (error) {
         setError('Failed to fetch dashboard data');
@@ -25,7 +24,7 @@ const Dashboard = () => {
     };
 
     fetchData();
-  }, [api, showError]);
+  }, [showError]);
 
   if (loading) {
     return (

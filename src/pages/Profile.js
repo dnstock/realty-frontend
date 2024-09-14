@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { Box, TextField, Button, Grid, Typography, CircularProgress } from '@mui/material';
-import { useAuth } from '../context/AuthContext';
 import { FlexBox, CardGrid } from '../theme/styledComponents';
 import useToast from '../components/ToastNotification';
+import { useAuth } from '../context/AuthContext';
+import ApiService from '../services/ApiService';
 
 const Profile = () => {
-  const { api, user } = useAuth();
+  const { user } = useAuth();
   const { showError, showSuccess } = useToast();
   const [profileData, setProfileData] = useState(user || {});
   const [loading, setLoading] = useState(false);
@@ -28,7 +29,7 @@ const Profile = () => {
     setError(null);
 
     try {
-      await api.updateProfile(profileData);
+      await ApiService.updateProfile(profileData);
       showSuccess('Profile updated successfully');
     } catch (error) {
       showError('Failed to update profile');
