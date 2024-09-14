@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import ApiService from '../services/ApiService';
+import apiService from '../services/ApiService';
 
 export const useAuthState = () => {
   const navigate = useNavigate();
@@ -8,7 +8,7 @@ export const useAuthState = () => {
 
   const logout = useCallback(async (redirectDelay = 0, redirectUrl = '/login') => {
     try {
-      await ApiService.logout(); // Call the backend logout API
+      await apiService.logout(); // Call the backend logout API
     } catch (error) {
       console.error("Failed to log out", error);
     }
@@ -20,7 +20,7 @@ export const useAuthState = () => {
 
   const login = useCallback(async (credentials) => {
     try {
-      const res = await ApiService.login(credentials);
+      const res = await apiService.login(credentials);
       setAuthState({ user: res.user }); // Store user info if needed
       console.log('Login successful');
     } catch (error) {
@@ -31,7 +31,7 @@ export const useAuthState = () => {
 
   const refreshToken = useCallback(async () => {
     try {
-      await ApiService.tokenRefresh();
+      await apiService.tokenRefresh();
     } catch (error) {
       console.error('Failed to refresh token', error);
       logout();

@@ -3,7 +3,7 @@ import { Box, TextField, Button, Typography, CircularProgress, Stack } from '@mu
 import { FlexBox, CardBox } from '../theme/styledComponents';
 import useToast from '../components/ToastNotification';
 import { useAuth } from '../context/AuthContext';
-import ApiService from '../services/ApiService';
+import apiService from '../services/ApiService';
 
 const Profile = () => {
   const { user } = useAuth();
@@ -29,7 +29,7 @@ const Profile = () => {
     setError(null);
 
     try {
-      await ApiService.updateProfile(profileData);
+      await apiService.updateProfile(profileData);
       showSuccess('Profile updated successfully');
     } catch (error) {
       showError('Failed to update profile');
