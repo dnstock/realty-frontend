@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Box, TextField, Typography, Grid, CircularProgress } from '@mui/material';
-import { FlexBox, CardGrid, PaddedButton } from '../theme/styledComponents';
+import { Box, TextField, Typography, CircularProgress } from '@mui/material';
+import { FlexBox, CardBox, PaddedButton } from '../theme/styledComponents';
 import useToast from '../components/ToastNotification';
 
 const Login = () => {
@@ -40,62 +40,56 @@ const Login = () => {
 
   return (
     <FlexBox>
-      <CardGrid container spacing={2} direction='column' justifyContent='center' alignItems='center' maxWidth='400px'>
-        <Grid item>
-          <Typography variant='h5' component='h2' gutterBottom>
-            Login
-          </Typography>
-        </Grid>
+      <CardBox maxWidth='400px'>
+        <Typography variant='h5' component='h2' gutterBottom>
+          Login
+        </Typography>
 
-        <Grid item>
-          <form onSubmit={handleSubmit} style={{ width: '100%' }}>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  fullWidth
-                  label='Email'
-                  type='email'
-                  name='email'
-                  value={credentials.email}
-                  onChange={handleChange}
-                  required
-                  variant='outlined'
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  fullWidth
-                  label='Password'
-                  type='password'
-                  name='password'
-                  value={credentials.password}
-                  onChange={handleChange}
-                  required
-                  variant='outlined'
-                />
-              </Grid>
-            </Grid>
+        <form onSubmit={handleSubmit} style={{ width: '100%' }}>
+          <Box mb={2}>
+            <TextField
+              fullWidth
+              label='Email'
+              type='email'
+              name='email'
+              value={credentials.email}
+              onChange={handleChange}
+              required
+              variant='outlined'
+            />
+          </Box>
+          <Box mb={2}>
+            <TextField
+              fullWidth
+              label='Password'
+              type='password'
+              name='password'
+              value={credentials.password}
+              onChange={handleChange}
+              required
+              variant='outlined'
+            />
+          </Box>
 
-            {error && (
-              <Typography variant='body2' color='error' sx={{ mt: 2 }}>
-                {error}
-              </Typography>
-            )}
+          {error && (
+            <Typography variant='body2' color='error' sx={{ mt: 2 }}>
+              {error}
+            </Typography>
+          )}
 
-            <Box mt={3}>
-              <PaddedButton
-                fullWidth
-                type='submit'
-                variant='contained'
-                color='primary'
-                disabled={loading}
-              >
-                {loading ? <CircularProgress size={24} /> : 'Login'}
-              </PaddedButton>
-            </Box>
-          </form>
-        </Grid>
-      </CardGrid>
+          <Box mt={3}>
+            <PaddedButton
+              fullWidth
+              type='submit'
+              variant='contained'
+              color='primary'
+              disabled={loading}
+            >
+              {loading ? <CircularProgress size={24} /> : 'Login'}
+            </PaddedButton>
+          </Box>
+        </form>
+      </CardBox>
     </FlexBox>
   );
 };

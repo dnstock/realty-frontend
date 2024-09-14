@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Box, TextField, Button, Grid, Typography, CircularProgress } from '@mui/material';
-import { FlexBox, CardGrid } from '../theme/styledComponents';
+import { Box, TextField, Button, Typography, CircularProgress, Stack } from '@mui/material';
+import { FlexBox, CardBox } from '../theme/styledComponents';
 import useToast from '../components/ToastNotification';
 import { useAuth } from '../context/AuthContext';
 import ApiService from '../services/ApiService';
@@ -40,14 +40,12 @@ const Profile = () => {
 
   return (
     <FlexBox>
-      <CardGrid container spacing={2} direction='column'>
-        <Grid item>
-          <Typography variant='h4' gutterBottom>
-            Profile
-          </Typography>
-        </Grid>
+      <CardBox>
+        <Typography variant='h4' gutterBottom>
+          Profile
+        </Typography>
 
-        <Grid item xs={12}>
+        <Stack spacing={2}>
           <TextField
             fullWidth
             label='Email'
@@ -58,9 +56,7 @@ const Profile = () => {
             error={!profileData.email}
             helperText={!profileData.email && 'Email is required'}
           />
-        </Grid>
 
-        <Grid item xs={12}>
           <TextField
             fullWidth
             label='Name'
@@ -71,24 +67,20 @@ const Profile = () => {
             error={!profileData.name}
             helperText={!profileData.name && 'Name is required'}
           />
-        </Grid>
 
-        {error && (
-          <Grid item xs={12}>
+          {error && (
             <Typography variant='body2' color='error'>
               {error}
             </Typography>
-          </Grid>
-        )}
+          )}
 
-        <Grid item xs={12}>
           <Box display='flex' justifyContent='flex-end'>
             <Button onClick={handleSave} variant='contained' disabled={loading}>
               {loading ? <CircularProgress size={24} /> : 'Save'}
             </Button>
           </Box>
-        </Grid>
-      </CardGrid>
+        </Stack>
+      </CardBox>
     </FlexBox>
   );
 };

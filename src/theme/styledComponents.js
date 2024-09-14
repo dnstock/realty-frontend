@@ -1,5 +1,5 @@
 import { styled } from '@mui/system';
-import { Box, Grid, Button, Drawer, ListItem } from '@mui/material';
+import { Box, Button, Drawer, ListItem } from '@mui/material';
 
 // Flexible FlexBox that accepts props to modify layout dynamically
 export const FlexBox = styled(Box)(({ theme, 
@@ -24,8 +24,8 @@ export const HeaderBox = styled(Box)(({ theme }) => ({
   gap: theme.spacing(2), // Adds spacing between buttons
 }));
 
-// Reusable Card Grid that accepts dynamic maxWidth and padding
-export const CardGrid = styled(Grid)(({ theme, 
+// Reusable Card Box that accepts dynamic maxWidth and padding
+export const CardBox = styled(Box)(({ theme, 
   maxWidth = '550px', 
   padding = '2rem' 
 }) => ({

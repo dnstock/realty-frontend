@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Typography, Grid } from '@mui/material';
-import { FlexBox, CardGrid, PaddedButton, SecondaryButton } from '../theme/styledComponents';
+import { Typography, Stack } from '@mui/material';
+import { FlexBox, CardBox, PaddedButton, SecondaryButton } from '../theme/styledComponents';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -9,8 +9,8 @@ const Home = () => {
 
   return (
     <FlexBox>
-      <CardGrid container spacing={3} direction='column' justifyContent='center' alignItems='center'>
-        <Grid item>
+      <CardBox>
+        <Stack spacing={3} direction="column" alignItems="center">
           <Typography variant='h4' component='h1' gutterBottom>
             {isAuthenticated() ? 'Welcome back!' : 'Welcome to Realty App'}
           </Typography>
@@ -19,11 +19,8 @@ const Home = () => {
               ? 'Access your dashboard or log out below.'
               : 'Please log in to access your dashboard.'}
           </Typography>
-        </Grid>
-
-        <Grid item>
           {isAuthenticated() ? (
-            <>
+            <Stack direction="row" spacing={2}>
               <PaddedButton
                 variant='contained'
                 color='primary'
@@ -40,7 +37,7 @@ const Home = () => {
               >
                 Log out
               </SecondaryButton>
-            </>
+            </Stack>
           ) : (
             <PaddedButton
               variant='contained'
@@ -50,8 +47,8 @@ const Home = () => {
               Log in
             </PaddedButton>
           )}
-        </Grid>
-      </CardGrid>
+        </Stack>
+      </CardBox>
     </FlexBox>
   );
 };
