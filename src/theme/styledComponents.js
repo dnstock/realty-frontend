@@ -44,7 +44,9 @@ export const PaddedButton = styled(Button)(({ theme,
 }));
 
 // Reusable Secondary Button with additional margins for spacing
-export const SecondaryButton = styled(Button)(({ theme, 
+export const SecondaryButton = styled(({ marginTop, marginLeft, ...rest }) => (
+  <Button {...rest} />
+))(({ theme, 
   padding = theme.spacing(1.4, 6),
   marginTop = theme.spacing(2),
   marginLeft = 0
