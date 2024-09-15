@@ -1,10 +1,11 @@
+import { useCallback } from 'react';
 import { useSnackbar } from 'notistack';
 
 const useToast = () => {
   const { enqueueSnackbar } = useSnackbar();
 
-  const showSuccess = (message) => enqueueSnackbar(message, { variant: 'success' });
-  const showError = (message) => enqueueSnackbar(message, { variant: 'error' });
+  const showSuccess = useCallback(async (message) => { enqueueSnackbar(message, { variant: 'success' }); } , [enqueueSnackbar]);
+  const showError = useCallback(async (message) => { enqueueSnackbar(message, { variant: 'error' }); } , [enqueueSnackbar]);
 
   return { showSuccess, showError };
 };

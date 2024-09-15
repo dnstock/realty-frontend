@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { CircularProgress, Box, Typography } from '@mui/material';
-import { FlexBox } from '../theme/styledComponents';
 import useToast from '../components/ToastNotification';
+import { FlexBox } from '../theme/styledComponents';
 import apiService from '../services/ApiService';
 
 const Dashboard = () => {
@@ -10,21 +10,22 @@ const Dashboard = () => {
   const [error, setError] = useState(null);
   const { showError } = useToast();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await apiService.fetchDashboardData();
-        setDashboardData(data);
-      } catch (error) {
-        setError('Failed to fetch dashboard data');
-        showError('Failed to fetch dashboard data');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
+  const fetchData = useCallback(async () => {
+    try {
+      const data = await apiService.fetchDashboardData();
+      // const data = { message: 'Future dashboard data...' };
+      setDashboardData(data);
+    } catch (error) {
+      setError('Failed to fetch dashboard data');
+      showError('Failed to fetch dashboard data');
+    } finally {
+      setLoading(false);
+    }
   }, [showError]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   if (loading) {
     return (

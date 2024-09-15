@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Box, TextField, Button, Typography, CircularProgress, Stack } from '@mui/material';
-import { FlexBox, CardBox } from '../theme/styledComponents';
 import useToast from '../components/ToastNotification';
+import { FlexBox, CardBox } from '../theme/styledComponents';
 import { useAuth } from '../context/AuthContext';
 import apiService from '../services/ApiService';
 
@@ -29,7 +29,7 @@ const Profile = () => {
     setError(null);
 
     try {
-      await apiService.updateProfile(profileData);
+      await apiService.updateUserProfile(profileData);
       showSuccess('Profile updated successfully');
     } catch (error) {
       showError('Failed to update profile');

@@ -1,11 +1,11 @@
 import { Link as RouterLink } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
 import { AppBar, Toolbar, Button, Typography, IconButton } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { HeaderBox } from '../theme/styledComponents';
+import { useAuth } from '../context/AuthContext';
 
 const Header = ({ toggleSidebar }) => {
-  const { isAuthenticated, logout } = useAuth();
+  const { isAuthenticated } = useAuth();
 
   return (
     <AppBar position='static' color='primary' aria-label='Main navigation'>
@@ -17,7 +17,7 @@ const Header = ({ toggleSidebar }) => {
           <Button component={RouterLink} to='/' color='inherit'>
             Home
           </Button>
-          {isAuthenticated() ? (
+          {isAuthenticated ? (
             <>
               <Button component={RouterLink} to='/dashboard' color='inherit'>
                 Dashboard
@@ -25,7 +25,7 @@ const Header = ({ toggleSidebar }) => {
               <Button component={RouterLink} to='/profile' color='inherit'>
                 Profile
               </Button>
-              <Button onClick={logout} color='inherit'>
+              <Button component={RouterLink} to='/logout' color='inherit'>
                 Logout
               </Button>
             </>

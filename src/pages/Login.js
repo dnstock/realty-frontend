@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
 import { Box, TextField, Typography, CircularProgress } from '@mui/material';
-import { FlexBox, CardBox, PaddedButton } from '../theme/styledComponents';
 import useToast from '../components/ToastNotification';
+import { FlexBox, CardBox, PaddedButton } from '../theme/styledComponents';
+import { useAuth } from '../context/AuthContext';
 
 const Login = () => {
   const [credentials, setCredentials] = useState({ email: '', password: '' });
-  const [error, setError] = useState(null);
+  const [errors, setErrors] = useState({ email: null, password: null, general: null });
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
   const { showError, showSuccess } = useToast();
@@ -15,23 +15,32 @@ const Login = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setError(null);
+    setErrors({ email: null, password: null, general: null });
     setLoading(true);
 
     try {
       await login(credentials);
       showSuccess('Login successful');
       navigate('/dashboard');
-    } catch (error) {
-      setError('Login failed. Please check your credentials.');
+    } catch (err) {
+      const errorMessage = err.response?.data?.detail || 'Login failed';
+      setErrors({
+        email: errorMessage.toLowerCase().includes('email') ? errorMessage : null,
+        password: errorMessage.toLowerCase().includes('password') ? errorMessage : null,
+        general: errorMessage,
+      });
       showError('Login failed');
-      console.error('Login failed', error);
+      console.error('Login failed', err);
     } finally {
       setLoading(false);
     }
   };
 
   const handleChange = (e) => {
+    setErrors({
+      ...errors,
+      [e.target.name]: null,
+    });
     setCredentials({
       ...credentials,
       [e.target.name]: e.target.value,
@@ -56,6 +65,9 @@ const Login = () => {
               onChange={handleChange}
               required
               variant='outlined'
+              autoComplete='email'
+              error={!!errors.email}
+              // helperText={errors.email}
             />
           </Box>
           <Box mb={2}>
@@ -68,12 +80,14 @@ const Login = () => {
               onChange={handleChange}
               required
               variant='outlined'
+              error={!!errors.password}
+              // helperText={errors.password}
             />
           </Box>
 
-          {error && (
+          {errors.general && (
             <Typography variant='body2' color='error' sx={{ mt: 2 }}>
-              {error}
+              {errors.general}
             </Typography>
           )}
 

@@ -1,25 +1,25 @@
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
 import { Typography, Stack } from '@mui/material';
 import { FlexBox, CardBox, PaddedButton, SecondaryButton } from '../theme/styledComponents';
+import { useAuth } from '../context/AuthContext';
 
 const Home = () => {
   const navigate = useNavigate();
-  const { isAuthenticated } = useAuth();
+  const { user, isAuthenticated } = useAuth();
 
   return (
     <FlexBox>
       <CardBox minWidth='400px'>
         <Stack spacing={3} direction="column" alignItems="center">
           <Typography variant='h4' component='h1' gutterBottom>
-            {isAuthenticated() ? 'Welcome back!' : 'Welcome to Realty App'}
+            {isAuthenticated ? `Hi ${user.name}, welcome back!` : 'Welcome to Realty App'}
           </Typography>
           <Typography variant='body1' gutterBottom>
-            {isAuthenticated()
+            {isAuthenticated
               ? 'Access your dashboard or log out below.'
               : 'Please log in to access your dashboard.'}
           </Typography>
-          {isAuthenticated() ? (
+          {isAuthenticated ? (
             <Stack direction="row" spacing={2}>
               <PaddedButton
                 variant='contained'

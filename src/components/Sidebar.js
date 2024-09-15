@@ -1,13 +1,13 @@
-import { List, ListItemText } from '@mui/material';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { List, ListItemText } from '@mui/material';
 import { SidebarContainer, ActiveListItem } from '../theme/styledComponents';
+import { useAuth } from '../context/AuthContext';
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
   const { isAuthenticated } = useAuth();
   const location = useLocation();
 
-  const menuItems = isAuthenticated() ?
+  const menuItems = isAuthenticated ?
     [
       { text: 'Home', path: '/' },
       { text: 'Dashboard', path: '/dashboard' },
