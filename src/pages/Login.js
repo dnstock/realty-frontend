@@ -40,7 +40,7 @@ const Login = () => {
 
   return (
     <FlexBox>
-      <CardBox maxWidth='400px'>
+      <CardBox minWidth='400px'>
         <Typography variant='h5' component='h2' gutterBottom>
           Login
         </Typography>

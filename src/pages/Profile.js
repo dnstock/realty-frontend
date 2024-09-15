@@ -40,7 +40,7 @@ const Profile = () => {
 
   return (
     <FlexBox>
-      <CardBox>
+      <CardBox minWidth='400px'>
         <Typography variant='h4' gutterBottom>
           Profile
         </Typography>

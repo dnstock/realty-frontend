@@ -9,7 +9,7 @@ const Home = () => {
 
   return (
     <FlexBox>
-      <CardBox>
+      <CardBox minWidth='400px'>
         <Stack spacing={3} direction="column" alignItems="center">
           <Typography variant='h4' component='h1' gutterBottom>
             {isAuthenticated() ? 'Welcome back!' : 'Welcome to Realty App'}
