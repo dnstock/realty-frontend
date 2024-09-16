@@ -2,20 +2,15 @@ import { Routes, Route } from 'react-router-dom';
 import { CircularProgress } from '@mui/material';
 import { FlexBox } from '../theme/styledComponents';
 import { useAuth } from '../context/AuthContext';
-import ProtectedRoute from '../components/ProtectedRoute';
-import PublicRoute from '../components/PublicRoute';
 import Layout from '../components/Layout';
-import Home from '../pages/Home';
-import Login from '../pages/Login';
-import Logout from '../pages/Logout';
-import Dashboard from '../pages/Dashboard';
-import Profile from '../pages/Profile';
+import { PublicRoutes } from './routes/publicRoutes';
+import { UnsecureRoutes } from './routes/unsecureRoutes';
+import { SecureRoutes } from './routes/secureRoutes';
 
 const AppRoutes = () => {
   const { loading: authLoading } = useAuth();
 
-  // Make sure checkAuthStatus() is complete before rendering the routes
-  // Otherwise `isAuthenticated` might be inaccurate! 
+  // Wait until auth loading is complete
   if (authLoading) {
     return (
       <FlexBox>
@@ -27,32 +22,9 @@ const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route index element={<Home />} />
-        <Route
-          path="/login"
-          element={
-            <PublicRoute>
-              <Login />
-            </PublicRoute>
-          }
-        />
-        <Route path="/logout" element={<Logout />} />
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/profile"
-          element={
-            <ProtectedRoute>
-              <Profile />
-            </ProtectedRoute>
-          }
-        />
+        {PublicRoutes}
+        {UnsecureRoutes}
+        {SecureRoutes}
       </Route>
     </Routes>
   );
