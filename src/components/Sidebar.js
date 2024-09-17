@@ -1,42 +1,41 @@
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { List, ListItemText } from '@mui/material';
-import { SidebarContainer, ActiveListItem } from '../theme/styledComponents';
+import { SidebarContainer, StyledListItem, StyledListText } from '../theme/styledComponents';
 import { useAuth } from '../context/AuthContext';
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
   const { isAuthenticated } = useAuth();
   const location = useLocation();
 
-  const menuItems = isAuthenticated ?
-    [
-      { text: 'Home', path: '/' },
-      { text: 'Dashboard', path: '/dashboard' },
-      { text: 'Profile', path: '/profile' },
-      { text: 'Logout', path: '/logout' },
-    ] : [
-      { text: 'Home', path: '/' },
-      { text: 'Login', path: '/login' }
-    ];
+  const menuItems = isAuthenticated
+    ? [
+        { text: 'Properties', path: '/properties' },
+        { text: 'Tenants', path: '/tenants' },
+      ]
+    : [
+        { text: 'Home', path: '/' },
+        { text: 'Login', path: '/login' },
+      ];
 
   return (
     <SidebarContainer
-      variant="temporary" // Allow toggling
+      variant="temporary"
       anchor="right"
       open={isOpen}
-      onClose={toggleSidebar} // Close when clicking outside
+      onClose={toggleSidebar}
     >
       <List>
         {menuItems.map((item) => (
-          <ActiveListItem
+          <StyledListItem
             button
             component={RouterLink}
             to={item.path}
             key={item.text}
             isActive={location.pathname === item.path}
-            onClick={toggleSidebar} // Close when clicking a menu item
+            onClick={toggleSidebar}
           >
-            <ListItemText primary={item.text} />
-          </ActiveListItem>
+            <StyledListText primary={item.text} />
+          </StyledListItem>
         ))}
       </List>
     </SidebarContainer>

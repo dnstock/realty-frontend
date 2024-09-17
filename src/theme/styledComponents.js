@@ -1,5 +1,5 @@
 import { styled } from '@mui/system';
-import { Box, Button, Drawer, ListItem } from '@mui/material';
+import { Box, Button, Drawer, ListItem, ListItemText } from '@mui/material';
 
 // Flexible FlexBox that accepts props to modify layout dynamically
 export const FlexBox = styled(Box)(({ theme, 
@@ -56,17 +56,35 @@ export const SecondaryButton = styled(({ marginTop, marginLeft, ...rest }) => (
   marginLeft: marginLeft,
 }));
 
+// Sidebar container with custom background and width
 export const SidebarContainer = styled(Drawer)(({ theme }) => ({
-  width: 240,
+  width: 250,  
   flexShrink: 0,
   '& .MuiDrawer-paper': {
-    width: 240,
+    width: 250,  
+    backgroundColor: theme.palette.primary.main,  
     boxSizing: 'border-box',
+    color: '#fff', 
+    paddingTop: theme.spacing(2),
   },
 }));
 
-export const ActiveListItem = styled(({ isActive, button, ...rest }) => (
+// Styled list item with hover and active effects
+export const StyledListItem = styled(({ isActive, button, ...rest }) => (
   <ListItem {...rest} />
 ))(({ theme, isActive }) => ({
   backgroundColor: isActive ? theme.palette.action.selected : 'inherit',
+  padding: theme.spacing(2), 
+  borderRadius: theme.shape.borderRadius,
+  '&:hover': {
+    backgroundColor: theme.palette.action.hover,
+  },
+  margin: theme.spacing(1, 0),
+}));
+
+// Text style for list items to make it more prominent
+export const StyledListText = styled(ListItemText)(({ theme }) => ({
+  textTransform: 'capitalize',
+  fontWeight: 500,
+  color: '#ffffff',
 }));
