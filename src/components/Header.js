@@ -1,7 +1,7 @@
 import { Link as RouterLink } from 'react-router-dom';
-import { AppBar, Toolbar, Button, Typography, IconButton } from '@mui/material';
+import { AppBar, Toolbar, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import { HeaderBox } from '../theme/styledComponents';
+import { HeaderBox, StyledHeaderButton, StyledIconButton } from '../theme/styledComponents';
 import { useAuth } from '../context/AuthContext';
 
 const Header = ({ toggleSidebar }) => {
@@ -14,29 +14,29 @@ const Header = ({ toggleSidebar }) => {
           Realty App
         </Typography>
         <HeaderBox>
-          <Button component={RouterLink} to='/' color='inherit'>
+          <StyledHeaderButton component={RouterLink} to='/' color='inherit'>
             Home
-          </Button>
+          </StyledHeaderButton>
           {isAuthenticated ? (
             <>
-              <Button component={RouterLink} to='/dashboard' color='inherit'>
+              <StyledHeaderButton component={RouterLink} to='/dashboard' color='inherit'>
                 Dashboard
-              </Button>
-              <Button component={RouterLink} to='/profile' color='inherit'>
+              </StyledHeaderButton>
+              <StyledHeaderButton component={RouterLink} to='/profile' color='inherit'>
                 Profile
-              </Button>
-              <Button component={RouterLink} to='/logout' color='inherit'>
+              </StyledHeaderButton>
+              <StyledHeaderButton component={RouterLink} to='/logout' color='inherit'>
                 Logout
-              </Button>
+              </StyledHeaderButton>
             </>
           ) : (
-            <Button component={RouterLink} to='/login' color='inherit'>
+            <StyledHeaderButton component={RouterLink} to='/login' color='inherit'>
               Login
-            </Button>
+            </StyledHeaderButton>
           )}
-          <IconButton edge="start" color="inherit" onClick={toggleSidebar}>
+          <StyledIconButton edge="start" color="inherit" onClick={toggleSidebar}>
             <MenuIcon />
-          </IconButton>
+          </StyledIconButton>
         </HeaderBox>
       </Toolbar>
     </AppBar>

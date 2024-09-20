@@ -6,22 +6,24 @@ export const FlexBox = styled(Box)(({ theme,
   minHeight = 'calc(100vh - 128px)', 
   justifyContent = 'center', 
   alignItems = 'center', 
-  backgroundColor = '#f5f5f5',
+  backgroundColor = theme.palette.background.default,
   padding = theme.spacing(2)
 }) => ({
   display: 'flex',
   justifyContent: justifyContent,
   alignItems: alignItems,
-  minHeight: minHeight, // Can set based on props
+  minHeight: minHeight,
   backgroundColor: backgroundColor,
-  overflow: 'hidden',
-  padding: padding
+  // overflow: 'hidden',
+  padding: padding,
 }));
 
-// HeaderBox for organizing header buttons with consistent spacing
+// Header box with organized buttons, properly aligned
 export const HeaderBox = styled(Box)(({ theme }) => ({
   display: 'flex',
-  gap: theme.spacing(2), // Adds spacing between buttons
+  gap: theme.spacing(2),
+  justifyContent: 'space-between',
+  alignItems: 'center',
 }));
 
 // Reusable Card Box that accepts dynamic maxWidth and padding
@@ -34,37 +36,75 @@ export const CardBox = styled(Box)(({ theme,
   borderRadius: '8px',
   boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
   maxWidth: maxWidth,
+
+export const StyledHeaderButton = styled(Button)(({ theme }) => ({
+  padding: theme.spacing(1.5, 2),
+  backgroundColor: theme.palette.primary.main,
+  color: theme.palette.common.white,
+  textTransform: 'none',
+  boxShadow: 'none',
+  '&:hover': {
+    backgroundColor: theme.palette.primary.dark,
+  },
+}));
+
+export const StyledIconButton = styled(IconButton)(({ theme }) => ({
+  padding: theme.spacing(1.5, 2),
+  backgroundColor: theme.palette.primary.main,
+  borderRadius: theme.shape.borderRadius,
+  boxShadow: 'none',
+  '&:hover': {
+    backgroundColor: theme.palette.primary.dark,
+  },
 }));
 
 // Generalized Button with customizable padding
-export const PaddedButton = styled(Button)(({ theme,
-   padding = theme.spacing(1.5, 6) 
-}) => ({
+export const PaddedButton = styled(Button)(({ theme, padding = theme.spacing(1.5, 6) }) => ({
   padding: padding,
 }));
 
+// Modern primary button with enterprise look
+export const PrimaryButton = styled(Button)(({ theme }) => ({
+  padding: theme.spacing(1, 3),
+  backgroundColor: theme.palette.primary.main,
+  color: theme.palette.common.white,
+  textTransform: 'none',
+  boxShadow: 'none',
+  '&:hover': {
+    backgroundColor: theme.palette.primary.dark,
+  },
+}));
+
 // Reusable Secondary Button with additional margins for spacing
-export const SecondaryButton = styled(({ marginTop, marginLeft, ...rest }) => (
-  <Button {...rest} />
-))(({ theme, 
-  padding = theme.spacing(1.4, 6),
-  marginTop = theme.spacing(2),
-  marginLeft = 0
-}) => ({
-  padding: padding,
-  marginTop: marginTop,
-  marginLeft: marginLeft,
+// export const SecondaryButton = styled(({ marginTop, marginLeft, ...rest }) => (
+//   <Button {...rest} />
+// ))(({ theme, padding = theme.spacing(1.4, 6), marginTop = theme.spacing(2), marginLeft = 0 }) => ({
+//   padding: padding,
+//   marginTop: marginTop,
+//   marginLeft: marginLeft,
+// }));
+
+// Subdued secondary button for additional actions
+export const SecondaryButton = styled(Button)(({ theme }) => ({
+  padding: theme.spacing(1, 3),
+  backgroundColor: theme.palette.grey[100],
+  color: theme.palette.text.primary,
+  textTransform: 'none',
+  boxShadow: 'none',
+  '&:hover': {
+    backgroundColor: theme.palette.grey[300],
+  },
 }));
 
 // Sidebar container with custom background and width
 export const SidebarContainer = styled(Drawer)(({ theme }) => ({
-  width: 250,  
+  width: 250,
   flexShrink: 0,
   '& .MuiDrawer-paper': {
-    width: 250,  
-    backgroundColor: theme.palette.primary.main,  
+    width: 250,
+    backgroundColor: theme.palette.primary.main,
     boxSizing: 'border-box',
-    color: '#fff', 
+    color: '#fff',
     paddingTop: theme.spacing(2),
   },
 }));
@@ -74,7 +114,7 @@ export const StyledListItem = styled(({ isActive, button, ...rest }) => (
   <ListItem {...rest} />
 ))(({ theme, isActive }) => ({
   backgroundColor: isActive ? theme.palette.action.selected : 'inherit',
-  padding: theme.spacing(2), 
+  padding: theme.spacing(2),
   borderRadius: theme.shape.borderRadius,
   '&:hover': {
     backgroundColor: theme.palette.action.hover,
@@ -86,5 +126,6 @@ export const StyledListItem = styled(({ isActive, button, ...rest }) => (
 export const StyledListText = styled(ListItemText)(({ theme }) => ({
   textTransform: 'capitalize',
   fontWeight: 500,
-  color: '#ffffff',
+  color: theme.palette.common.white,
+}));
 }));
