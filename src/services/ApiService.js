@@ -8,6 +8,15 @@ class ApiService {
     });
   }
 
+  // Generic HTTP methods
+  get = async (url) => this.client.get(url).then(response => response.data);
+
+  post = async (url, data) => this.client.post(url, data).then(response => response.data);
+  
+  put = async (url, data) => this.client.put(url, data).then(response => response.data);
+
+  delete = async (url) => this.client.delete(url).then(response => response.data);
+
   // API functions
   login = async (credentials) => {
     credentials.username = credentials.email; // Rename email to username
