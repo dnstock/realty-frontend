@@ -2,19 +2,28 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
+  "main": "index.js",
   "dependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@mui/icons-material": "^6.1.0",
-    "@mui/material": "^6.1.0",
+    "@mui/material": "^6.1.1",
+    "@mui/system": "^6.1.1",
+    "@mui/x-data-grid": "^7.18.0",
+    "@mui/x-data-grid-generator": "^7.18.0",
+    "@mui/x-date-pickers": "^7.18.0",
     "@testing-library/jest-dom": "^6.5.0",
     "@testing-library/react": "^16.0.1",
     "@testing-library/user-event": "^14.5.2",
     "axios": "^1.7.7",
+    "dayjs": "^1.11.13",
     "formik": "^2.4.6",
+    "formik-mui": "5.0.0-alpha.0",
+    "formik-mui-x-date-pickers": "^2.0.0-alpha.0",
     "jwt-decode": "^4.0.0",
     "notistack": "^3.0.1",
+    "prop-types": "^15.8.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.26.2",
@@ -41,10 +50,14 @@
     ]
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
   "devDependencies": {
     "eslint": "^8.57.0",
-    "eslint-config-react-app": "^7.0.1"
+    "eslint-config-react-app": "^7.0.1",
+    "eslint-plugin-react": "^7.36.1"
   }
 }

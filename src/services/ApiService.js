@@ -9,7 +9,7 @@ class ApiService {
   }
 
   // Generic HTTP methods
-  get = async (url) => this.client.get(url).then(response => response.data);
+  get = async (url, params) => this.client.get(url, { params: params }).then(response => response.data);
 
   post = async (url, data) => this.client.post(url, data).then(response => response.data);
   

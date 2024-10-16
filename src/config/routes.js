@@ -1,11 +1,12 @@
 import { Routes, Route } from 'react-router-dom';
 import { CircularProgress } from '@mui/material';
-import { FlexBox } from '../theme/styledComponents';
-import { useAuth } from '../context/AuthContext';
-import Layout from '../components/Layout';
-import { PublicRoutes } from './routes/publicRoutes';
-import { UnsecureRoutes } from './routes/unsecureRoutes';
-import { SecureRoutes } from './routes/secureRoutes';
+import { FlexBox } from 'theme';
+import { useAuth } from 'context';
+import { Frame } from 'components';
+import PublicRoutes from './routes/publicRoutes';
+import UnsecureRoutes from './routes/unsecureRoutes';
+import SecureRoutes from './routes/secureRoutes';
+import AdminRoutes from './routes/adminRoutes';
 
 const AppRoutes = () => {
   const { loading: authLoading } = useAuth();
@@ -21,10 +22,11 @@ const AppRoutes = () => {
 
   return (
     <Routes>
-      <Route path="/" element={<Layout />}>
+      <Route path="/" element={<Frame />}>
         {PublicRoutes}
         {UnsecureRoutes}
         {SecureRoutes}
+        {AdminRoutes}
       </Route>
     </Routes>
   );

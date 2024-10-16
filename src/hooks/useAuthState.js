@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import apiService from '../services/ApiService';
+import apiService from 'services/ApiService';
 
 export const useAuthState = () => {
   const navigate = useNavigate();

@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
 import { CircularProgress, Box, Typography } from '@mui/material';
-import { ContentWrapper, useToast } from 'components';
+import { useToast } from 'components';
 import { FlexBox } from 'theme';
 import { apiService } from 'services';
 
@@ -27,18 +27,33 @@ const Dashboard = () => {
     fetchData();
   }, [fetchData]);
 
-  return (
-    <ContentWrapper title="Dashboard">
-      {loading ? (
+  if (loading) {
+    return (
+      <FlexBox>
         <CircularProgress />
-      ) : error ? (
-        <Typography color="error">{error}</Typography>
-      ) : (
-        <Box component="pre">
-          {JSON.stringify(dashboardData, null, 2)}
-        </Box>
-      )}
-    </ContentWrapper>
+      </FlexBox>
+    );
+  }
+
+  if (error) {
+    return (
+      <FlexBox>
+        <Typography variant='h6' color='error'>
+          {error}
+        </Typography>
+      </FlexBox>
+    );
+  }
+
+  return (
+    <Box sx={{ padding: 3 }}>
+      <Typography variant='h4' gutterBottom>
+        Dashboard
+      </Typography>
+      <Box component="pre">
+        {JSON.stringify(dashboardData, null, 2)}
+      </Box>
+    </Box>
   );
 };
 

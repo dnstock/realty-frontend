@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css'; // Global styles
 import { ThemeProvider } from '@mui/material/styles';
-import theme from './theme/theme'; // MUI theme
+import theme from 'theme'; // MUI theme
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 

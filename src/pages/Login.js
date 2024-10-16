@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, TextField, Typography, CircularProgress } from '@mui/material';
-import useToast from '../components/ToastNotification';
-import { FlexBox, CardBox, PaddedButton } from '../theme/styledComponents';
-import { useAuth } from '../context/AuthContext';
+import { ContentWrapper, useToast } from 'components';
+import { CardBox, PaddedButton } from 'theme';
+import { useAuth } from 'context';
 
 const Login = () => {
   const [credentials, setCredentials] = useState({ email: '', password: '' });
@@ -48,12 +48,8 @@ const Login = () => {
   };
 
   return (
-    <FlexBox>
-      <CardBox minWidth='400px'>
-        <Typography variant='h5' component='h2' gutterBottom>
-          Login
-        </Typography>
-
+    <ContentWrapper title='Login to Your Account'>
+      <CardBox>
         <form onSubmit={handleSubmit} style={{ width: '100%' }}>
           <Box mb={2}>
             <TextField
@@ -104,7 +100,7 @@ const Login = () => {
           </Box>
         </form>
       </CardBox>
-    </FlexBox>
+    </ContentWrapper>
   );
 };
 

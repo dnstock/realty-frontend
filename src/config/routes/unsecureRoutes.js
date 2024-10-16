@@ -1,12 +1,12 @@
 import { Route } from 'react-router-dom';
-import UnsecureRoute from '../../components/UnsecureRoute';
-import Login from '../../pages/Login';
+import { UnsecureRoute } from 'components';
+import Pages from 'pages';
 
 const routes = [
-  { path: "/login", element: Login },
+  { path: "/login", element: Pages.Login },
 ];
 
-export const UnsecureRoutes = routes.map(({ path, element: Component }) => (
+const UnsecureRoutes = routes.map(({ path, element: Component }) => (
   <Route
     key={path}
     path={path}
@@ -17,3 +17,5 @@ export const UnsecureRoutes = routes.map(({ path, element: Component }) => (
     }
   />
 ));
+
+export default UnsecureRoutes;

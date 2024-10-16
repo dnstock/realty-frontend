@@ -1,23 +1,24 @@
 import { useNavigate } from 'react-router-dom';
 import { Typography, Stack } from '@mui/material';
-import { FlexBox, CardBox, PaddedButton, SecondaryButton } from '../theme/styledComponents';
-import { useAuth } from '../context/AuthContext';
+import { CardBox, PaddedButton, SecondaryButton } from 'theme';
+import { useAuth } from 'context';
+import { ContentWrapper } from 'components';
 
 const Home = () => {
   const navigate = useNavigate();
   const { user, isAuthenticated } = useAuth();
 
   return (
-    <FlexBox>
-      <CardBox minWidth='400px'>
+    <ContentWrapper title='Realty Platform'>
+      <CardBox>
         <Stack spacing={3} direction="column" alignItems="center">
-          <Typography variant='h4' component='h1' gutterBottom>
-            {isAuthenticated ? `Hi ${user.name}, welcome back!` : 'Welcome to Realty App'}
+          <Typography variant='h2' component='h1' gutterBottom>
+            {isAuthenticated ? `Hi ${user.name}, welcome back!` : 'The #1 property management solution.'}
           </Typography>
           <Typography variant='body1' gutterBottom>
             {isAuthenticated
               ? 'Access your dashboard or log out below.'
-              : 'Please log in to access your dashboard.'}
+              : 'Please log in to access your account.'}
           </Typography>
           {isAuthenticated ? (
             <Stack direction="row" spacing={2}>
@@ -49,7 +50,7 @@ const Home = () => {
           )}
         </Stack>
       </CardBox>
-    </FlexBox>
+    </ContentWrapper>
   );
 };
 

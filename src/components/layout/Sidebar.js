@@ -1,7 +1,7 @@
 import { Link as RouterLink, useLocation } from 'react-router-dom';
-import { List, ListItemText } from '@mui/material';
-import { SidebarContainer, StyledListItem, StyledListText } from '../theme/styledComponents';
-import { useAuth } from '../context/AuthContext';
+import { List } from '@mui/material';
+import { SidebarContainer, StyledListItem, StyledListText } from 'theme';
+import { useAuth } from 'context';
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
   const { isAuthenticated } = useAuth();

@@ -1,8 +1,7 @@
 import { useEffect, useCallback } from 'react';
-import { Box, Typography, CircularProgress } from '@mui/material';
-import useToast from '../components/ToastNotification';
-import { FlexBox } from '../theme/styledComponents';
-import { useAuth } from '../context/AuthContext';
+import { CircularProgress } from '@mui/material';
+import { ContentWrapper, useToast } from 'components';
+import { useAuth } from 'context';
 
 const Logout = () => {
   const { logout } = useAuth();
@@ -18,14 +17,9 @@ const Logout = () => {
   }, [performLogout]);
 
   return (
-    <FlexBox>
-      <Box textAlign='center'>
-        <Typography variant='h6' gutterBottom>
-          Logging out...
-        </Typography>
+    <ContentWrapper title="Logging out...">
         <CircularProgress />
-      </Box>
-    </FlexBox>
+    </ContentWrapper>
   );
 };
 

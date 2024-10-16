@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Box, TextField, Button, Typography, CircularProgress, Stack } from '@mui/material';
-import useToast from '../components/ToastNotification';
-import { FlexBox, CardBox } from '../theme/styledComponents';
-import { useAuth } from '../context/AuthContext';
-import apiService from '../services/ApiService';
+import { ContentWrapper, useToast } from 'components';
+import { useAuth } from 'context';
+import { apiService } from 'services';
+import { ActionButton } from 'theme';
 
 const Profile = () => {
   const { user } = useAuth();
@@ -39,49 +39,43 @@ const Profile = () => {
   };
 
   return (
-    <FlexBox>
-      <CardBox minWidth='400px'>
-        <Typography variant='h4' gutterBottom>
-          Profile
-        </Typography>
+    <ContentWrapper title='Profile'>
+      <Stack spacing={2}>
+        <TextField
+          fullWidth
+          label='Email'
+          value={profileData.email || ''}
+          name='email'
+          onChange={handleChange}
+          required
+          error={!profileData.email}
+          helperText={!profileData.email && 'Email is required'}
+        />
 
-        <Stack spacing={2}>
-          <TextField
-            fullWidth
-            label='Email'
-            value={profileData.email || ''}
-            name='email'
-            onChange={handleChange}
-            required
-            error={!profileData.email}
-            helperText={!profileData.email && 'Email is required'}
-          />
+        <TextField
+          fullWidth
+          label='Name'
+          value={profileData.name || ''}
+          name='name'
+          onChange={handleChange}
+          required
+          error={!profileData.name}
+          helperText={!profileData.name && 'Name is required'}
+        />
 
-          <TextField
-            fullWidth
-            label='Name'
-            value={profileData.name || ''}
-            name='name'
-            onChange={handleChange}
-            required
-            error={!profileData.name}
-            helperText={!profileData.name && 'Name is required'}
-          />
+        {error && (
+          <Typography variant='body2' color='error'>
+            {error}
+          </Typography>
+        )}
 
-          {error && (
-            <Typography variant='body2' color='error'>
-              {error}
-            </Typography>
-          )}
-
-          <Box display='flex' justifyContent='flex-end'>
-            <Button onClick={handleSave} variant='contained' disabled={loading}>
-              {loading ? <CircularProgress size={24} /> : 'Save'}
-            </Button>
-          </Box>
-        </Stack>
-      </CardBox>
-    </FlexBox>
+        <Box display='flex' justifyContent='flex-end'>
+          <ActionButton onClick={handleSave} variant='contained' disabled={loading}>
+            {loading ? <CircularProgress size={24} /> : 'Save Changes'}
+          </ActionButton>
+        </Box>
+      </Stack>
+    </ContentWrapper>
   );
 };
 

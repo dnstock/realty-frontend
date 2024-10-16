@@ -1,8 +1,8 @@
 import { Link as RouterLink } from 'react-router-dom';
 import { AppBar, Toolbar, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import { HeaderBox, StyledHeaderButton, StyledIconButton } from '../theme/styledComponents';
-import { useAuth } from '../context/AuthContext';
+import { HeaderBox, StyledHeaderButton, StyledIconButton } from 'theme';
+import { useAuth } from 'context';
 
 const Header = ({ toggleSidebar }) => {
   const { isAuthenticated } = useAuth();

@@ -1,13 +1,13 @@
 import { Route } from 'react-router-dom';
-import Home from '../../pages/Home';
-import Logout from '../../pages/Logout';
+import Pages from 'pages';
 
 const routes = [
-  { path: "/", element: Home, index: true },
-  { path: "/logout", element: Logout },
+  { path: "/", element: Pages.Home, index: true },
+  { path: "/logout", element: Pages.Logout },
+  { path: "*", element: Pages.NotFoundPage }, // Catch-all route for undefined paths
 ];
 
-export const PublicRoutes = routes.map(({ path, element: Component, index }) => (
+const PublicRoutes = routes.map(({ path, element: Component, index }) => (
   <Route
     key={path}
     path={index ? undefined : path}
@@ -15,3 +15,5 @@ export const PublicRoutes = routes.map(({ path, element: Component, index }) => 
     element={<Component />}
   />
 ));
+
+export default PublicRoutes;
