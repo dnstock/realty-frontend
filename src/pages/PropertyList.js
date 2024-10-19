@@ -59,8 +59,6 @@ const fetchProperties = async (page, pageSize, dispatch, cacheRef, totalCount) =
   } finally {
     dispatch({ type: 'SET_LOADING', payload: false });
   }
-
-  
 };
 
 const PropertyDataGrid = () => {

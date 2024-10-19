@@ -9,6 +9,7 @@ import {
   DeleteDialog, 
   ActionButtons 
 } from 'components';
+import { retryOperation } from 'utils';
 
 const ResourceTable = ({ columns, state, dispatch, onEdit, onDelete }) => {
   // Use custom hooks for each dialog state management
@@ -19,17 +20,24 @@ const ResourceTable = ({ columns, state, dispatch, onEdit, onDelete }) => {
   const [deletedRow, setDeletedRow] = useState(null);
   const { showError, showSuccess, closeNotification } = useToast();
 
-  const handleConfirmDelete = () => {
+  const handleConfirmDelete = async () => {
     const rowToDelete = deleteDialog.data;
-    setDeletedRow(rowToDelete);
-    onDelete(rowToDelete.id);
-    deleteDialog.closeDialog();
+    try {
+      setDeletedRow(rowToDelete);
+      await retryOperation(() => onDelete(rowToDelete.id), { retries: 3, delay: 1000 });
+      deleteDialog.closeDialog();
 
-    showError(`Row with ID ${rowToDelete.id} deleted`, {
-      action: (key) => (
-        <Button onClick={() => handleUndoDelete(key)}>Undo</Button>
-      ),
-    });
+      showSuccess(`Row with ID ${rowToDelete.id} deleted`, {
+        action: (key) => (
+          <Button onClick={() => handleUndoDelete(key)}>Undo</Button>
+        ),
+      });
+    } catch (error) {
+      showError(error.response?.status === 400
+        ? 'Cannot delete: Validation error.'
+        : `Failed to delete row with ID ${rowToDelete.id}. Please try again later.`
+      );
+    }
   };
 
   const handleUndoDelete = (notificationKey) => {
