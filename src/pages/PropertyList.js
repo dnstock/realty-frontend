@@ -3,8 +3,7 @@ import { useEffect, useReducer, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import debounce from 'lodash/debounce';
 import { apiService } from 'services';
-import { ResourceTable } from 'components';
-import { ContentWrapper } from 'components';
+import { ContentWrapper, ResourceTable } from 'components';
 
 const initialState = {
   data: [],

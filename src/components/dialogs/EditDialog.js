@@ -1,5 +1,5 @@
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Box, Typography } from '@mui/material';
-import EditForm from '../forms/EditForm';
+import { EditForm } from 'components';
 import PropTypes from 'prop-types';
 
 const EditDialog = ({ open, onClose, row, onEdit }) => (
