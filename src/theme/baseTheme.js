@@ -51,6 +51,7 @@ export default {
     body1: { fontSize: '1rem' },
     subtitle1: { fontSize: '1.2rem', fontWeight: 500, color: '#ffffff' },  // For sidebar items
     button: { textTransform: 'none' },  // Avoid automatic uppercase for buttons
+    pre: { whiteSpace: 'pre-wrap', wordWrap: 'break-word', fontFamily: 'monospace' },
   },
   shape: {
     borderRadius: 8,  // Global border radius for rounded elements

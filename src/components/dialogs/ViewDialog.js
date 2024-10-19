@@ -1,4 +1,17 @@
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Table, TableBody, TableCell, TableContainer, TableRow, Paper } from '@mui/material';
+import { 
+  Dialog, 
+  DialogTitle, 
+  DialogContent, 
+  DialogActions, 
+  Button, 
+  Table, 
+  TableBody, 
+  TableCell, 
+  TableContainer, 
+  TableRow, 
+  Paper,
+  Typography
+} from '@mui/material';
 import PropTypes from 'prop-types';
 
 const ViewDialog = ({ open, onClose, row }) => (
@@ -11,11 +24,15 @@ const ViewDialog = ({ open, onClose, row }) => (
             <TableBody>
               {Object.entries(row).map(([key, value]) => (
                 <TableRow key={key}>
-                  <TableCell>{key.charAt(0).toUpperCase() + key.slice(1)}</TableCell>
+                  <TableCell sx={{verticalAlign: 'top'}}>
+                    {key.charAt(0).toUpperCase() + key.slice(1)}
+                  </TableCell>
                   <TableCell>
-                    {typeof value === 'object' && value !== null
-                      ? JSON.stringify(value)
-                      : value}
+                    <Typography variant='pre'>
+                    { typeof value === 'object' && value !== null
+                      ? JSON.stringify(value, null, 2)
+                      : value }
+                    </Typography>
                   </TableCell>
                 </TableRow>
               ))}
