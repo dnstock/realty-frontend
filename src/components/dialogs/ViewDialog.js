@@ -3,7 +3,6 @@ import {
   DialogTitle, 
   DialogContent, 
   DialogActions, 
-  Button, 
   Table, 
   TableBody, 
   TableCell, 
@@ -12,6 +11,7 @@ import {
   Paper,
   Typography
 } from '@mui/material';
+import { SecondaryButton } from 'theme';
 import PropTypes from 'prop-types';
 
 const ViewDialog = ({ open, onClose, row }) => (
@@ -42,7 +42,7 @@ const ViewDialog = ({ open, onClose, row }) => (
       )}
     </DialogContent>
     <DialogActions>
-      <Button onClick={onClose}>Close</Button>
+      <SecondaryButton onClick={onClose}>Close</SecondaryButton>
     </DialogActions>
   </Dialog>
 );

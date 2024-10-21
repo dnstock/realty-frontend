@@ -1,4 +1,5 @@
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Box, Typography } from '@mui/material';
+import { Dialog, DialogTitle, DialogContent, DialogActions, Box, Typography } from '@mui/material';
+import { PrimaryButton, SecondaryButton } from 'theme';
 import { EditForm } from 'components';
 import PropTypes from 'prop-types';
 
@@ -26,7 +27,8 @@ const EditDialog = ({ open, onClose, row, onEdit }) => (
       )}
     </DialogContent>
     <DialogActions>
-      <Button onClick={onClose}>Cancel</Button>
+      <PrimaryButton type="submit" form="edit-form">Save</PrimaryButton>
+      <SecondaryButton onClick={onClose}>Cancel</SecondaryButton>
     </DialogActions>
   </Dialog>
 );

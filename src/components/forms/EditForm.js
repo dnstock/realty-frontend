@@ -1,5 +1,5 @@
 import { useFormik } from 'formik';
-import { TextField, Box, Button, DialogActions } from '@mui/material';
+import { TextField, Box } from '@mui/material';
 import * as Yup from 'yup';
 import { titleCase as titleCaseUtil } from 'utils';
 
@@ -26,7 +26,7 @@ const EditForm = ({ initialValues, onSubmit }) => {
   });
 
   return (
-    <form onSubmit={formik.handleSubmit}>
+    <form id="edit-form" onSubmit={formik.handleSubmit}>
       <Box
         sx={{
           display: 'flex',
@@ -62,9 +62,6 @@ const EditForm = ({ initialValues, onSubmit }) => {
           );
         })}
       </Box>
-      <DialogActions>
-        <Button type="submit">Save</Button>
-      </DialogActions>
     </form>
   );
 };
