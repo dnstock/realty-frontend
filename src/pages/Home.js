@@ -29,13 +29,7 @@ const Home = () => {
               >
                 Go to Dashboard
               </PaddedButton>
-              <SecondaryButton
-                marginTop={0}
-                marginLeft={10}
-                variant='outlined'
-                color='secondary'
-                onClick={() => navigate('/logout')}
-              >
+              <SecondaryButton onClick={() => navigate('/logout')}>
                 Log out
               </SecondaryButton>
             </Stack>

@@ -152,8 +152,16 @@ export const PrimaryButton = styled(Button)(({ theme }) => ({
 // }));
 
 // Subdued secondary button for additional actions
-export const SecondaryButton = styled(Button)(({ theme }) => ({
-  padding: theme.spacing(1, 3),
+export const SecondaryButton = styled(({ marginTop, marginLeft, ...rest }) => (
+  <Button variant='outlined' {...rest} />
+))(({ theme,
+  padding = theme.spacing(1, 3),
+  marginTop = 0,
+  marginLeft = theme.spacing(2),
+}) => ({
+  padding: padding,
+  marginTop: marginTop,
+  marginLeft: marginLeft,
   backgroundColor: theme.palette.grey[100],
   color: theme.palette.text.primary,
   textTransform: 'none',
@@ -333,11 +341,8 @@ export const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
     // fontWeight: 600,
     color: theme.palette.grey[800],
   },
-
   '& .MuiDataGrid-virtualScroller': {
     overflowX: 'hidden',
     width: '100%',
-    // maxWidth: `calc(100% - ${theme.spacing(2)})`,
-    // maxWidth: '90%',
   },
 }));
