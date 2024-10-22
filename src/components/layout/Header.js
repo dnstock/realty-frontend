@@ -10,6 +10,9 @@ const Header = ({ toggleSidebar }) => {
   return (
     <AppBar position='static' color='primary' aria-label='Main navigation'>
       <Toolbar>
+        <StyledIconButton edge="start" color="inherit" onClick={toggleSidebar}>
+          <MenuIcon />
+        </StyledIconButton>
         <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
           Realty App
         </Typography>
@@ -34,9 +37,6 @@ const Header = ({ toggleSidebar }) => {
               Login
             </StyledHeaderButton>
           )}
-          <StyledIconButton edge="start" color="inherit" onClick={toggleSidebar}>
-            <MenuIcon />
-          </StyledIconButton>
         </HeaderBox>
       </Toolbar>
     </AppBar>

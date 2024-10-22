@@ -2,34 +2,63 @@ import { alpha, styled } from '@mui/system';
 import { Box, Button, Drawer, ListItem, ListItemText, TableCell, TableContainer, TableHead, TableRow, Container, IconButton, Chip } from '@mui/material';
 import { DataGrid, gridClasses } from '@mui/x-data-grid';
 
-export const MainContainer = styled(Container)(({ theme,
-  minHeight = 'calc(100vh - 64px)',
-  padding = theme.spacing(3),
-}) => ({
-  backgroundColor: '#ffffff',
-  padding: padding,
-  boxShadow: theme.shadows[1],
-  mt: 2,
-  mb: 2,
-  flex: 1,
+export const PageFrameBox = styled(({ isSidebarOpen, ...rest }) => <Box {...rest} />)(({ theme, isSidebarOpen }) => ({
   display: 'flex',
-  flexDirection: 'column',
-  margin: '0 auto',  // Center it
-  width: '100%',
-  minWidth: 'sm', // Constrain the width for very small screens
-  maxWidth: 'lg', // Constrain the width for very large screens
-  minHeight: minHeight,
-  // overflow: 'hidden',
-}));
-
-export const MainContainerBox = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
   flexDirection: 'column',
   justifyContent: 'flex-start',
+  height: '100vh', // Full screen height
   padding: 0,
   backgroundColor: '#f5f5f5', // Light grey
+}));
+
+export const HeaderBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  gap: theme.spacing(2),
+  justifyContent: 'space-between',
+  alignItems: 'center',
+}));
+
+export const SidebarDrawer = styled(Drawer)(({ theme }) => ({
+  width: theme.sidebarWidth,
+  flexShrink: 0,
+  '& .MuiDrawer-paper': {
+    width: theme.sidebarWidth,
+    backgroundColor: '#f5f5f5', // Light grey
+    boxSizing: 'border-box',
+    color: '#fff',
+    top: '64px',
+  },
+}));
+
+export const MainContentBox = styled(({ isSidebarOpen, ...rest }) => <Box component='main' {...rest} />)(({ 
+  theme, isSidebarOpen,
+  padding = theme.spacing(2, 2, 0, 2),
+}) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  flex: 1,
+  padding: padding,
+  backgroundColor: '#ffffff',
+  marginLeft: isSidebarOpen ? theme.sidebarWidth : 0,
+  transition: theme.transitions.create(['margin'], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  [theme.breakpoints.down('sm')]: {
+    marginLeft: 0,  // Reset margin on mobile screens
+  },
+  // minWidth: theme.breakpoints.values.sm,
+  // maxWidth: theme.breakpoints.values.lg,
+  // maxWidth: isSidebarOpen ? `calc(100% - ${theme.sidebarWidth}px)` : '100%',
+}));
+
+export const ContentHeader = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  gap: theme.spacing(2),
+  justifyContent: 'space-between',
+  direction: 'row',
+  paddingBottom: theme.spacing(1),
+  // alignItems: 'center',
 }));
 
 export const FlexBox = styled(Box)(({ theme,
@@ -41,14 +70,6 @@ export const FlexBox = styled(Box)(({ theme,
   justifyContent: justifyContent,
   alignItems: alignItems,
   backgroundColor: backgroundColor,
-}));
-
-// Header box with organized buttons, properly aligned
-export const HeaderBox = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  gap: theme.spacing(2),
-  justifyContent: 'space-between',
-  alignItems: 'center',
 }));
 
 // Reusable Card Box that accepts dynamic maxWidth and padding
@@ -93,7 +114,9 @@ export const StyledHeaderButton = styled(Button)(({ theme }) => ({
 }));
 
 export const StyledIconButton = styled(IconButton)(({ theme }) => ({
-  padding: theme.spacing(1.5, 2),
+  padding: theme.spacing(1.5),
+  marginRight: theme.spacing(.5),
+  marginLeft: theme.spacing(-3),
   backgroundColor: theme.palette.primary.main,
   borderRadius: theme.shape.borderRadius,
   boxShadow: 'none',
@@ -140,19 +163,6 @@ export const SecondaryButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-// Sidebar container with custom background and width
-export const SidebarContainer = styled(Drawer)(({ theme }) => ({
-  width: 250,
-  flexShrink: 0,
-  '& .MuiDrawer-paper': {
-    width: 250,
-    backgroundColor: theme.palette.primary.main,
-    boxSizing: 'border-box',
-    color: '#fff',
-    paddingTop: theme.spacing(2),
-  },
-}));
-
 // Styled list item with hover and active effects
 export const StyledListItem = styled(({ isActive, button, ...rest }) => (
   <ListItem {...rest} />
@@ -170,7 +180,7 @@ export const StyledListItem = styled(({ isActive, button, ...rest }) => (
 export const StyledListText = styled(ListItemText)(({ theme }) => ({
   textTransform: 'capitalize',
   fontWeight: 500,
-  color: theme.palette.common.white,
+  color: theme.palette.primary.main,
 }));
 
 // Styled Table Container with a neutral, subtle shadow and borders
@@ -276,15 +286,6 @@ export const ActionButton = styled(({ color, ...rest }) => <Button variant='cont
   marginLeft: theme.spacing(2),
 }));
 
-export const ContentHeader = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  gap: theme.spacing(2),
-  justifyContent: 'space-between',
-  direction: 'row',
-  paddingBottom: theme.spacing(1),
-  // alignItems: 'center',
-}));
-
 const ODD_OPACITY = 0.2;
 
 export const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
@@ -331,5 +332,12 @@ export const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
   '& .MuiTablePagination-toolbar p, .MuiSelect-select': {
     // fontWeight: 600,
     color: theme.palette.grey[800],
+  },
+
+  '& .MuiDataGrid-virtualScroller': {
+    overflowX: 'hidden',
+    width: '100%',
+    // maxWidth: `calc(100% - ${theme.spacing(2)})`,
+    // maxWidth: '90%',
   },
 }));

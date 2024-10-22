@@ -1,6 +1,6 @@
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { List } from '@mui/material';
-import { SidebarContainer, StyledListItem, StyledListText } from 'theme';
+import { SidebarDrawer, StyledListItem, StyledListText } from 'theme';
 import { useAuth } from 'context';
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
@@ -18,9 +18,9 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
       ];
 
   return (
-    <SidebarContainer
-      variant="temporary"
-      anchor="right"
+    <SidebarDrawer
+      variant="persistent"
+      anchor="left"
       open={isOpen}
       onClose={toggleSidebar}
     >
@@ -32,13 +32,12 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             to={item.path}
             key={item.text}
             isActive={location.pathname === item.path}
-            onClick={toggleSidebar}
           >
             <StyledListText primary={item.text} />
           </StyledListItem>
         ))}
       </List>
-    </SidebarContainer>
+    </SidebarDrawer>
   );
 };
 

@@ -1,22 +1,30 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
-import { MainContainerBox } from 'theme';
+import { PageFrameBox, MainContentBox } from 'theme';
+import { useDeviceType } from 'hooks';
 import Sidebar from './Sidebar';
 import Header from './Header';
 
 const Frame = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
+  const { isMobile } = useDeviceType();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(!isMobile);
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
+  // Automatically close the sidebar when switching to mobile, and open on non-mobile
+  useEffect(() => {
+    setIsSidebarOpen(!isMobile);
+  }, [isMobile]);
+
   return (
-    <MainContainerBox>
+    <PageFrameBox isSidebarOpen={isSidebarOpen}>
       <Header toggleSidebar={toggleSidebar} />
-      <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-      <Outlet />
-    </MainContainerBox>
+      <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} isMobile={isMobile} />
+      <MainContentBox isSidebarOpen={isSidebarOpen}>
+        <Outlet />
+      </MainContentBox>
+    </PageFrameBox>
   );
 };
 
