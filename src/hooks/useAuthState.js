@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import apiService from 'services/ApiService';
 
-export const useAuthState = () => {
+const useAuthState = () => {
   const navigate = useNavigate();
   const [authState, setAuthState] = useState({
     user: null,
@@ -68,3 +68,5 @@ export const useAuthState = () => {
     isAuthenticated,
   };
 };
+
+export default useAuthState;
