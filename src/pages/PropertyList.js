@@ -73,15 +73,15 @@ const PropertyDataGrid = () => {
     debouncedFetch(state.page, state.pageSize);
   }, [state.page, state.pageSize, debouncedFetch]);
 
-  const columns = [
-    { field: 'id', headerName: 'ID', width: 20 },
-    { field: 'name', headerName: 'Name', width: 150 },
-    { field: 'address', headerName: 'Address', width: 200 },
-    { field: 'city', headerName: 'City', width: 120 },
-    { field: 'state', headerName: 'State', width: 70 },
-    { field: 'zip_code', headerName: 'Zip Code', width: 90 },
-    { field: 'type', headerName: 'Type', width: 130 },
-    { field: 'manager', headerName: 'Manager', width: 120,
+  const baseColumns = [
+    { field: 'id', headerName: 'ID', flex: 0.5, minWidth: 50 },
+    { field: 'name', headerName: 'Name', flex: 2, minWidth: 100 },
+    { field: 'address', headerName: 'Address', flex: 2.5, minWidth: 150 },
+    { field: 'city', headerName: 'City', flex: 1.5, minWidth: 100 },
+    { field: 'state', headerName: 'State', flex: 1, minWidth: 70 },
+    { field: 'zip_code', headerName: 'Zip Code', flex: 1, minWidth: 90 },
+    { field: 'type', headerName: 'Type', flex: 2, minWidth: 130 },
+    { field: 'manager', headerName: 'Manager', flex: 1.5, minWidth: 100,
       valueGetter: (params) => params.name || '[ Error ]'
     },
   ];
@@ -115,9 +115,9 @@ const PropertyDataGrid = () => {
         <Typography color="error">{state.error}</Typography>
       ) : (
         <ResourceTable 
-          columns={columns} 
-          state={state} 
-          dispatch={dispatch} 
+          baseColumns={baseColumns}
+          state={state}
+          dispatch={dispatch}
           onView={handleView}
           onEdit={handleEdit}
           onDelete={handleDelete}

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { StyledDataGrid } from 'theme';
 import { Button } from '@mui/material';
 import { useDialog } from 'hooks';
@@ -9,9 +9,12 @@ import {
   DeleteDialog, 
   ActionButtons 
 } from 'components';
+import { useDeviceType } from 'hooks';
 import { retryOperation } from 'utils';
 
-const ResourceTable = ({ columns, state, dispatch, onEdit, onDelete }) => {
+const ResourceTable = ({ baseColumns, state, dispatch, onEdit, onDelete }) => {
+  const { isMobile, isTablet } = useDeviceType();
+  
   // Use custom hooks for each dialog state management
   const viewDialog = useDialog();
   const editDialog = useDialog();
@@ -49,12 +52,13 @@ const ResourceTable = ({ columns, state, dispatch, onEdit, onDelete }) => {
     closeNotification(notificationKey);
   };
 
-  const updatedColumns = [
-    ...columns,
+  const [columns, setColumns] = useState([
+    ...baseColumns,
     {
       field: 'actions',
       headerName: 'Actions',
-      width: 172,
+      // minWidth: 140,
+      flex: 2,
       sortable: false,
       renderCell: (params) => (
         <ActionButtons
@@ -65,17 +69,26 @@ const ResourceTable = ({ columns, state, dispatch, onEdit, onDelete }) => {
         />
       ),
     },
-  ];
+  ]);
+
+  useEffect(() => {
+    if (isMobile) {
+      setColumns(columns.map(col => ({ ...col, flex: col.flex / 2 }))); // Reduce flex by half for mobile
+    } else if (isTablet) {
+      setColumns(columns.map(col => ({ ...col, flex: col.flex * 0.75 }))); // Slightly reduce flex for tablet
+    }
+  }, [isMobile, isTablet]);
 
   return (
     <>
       <StyledDataGrid
         rows={state.data}
-        columns={updatedColumns}
+        columns={columns}
         checkboxSelection
         disableSelectionOnClick
         disableRowSelectionOnClick
         loading={state.loading}
+        autoHeight
         pagination
         pageSizeOptions={[10, 25, 50, 100]}
         paginationModel={{
