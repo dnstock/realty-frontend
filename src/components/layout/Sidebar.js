@@ -1,9 +1,12 @@
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { List } from '@mui/material';
 import { SidebarDrawer, StyledListItem, StyledListText } from 'theme';
-import { useAuth } from 'context';
+import { useAuth, useSidebar } from 'context';
+import { useDeviceType } from 'hooks';
 
-const Sidebar = ({ isOpen, toggleSidebar }) => {
+const Sidebar = () => {
+  const { isSidebarOpen, toggleSidebar } = useSidebar();
+  const { isMobile } = useDeviceType();
   const { isAuthenticated } = useAuth();
   const location = useLocation();
 
@@ -19,10 +22,13 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
 
   return (
     <SidebarDrawer
-      variant="persistent"
-      anchor="left"
-      open={isOpen}
-      onClose={toggleSidebar}
+      variant={isMobile ? 'temporary' : 'persistent'}
+      anchor='left'
+      open={isSidebarOpen}
+      onClose={isMobile ? toggleSidebar : undefined}
+      ModalProps={{
+        keepMounted: true, // Keep the drawer mounted for better performance on mobile
+      }}
     >
       <List>
         {menuItems.map((item) => (
@@ -32,6 +38,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             to={item.path}
             key={item.text}
             isActive={location.pathname === item.path}
+            onClick={isMobile ? toggleSidebar : undefined}
           >
             <StyledListText primary={item.text} />
           </StyledListItem>

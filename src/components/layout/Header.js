@@ -2,10 +2,11 @@ import { Link as RouterLink } from 'react-router-dom';
 import { AppBar, Toolbar, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { HeaderBox, StyledHeaderButton, StyledIconButton } from 'theme';
-import { useAuth } from 'context';
+import { useAuth, useSidebar } from 'context';
 
-const Header = ({ toggleSidebar }) => {
+const Header = () => {
   const { isAuthenticated } = useAuth();
+  const { toggleSidebar } = useSidebar();
 
   return (
     <AppBar position='static' color='primary' aria-label='Main navigation'>

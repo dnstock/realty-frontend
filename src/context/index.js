@@ -1,2 +1,2 @@
-export { AuthContext, useAuth } from './AuthContext';
-export { AuthProvider } from './AuthProvider';
+export { AuthProvider, useAuth } from './AuthContext';
+export { SidebarProvider, useSidebar } from './SidebarContext';

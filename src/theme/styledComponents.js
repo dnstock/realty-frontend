@@ -2,7 +2,7 @@ import { alpha, styled } from '@mui/system';
 import { Box, Button, Drawer, ListItem, ListItemText, TableCell, TableContainer, TableHead, TableRow, Container, IconButton, Chip } from '@mui/material';
 import { DataGrid, gridClasses } from '@mui/x-data-grid';
 
-export const PageFrameBox = styled(({ isSidebarOpen, ...rest }) => <Box {...rest} />)(({ theme, isSidebarOpen }) => ({
+export const PageFrameBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'flex-start',
@@ -18,7 +18,7 @@ export const HeaderBox = styled(Box)(({ theme }) => ({
   alignItems: 'center',
 }));
 
-export const SidebarDrawer = styled(Drawer)(({ theme }) => ({
+export const SidebarDrawer = styled(Drawer)(({ theme, open }) => ({
   width: theme.sidebarWidth,
   flexShrink: 0,
   '& .MuiDrawer-paper': {
@@ -27,6 +27,14 @@ export const SidebarDrawer = styled(Drawer)(({ theme }) => ({
     boxSizing: 'border-box',
     color: '#fff',
     top: '64px',
+    transition: theme.transitions.create('transform', {
+      easing: open
+        ? theme.transitions.easing.easeOut  // Smooth entry when opening
+        : theme.transitions.easing.sharp,  // Snappy exit when closing
+      duration: open
+        ? theme.transitions.duration.standard  // Standard duration when opening
+        : theme.transitions.duration.leavingScreen,  // Shorter duration when closing
+    }),
   },
 }));
 
@@ -41,8 +49,12 @@ export const MainContentBox = styled(({ isSidebarOpen, ...rest }) => <Box compon
   backgroundColor: '#ffffff',
   marginLeft: isSidebarOpen ? theme.sidebarWidth : 0,
   transition: theme.transitions.create(['margin'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
+    easing: isSidebarOpen
+      ? theme.transitions.easing.easeOut  // Smooth entry when opening
+      : theme.transitions.easing.sharp,  // Snappy exit when closing
+    duration: isSidebarOpen
+      ? theme.transitions.duration.standard  // Standard duration when opening
+      : theme.transitions.duration.leavingScreen,  // Shorter duration when closing
   }),
   [theme.breakpoints.down('sm')]: {
     marginLeft: 0,  // Reset margin on mobile screens
