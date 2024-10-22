@@ -53,6 +53,15 @@ export default {
     button: { textTransform: 'none' },  // Avoid automatic uppercase for buttons
     pre: { whiteSpace: 'pre-wrap', wordWrap: 'break-word', fontFamily: 'monospace' },
   },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600, // Mobile
+      md: 960, // Small Tablets
+      lg: 1280, // Desktop
+      xl: 1920,
+    },
+  },
   shape: {
     borderRadius: 8,  // Global border radius for rounded elements
   },
