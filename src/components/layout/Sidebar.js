@@ -1,6 +1,6 @@
 import { Link as RouterLink, useLocation } from 'react-router-dom';
-import { List } from '@mui/material';
-import { SidebarDrawer, StyledListItem, StyledListText } from 'theme';
+import { List, ListItemButton, ListItemIcon, ListItemText, IconButton } from '@mui/material';
+import { SidebarDrawer, Icons } from 'theme';
 import { useAuth, useSidebar } from 'context';
 import { useDeviceType } from 'hooks';
 
@@ -12,12 +12,16 @@ const Sidebar = () => {
 
   const menuItems = isAuthenticated
     ? [
-        { text: 'Properties', path: '/properties' },
-        { text: 'Tenants', path: '/tenants' },
+        { text: 'Properties', path: '/properties', icon: Icons.Properties },
+        { text: 'Buildings', path: '/buildings', icon: Icons.Buildings },
+        { text: 'Units', path: '/units', icon: Icons.Units },
+        { text: 'Tenants', path: '/tenants', icon: Icons.Tenants },
+        { text: 'Leases', path: '/leases', icon: Icons.Leases },
+        { text: 'Insurance', path: '/admin', icon: Icons.Insurance },
       ]
     : [
-        { text: 'Home', path: '/' },
-        { text: 'Login', path: '/login' },
+        { text: 'Home', path: '/', icon: Icons.Home },
+        { text: 'Login', path: '/login', icon: Icons.Login },
       ];
 
   return (
@@ -32,16 +36,17 @@ const Sidebar = () => {
     >
       <List>
         {menuItems.map((item) => (
-          <StyledListItem
-            button
+          <ListItemButton
             component={RouterLink}
             to={item.path}
-            key={item.text}
-            isActive={location.pathname === item.path}
+            selected={location.pathname === item.path}
             onClick={isMobile ? toggleSidebar : undefined}
           >
-            <StyledListText primary={item.text} />
-          </StyledListItem>
+            <ListItemIcon>
+              {item.icon && <item.icon />}
+            </ListItemIcon>
+            <ListItemText primary={item.text} />
+          </ListItemButton>
         ))}
       </List>
     </SidebarDrawer>

@@ -25,7 +25,6 @@ export const SidebarDrawer = styled(Drawer)(({ theme, open }) => ({
     width: theme.sidebarWidth,
     backgroundColor: '#f5f5f5', // Light grey
     boxSizing: 'border-box',
-    color: '#fff',
     top: '64px',
     transition: theme.transitions.create('transform', {
       easing: open
@@ -181,26 +180,6 @@ export const SecondaryButton = styled(({ marginTop, marginLeft, ...rest }) => (
   '&:hover': {
     backgroundColor: theme.palette.grey[300],
   },
-}));
-
-// Styled list item with hover and active effects
-export const StyledListItem = styled(({ isActive, button, ...rest }) => (
-  <ListItem {...rest} />
-))(({ theme, isActive }) => ({
-  backgroundColor: isActive ? theme.palette.action.selected : 'inherit',
-  padding: theme.spacing(2),
-  borderRadius: theme.shape.borderRadius,
-  '&:hover': {
-    backgroundColor: theme.palette.action.hover,
-  },
-  margin: theme.spacing(1, 0),
-}));
-
-// Text style for list items to make it more prominent
-export const StyledListText = styled(ListItemText)(({ theme }) => ({
-  textTransform: 'capitalize',
-  fontWeight: 500,
-  color: theme.palette.primary.main,
 }));
 
 // Styled Table Container with a neutral, subtle shadow and borders

@@ -6,3 +6,4 @@ import fbPalette from './fbPalette';
 const theme = createTheme(deepmerge(baseTheme, fbPalette));
 export default theme;
 export * from './styledComponents';
+export { default as Icons } from './icons';

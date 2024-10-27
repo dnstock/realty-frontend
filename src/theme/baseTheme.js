@@ -76,14 +76,6 @@ export default {
         },
       },
     },
-    MuiDrawer: {
-      styleOverrides: {
-        paper: {
-          backgroundColor: '#0D47A1',  // Set sidebar drawer background color
-          color: '#fff',  // Ensure text is white on the dark background
-        },
-      },
-    },
     MuiButton: {
       styleOverrides: {
         root: {
@@ -92,21 +84,6 @@ export default {
           boxShadow: 'none',  // Remove default button shadow
           '&:hover': {
             boxShadow: 'none',
-          },
-        },
-      },
-    },
-    MuiListItem: {
-      styleOverrides: {
-        root: {
-          '&.Mui-selected': {
-            backgroundColor: '#1565C0',  // Selected state color (matches secondary)
-            '&:hover': {
-              backgroundColor: '#1E88E5',  // Hover effect even when selected
-            },
-          },
-          '&:hover': {
-            backgroundColor: '#1E88E5',  // Default hover effect for list items
           },
         },
       },
