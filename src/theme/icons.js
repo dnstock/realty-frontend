@@ -2,11 +2,14 @@ import {
   Domain, // Same as Business icon
   LocationCity,
 
+  Menu,
+  MenuOpen,
+  ViewSidebar,
+
   Home,
   Dashboard,
   AccountCircle,
   Settings,
-  Menu,
   Login,
   Logout,
   HomeWork,
@@ -23,7 +26,8 @@ const Icons = {
   LogoV2: LocationCity,
 
   Home: Home,
-  Menu: Menu,
+  SidebarOpened: MenuOpen,
+  SidebarClosed: Menu,
   Login: Login,
   Logout: Logout,
 

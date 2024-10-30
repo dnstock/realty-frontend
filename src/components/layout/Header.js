@@ -5,7 +5,7 @@ import { useDeviceType } from 'hooks';
 
 const Header = () => {
   const { isAuthenticated } = useAuth();
-  const { toggleSidebar } = useSidebar();
+  const { isSidebarOpen, toggleSidebar } = useSidebar();
   const { isMobile } = useDeviceType();
 
   const getHeaderButton = (text, to, icon) => {
@@ -31,7 +31,7 @@ const Header = () => {
       <Toolbar disableGutters={isMobile}>
         {isMobile && (
           <HeaderIconButton aria-label='menu' onClick={toggleSidebar}>
-            <Icons.Menu />
+            {isSidebarOpen ? <Icons.SidebarOpened /> : <Icons.SidebarClosed /> }
           </HeaderIconButton>
         )}
         <Icons.LogoV1 sx={{ marginRight: 1 }} color='inherit' />
