@@ -1,8 +1,8 @@
 import { Link as RouterLink, useLocation } from 'react-router-dom';
-import { List, ListItemButton, ListItemIcon, ListItemText, IconButton } from '@mui/material';
-import { SidebarDrawer, Icons } from 'theme';
+import { List, ListItem, ListItemIcon, ListItemText, IconButton, Tooltip, Box, Divider } from '@mui/material';
 import { useAuth, useSidebar } from 'context';
 import { useDeviceType } from 'hooks';
+import { Icons, SidebarDrawer, SidebarLink, SidebarFooter } from 'theme';
 
 const Sidebar = () => {
   const { isSidebarOpen, toggleSidebar } = useSidebar();
@@ -26,29 +26,54 @@ const Sidebar = () => {
 
   return (
     <SidebarDrawer
-      variant={isMobile ? 'temporary' : 'persistent'}
-      anchor='left'
+      variant={isMobile ? 'temporary' : 'permanent'}
       open={isSidebarOpen}
       onClose={isMobile ? toggleSidebar : undefined}
       ModalProps={{
-        keepMounted: true, // Keep the drawer mounted for better performance on mobile
+        keepMounted: true, // Better mobile performance
       }}
     >
-      <List>
-        {menuItems.map((item) => (
-          <ListItemButton
-            component={RouterLink}
-            to={item.path}
-            selected={location.pathname === item.path}
-            onClick={isMobile ? toggleSidebar : undefined}
-          >
-            <ListItemIcon>
-              {item.icon && <item.icon />}
-            </ListItemIcon>
-            <ListItemText primary={item.text} />
-          </ListItemButton>
-        ))}
-      </List>
+      <Box sx={{ flexGrow: 1 }}>
+        <List>
+          {menuItems.map((item) => (
+            <Tooltip
+              title={isSidebarOpen ? '' : item.text} // Show tooltip only when collapsed
+              placement="right"
+              arrow
+              key={item.text}
+            >
+              <ListItem disablePadding>
+                <SidebarLink
+                  open={isSidebarOpen}
+                  component={RouterLink}
+                  to={item.path}
+                  selected={location.pathname === item.path}
+                >
+                  <ListItemIcon>
+                    <item.icon />
+                  </ListItemIcon>
+                  {isSidebarOpen && (
+                    <ListItemText primary={item.text} />
+                  )}
+                </SidebarLink>
+              </ListItem>
+            </Tooltip>
+          ))}
+        </List>
+      </Box>
+
+      {!isMobile && (
+        <>
+        <Divider />
+        <SidebarFooter>
+          <Tooltip title={isSidebarOpen ? 'Collapse Sidebar' : 'Expand Sidebar'} placement="right" arrow>
+            <IconButton size="small" onClick={toggleSidebar}>
+              {isSidebarOpen ? <Icons.SidebarExtended /> : <Icons.SidebarCollapsed />}
+            </IconButton>
+          </Tooltip>
+        </SidebarFooter>
+        </>
+      )}
     </SidebarDrawer>
   );
 };

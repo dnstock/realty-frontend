@@ -66,7 +66,10 @@ export default {
     borderRadius: 8,  // Global border radius for rounded elements
   },
   spacing: 8,  // Default spacing unit, used for paddings, margins, etc.
-  sidebarWidth: 160,  // Width of the sidebar
+  sidebar: {
+    fullWidth: 180,  // Width when sidebar is fully open
+    collapsedWidth: 48,  // Width when sidebar is collapsed
+  },
   // shadows: ['none', '0px 1px 3px rgba(0, 0, 0, 0.1)', '0px 4px 10px rgba(0, 0, 0, 0.1)', '0px 4px 10px rgba(0, 0, 0, 0.1)', '0px 4px 10px rgba(0, 0, 0, 0.1)'],  // Custom shadows
   components: {
     MuiAppBar: {

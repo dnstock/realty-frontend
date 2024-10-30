@@ -4,6 +4,8 @@ import {
 
   Menu,
   MenuOpen,
+  ChevronLeft,
+  ChevronRight,
   ViewSidebar,
 
   Home,
@@ -28,6 +30,8 @@ const Icons = {
   Home: Home,
   SidebarOpened: MenuOpen,
   SidebarClosed: Menu,
+  SidebarExtended: MenuOpen, // Alt: ChevronLeft
+  SidebarCollapsed: Menu,    // Alt: ChevronRight
   Login: Login,
   Logout: Logout,
 

@@ -1,5 +1,7 @@
+import React from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import { alpha, styled } from '@mui/system';
-import { Box, Button, Drawer, ListItem, ListItemText, TableCell, TableContainer, TableHead, TableRow, Container, IconButton, Chip } from '@mui/material';
+import { Box, Button, Drawer, ListItemButton, TableCell, TableContainer, TableHead, TableRow, Container, IconButton, Chip } from '@mui/material';
 import { DataGrid, gridClasses } from '@mui/x-data-grid';
 
 export const PageFrameBox = styled(Box)(({ theme }) => ({
@@ -18,49 +20,59 @@ export const HeaderBox = styled(Box)(({ theme }) => ({
   alignItems: 'center',
 }));
 
-export const SidebarDrawer = styled(Drawer)(({ theme, open }) => ({
-  width: theme.sidebarWidth,
+export const SidebarDrawer = styled(Drawer)(({ theme, open, variant }) => ({
+  width: open ? theme.sidebar.fullWidth : theme.sidebar.collapsedWidth,
   flexShrink: 0,
+  whiteSpace: 'nowrap',
+  boxSizing: 'border-box',
+  transition: 'width 0.3s', // Smooth transition
+  // marginTop: '64px',
+  // height: 'calc(100vh - 64px)',
   '& .MuiDrawer-paper': {
-    width: theme.sidebarWidth,
+    width: open ? theme.sidebar.fullWidth : theme.sidebar.collapsedWidth,
     backgroundColor: '#f5f5f5', // Light grey
-    boxSizing: 'border-box',
-    top: '64px',
-    transition: theme.transitions.create('transform', {
-      easing: open
-        ? theme.transitions.easing.easeOut  // Smooth entry when opening
-        : theme.transitions.easing.sharp,  // Snappy exit when closing
-      duration: open
-        ? theme.transitions.duration.standard  // Standard duration when opening
-        : theme.transitions.duration.leavingScreen,  // Shorter duration when closing
-    }),
+    transition: 'width 0.3s',
+    overflowX: 'hidden',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    marginTop: '64px',
+    height: variant == 'permanent' ? 'calc(100vh - 64px)' : '100vh',
   },
 }));
 
-export const MainContentBox = styled(({ isSidebarOpen, ...rest }) => <Box component='main' {...rest} />)(({ 
-  theme, isSidebarOpen,
-  padding = theme.spacing(2, 2, 0, 2),
-}) => ({
+export const SidebarLink = styled(ListItemButton)(({ theme, open }) => ({
+  height: theme.spacing(7),
+  padding: open ? 'inherit' : 0,
+  justifyContent: open ? 'inherit' : 'center',
+  '& .MuiListItemIcon-root': {
+    padding: open ? theme.spacing(2) : 0,
+    minWidth: 'auto',
+  },
+}));
+
+export const SidebarFooter = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'center',
+  padding: '8px 0',
+}));
+
+export const MainContentBox = styled(({ isSidebarOpen, ...rest }) => 
+  <Box component='main' {...rest} />
+)(({ theme, isSidebarOpen, padding = theme.spacing(2, 2, 0, 2) }) => ({
   display: 'flex',
   flexDirection: 'column',
   flex: 1,
   padding: padding,
   backgroundColor: '#ffffff',
-  marginLeft: isSidebarOpen ? theme.sidebarWidth : 0,
-  transition: theme.transitions.create(['margin'], {
-    easing: isSidebarOpen
-      ? theme.transitions.easing.easeOut  // Smooth entry when opening
-      : theme.transitions.easing.sharp,  // Snappy exit when closing
-    duration: isSidebarOpen
-      ? theme.transitions.duration.standard  // Standard duration when opening
-      : theme.transitions.duration.leavingScreen,  // Shorter duration when closing
-  }),
+  marginLeft: isSidebarOpen ? theme.sidebar.fullWidth : theme.sidebar.collapsedWidth,
+  transition: 'margin 0.3s',
   [theme.breakpoints.down('sm')]: {
     marginLeft: 0,  // Reset margin on mobile screens
   },
   // minWidth: theme.breakpoints.values.sm,
   // maxWidth: theme.breakpoints.values.lg,
-  // maxWidth: isSidebarOpen ? `calc(100% - ${theme.sidebarWidth}px)` : '100%',
+  // maxWidth: isSidebarOpen ? `calc(100% - ${theme.sidebar.fullWidth}px)` : '100%',
 }));
 
 export const ContentHeader = styled(Box)(({ theme }) => ({
@@ -84,14 +96,6 @@ export const FlexBox = styled(Box)(({ theme,
 }));
 
 // Reusable Card Box that accepts dynamic maxWidth and padding
-// export const CardBox = styled(Box)(({ theme, maxWidth = '550px', padding = '2rem' }) => ({
-//   backgroundColor: 'white',
-//   padding: padding,
-//   borderRadius: '8px',
-//   boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
-//   maxWidth: maxWidth,
-// }));
-
 export const CardBox = styled(Box)(({ theme, minWidth = '400px', maxWidth = '1200px' }) => ({
   backgroundColor: theme.palette.background.paper,
   padding: theme.spacing(3),
@@ -145,15 +149,6 @@ export const PrimaryButton = styled(Button)(({ theme }) => ({
     backgroundColor: theme.palette.primary.dark,
   },
 }));
-
-// Reusable Secondary Button with additional margins for spacing
-// export const SecondaryButton = styled(({ marginTop, marginLeft, ...rest }) => (
-//   <Button {...rest} />
-// ))(({ theme, padding = theme.spacing(1.4, 6), marginTop = theme.spacing(2), marginLeft = 0 }) => ({
-//   padding: padding,
-//   marginTop: marginTop,
-//   marginLeft: marginLeft,
-// }));
 
 // Subdued secondary button for additional actions
 export const SecondaryButton = styled(({ marginTop, marginLeft, ...rest }) => (
@@ -252,7 +247,9 @@ export const TitleBreadcrumbLink = styled(Button)(({ theme }) => ({
   },
 }));
 
-export const StyledChip = styled(({ color, ...rest }) => <Chip {...rest} />)(({ theme, color }) => ({
+export const StyledChip = styled(({ color, ...rest }) => 
+  <Chip {...rest} />
+)(({ theme, color }) => ({
   backgroundColor: theme.palette[color]?.main || theme.palette.grey[600],
   color: theme.palette.common.white,
 }));
@@ -270,8 +267,9 @@ export const ActionBox = styled(Box)(({ theme }) => ({
   marginBottom: theme.spacing(2),
 }));
 
-export const ActionButton = styled(({ color, ...rest }) => <Button variant='contained' {...rest} />)(({ theme, color }) => ({
-  // export const ActionButton = styled(Button)(({ theme, color }) => ({
+export const ActionButton = styled(({ color, ...rest }) => 
+  <Button variant='contained' {...rest} />
+)(({ theme, color }) => ({
   color: color,
   fontWeight: 500,
   padding: theme.spacing(1, 4),
