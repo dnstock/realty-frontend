@@ -1,43 +1,46 @@
-import { Link as RouterLink } from 'react-router-dom';
 import { AppBar, Toolbar, Typography } from '@mui/material';
-import { StyledIconButton, StyledHeaderButton, HeaderBox, Icons } from 'theme';
+import { HeaderButton, HeaderIconButton, HeaderBox, Icons } from 'theme';
 import { useAuth, useSidebar } from 'context';
+import { useDeviceType } from 'hooks';
 
 const Header = () => {
   const { isAuthenticated } = useAuth();
   const { toggleSidebar } = useSidebar();
+  const { isMobile } = useDeviceType();
+
+  const getHeaderButton = (text, to, icon) => {
+    to = to || '/' + text.toLowerCase();
+    const IconComponent = icon || Icons[text];
+    return isMobile ? (
+      <HeaderIconButton key={text} to={to}>
+        <IconComponent />
+      </HeaderIconButton>
+    ) : (
+      <HeaderButton key={text} to={to} startIcon={<IconComponent />}>
+        {text}
+      </HeaderButton>
+    );
+  };
+
+  const navigation = isAuthenticated
+    ? ['Dashboard', 'Profile', 'Logout']
+    : ['Login'];
 
   return (
     <AppBar position='static' color='primary' aria-label='Main navigation'>
-      <Toolbar>
-        <StyledIconButton edge="start" color="inherit" onClick={toggleSidebar}>
-          <Icons.Menu />
-        </StyledIconButton>
+      <Toolbar disableGutters={isMobile}>
+        {isMobile && (
+          <HeaderIconButton aria-label='menu' onClick={toggleSidebar}>
+            <Icons.Menu />
+          </HeaderIconButton>
+        )}
         <Icons.LogoV1 sx={{ marginRight: 1 }} color='inherit' />
         <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
           Realty App
         </Typography>
         <HeaderBox>
-          <StyledHeaderButton component={RouterLink} to='/' color='inherit' startIcon={<Icons.Home />}>
-            Home
-          </StyledHeaderButton>
-          {isAuthenticated ? (
-            <>
-              <StyledHeaderButton component={RouterLink} to='/dashboard' color='inherit' startIcon={<Icons.Dashboard />}>
-                Dashboard
-              </StyledHeaderButton>
-              <StyledHeaderButton component={RouterLink} to='/profile' color='inherit' startIcon={<Icons.Profile />}>
-                Profile
-              </StyledHeaderButton>
-              <StyledHeaderButton component={RouterLink} to='/logout' color='inherit' startIcon={<Icons.Logout />}>
-                Logout
-              </StyledHeaderButton>
-            </>
-          ) : (
-            <StyledHeaderButton component={RouterLink} to='/login' color='inherit' startIcon={<Icons.Login />}>
-              Login
-            </StyledHeaderButton>
-          )}
+          {getHeaderButton('Home', '/')}
+          {navigation.map((text) => getHeaderButton(text))}
         </HeaderBox>
       </Toolbar>
     </AppBar>

@@ -113,24 +113,17 @@ export const StyledGridContainer = styled(Container)(({ theme }) => ({
   maxWidth: '100%',
 }));
 
-export const StyledHeaderButton = styled(Button)(({ theme }) => ({
-  padding: theme.spacing(1.5, 2),
-  backgroundColor: theme.palette.primary.main,
-  color: theme.palette.common.white,
-  textTransform: 'none',
-  boxShadow: 'none',
+export const HeaderButton = styled(({ ...rest }) => (
+  <Button component={RouterLink} variant='text' color='inherit' {...rest} />
+))(({ theme }) => ({
   '&:hover': {
     backgroundColor: theme.palette.primary.dark,
   },
 }));
 
-export const StyledIconButton = styled(IconButton)(({ theme }) => ({
-  padding: theme.spacing(1.5),
-  marginRight: theme.spacing(.5),
-  marginLeft: theme.spacing(-3),
-  backgroundColor: theme.palette.primary.main,
-  borderRadius: theme.shape.borderRadius,
-  boxShadow: 'none',
+export const HeaderIconButton = styled(({ ...rest }) => (
+  <IconButton component={RouterLink} color='inherit' {...rest} />
+))(({ theme }) => ({
   '&:hover': {
     backgroundColor: theme.palette.primary.dark,
   },
