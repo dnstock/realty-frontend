@@ -1,44 +1,44 @@
 import {
-  Domain as DomainIcon, // Same as Business icon
-  LocationCity as LocationCityIcon,
+  Domain, // Same as Business icon
+  LocationCity,
 
-  Home as HomeIcon,
-  Dashboard as DashboardIcon,
-  AccountCircle as AccountCircleIcon,
-  Settings as SettingsIcon,
-  Menu as MenuIcon,
-  Login as LoginIcon,
-  Logout as LogoutIcon,
-  HomeWork as HomeWorkIcon,
-  Apartment as ApartmentIcon,
-  MeetingRoom as MeetingRoomIcon,
-  Group as GroupIcon,
-  Description as DescriptionIcon,
-  VerifiedUser as VerifiedUserIcon,
+  Home,
+  Dashboard,
+  AccountCircle,
+  Settings,
+  Menu,
+  Login,
+  Logout,
+  HomeWork,
+  Apartment,
+  MeetingRoom,
+  Group,
+  Description,
+  VerifiedUser,
 } from '@mui/icons-material';
 
 const Icons = {
   // Base Icons
-  LogoV1: DomainIcon,
-  LogoV2: LocationCityIcon,
+  LogoV1: Domain,
+  LogoV2: LocationCity,
 
-  Home: HomeIcon,
-  Menu: MenuIcon,
-  Login: LoginIcon,
-  Logout: LogoutIcon,
+  Home: Home,
+  Menu: Menu,
+  Login: Login,
+  Logout: Logout,
 
   // User Icons
-  Dashboard: DashboardIcon,
-  Profile: AccountCircleIcon,
-  Settings: SettingsIcon, 
+  Dashboard: Dashboard,
+  Profile: AccountCircle,
+  Settings: Settings, 
 
   // Platform Icons
-  Properties: HomeWorkIcon,
-  Buildings: ApartmentIcon,
-  Units: MeetingRoomIcon,
-  Tenants: GroupIcon,
-  Leases: DescriptionIcon,
-  Insurance: VerifiedUserIcon,
+  Properties: HomeWork,
+  Buildings: Apartment,
+  Units: MeetingRoom,
+  Tenants: Group,
+  Leases: Description,
+  Insurance: VerifiedUser,
 };
 
 export default Icons;
