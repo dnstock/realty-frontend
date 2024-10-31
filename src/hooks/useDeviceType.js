@@ -3,12 +3,12 @@ import { useTheme, useMediaQuery } from '@mui/material';
 const useDeviceType = () => {
   const theme = useTheme();
 
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm')); // sm: 600px by default
-  const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md')); // sm (600px) to md (960px)
-  const isLargeMobile = useMediaQuery('(min-width: 600px) and (max-width: 767px)'); // Handle larger mobile devices like iPhone Plus
-  const isSmallTablet = useMediaQuery('(min-width: 768px) and (max-width: 960px)'); // Handle small tablets
-  const isDesktop = useMediaQuery(theme.breakpoints.up('md')); // md: 960px and above
-  const isLargeDesktop = useMediaQuery(theme.breakpoints.up('lg')); // lg: 1280px and above
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm')); // 600px and below
+  const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md')); // 600px to 960px
+  const isLargeMobile = useMediaQuery('(min-width: 600px) and (max-width: 767px)'); // Larger mobile devices like iPhone Plus
+  const isSmallTablet = useMediaQuery('(min-width: 768px) and (max-width: 960px)'); // Small tablets
+  const isDesktop = useMediaQuery(theme.breakpoints.up('md')); // 960px and above
+  const isLargeDesktop = useMediaQuery(theme.breakpoints.up('lg')); // 1280px and above
 
   let deviceType = null;
   if (isMobile) deviceType = 'mobile';
