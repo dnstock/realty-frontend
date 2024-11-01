@@ -7,6 +7,9 @@ import {
   ChevronLeft,
   ChevronRight,
   ViewSidebar,
+  More,
+  MoreHoriz,
+  MoreVert,
 
   Home,
   Dashboard,
@@ -20,6 +23,10 @@ import {
   Group,
   Description,
   VerifiedUser,
+  Insights,
+  BarChart,
+  Assessment,
+  AccountBox,
 } from '@mui/icons-material';
 
 const Icons = {
@@ -30,15 +37,17 @@ const Icons = {
   Home: Home,
   SidebarOpened: MenuOpen,
   SidebarClosed: Menu,
-  SidebarExtended: MenuOpen, // Alt: ChevronLeft
-  SidebarCollapsed: Menu,    // Alt: ChevronRight
+  SidebarExtended: MenuOpen,  // Alt: ChevronLeft
+  SidebarCollapsed: Menu,     // Alt: ChevronRight
   Login: Login,
   Logout: Logout,
 
   // User Icons
   Dashboard: Dashboard,
-  Profile: AccountCircle,
-  Settings: Settings, 
+  Reports: BarChart,          // Alt: Assessment
+  Analytics: Insights,
+  Profile: AccountBox,        // Alt: AccountCircle
+  Account: Settings,
 
   // Platform Icons
   Properties: HomeWork,
