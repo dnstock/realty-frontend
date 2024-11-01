@@ -2,7 +2,7 @@ import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { List, ListItem, ListItemIcon, ListItemText, IconButton, Tooltip, Box, Divider } from '@mui/material';
 import { useAuth, useSidebar } from 'context';
 import { useDeviceType } from 'hooks';
-import { Icons, SidebarDrawer, SidebarLink, SidebarFooter } from 'theme';
+import { Icons, SidebarDrawer, SidebarLink, SidebarHeader, SidebarFooter } from 'theme';
 
 const Sidebar = () => {
   const { isSidebarOpen, toggleSidebar } = useSidebar();
@@ -34,6 +34,11 @@ const Sidebar = () => {
       }}
     >
       <Box sx={{ flexGrow: 1 }}>
+        <SidebarHeader isSidebarOpen={isSidebarOpen}>
+          <Icons.LogoV1/>
+          {isSidebarOpen && 'Realty.AI'}
+        </SidebarHeader>
+        <Divider />
         <List>
           {menuItems.map((item) => (
             <Tooltip
@@ -48,6 +53,7 @@ const Sidebar = () => {
                   component={RouterLink}
                   to={item.path}
                   selected={location.pathname === item.path}
+                  onClick={isMobile ? toggleSidebar : undefined}
                 >
                   <ListItemIcon>
                     <item.icon />

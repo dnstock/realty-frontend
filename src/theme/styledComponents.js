@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { alpha, styled } from '@mui/system';
-import { Box, Button, Drawer, ListItemButton, TableCell, TableContainer, TableHead, TableRow, Container, IconButton, Chip } from '@mui/material';
+import { Box, Button, Drawer, ListItemButton, TableCell, TableContainer, TableHead, TableRow, Container, IconButton, Chip, AppBar } from '@mui/material';
 import { DataGrid, gridClasses } from '@mui/x-data-grid';
 
 export const PageFrameBox = styled(Box)(({ theme }) => ({
@@ -13,6 +13,16 @@ export const PageFrameBox = styled(Box)(({ theme }) => ({
   backgroundColor: '#f5f5f5', // Light grey
 }));
 
+export const HeaderAppBar = styled(({ ...rest }) =>
+  <AppBar position='static' color='primary' aria-label='Main navigation' {...rest} />
+)(({ theme }) => ({
+  boxShadow: 'none',
+  zIndex: theme.zIndex.drawer + 1,
+  height: theme.appbar.height,
+  [theme.breakpoints.down('sm')]: {
+    height: theme.appbar.heightCondensed,
+  },
+}));
 export const HeaderBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   gap: theme.spacing(2),
@@ -21,12 +31,12 @@ export const HeaderBox = styled(Box)(({ theme }) => ({
 }));
 
 export const SidebarDrawer = styled(Drawer)(({ theme, open, variant }) => ({
+
   width: open ? theme.sidebar.fullWidth : theme.sidebar.collapsedWidth,
   flexShrink: 0,
   whiteSpace: 'nowrap',
   boxSizing: 'border-box',
   transition: 'width 0.3s', // Smooth transition
-  // marginTop: '64px',
   // height: 'calc(100vh - 64px)',
   '& .MuiDrawer-paper': {
     width: open ? theme.sidebar.fullWidth : theme.sidebar.collapsedWidth,
@@ -36,8 +46,6 @@ export const SidebarDrawer = styled(Drawer)(({ theme, open, variant }) => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    marginTop: '64px',
-    height: variant == 'permanent' ? 'calc(100vh - 64px)' : '100vh',
   },
 }));
 
@@ -51,13 +59,31 @@ export const SidebarLink = styled(ListItemButton)(({ theme, open }) => ({
   },
 }));
 
+export const SidebarHeader = styled(({ isSidebarOpen, ...rest }) =>
+  <Box {...rest} />
+)(({ theme, isSidebarOpen}) => ({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  padding: theme.spacing(0, 1),
+  fontSize: '1rem',
+  fontFamily: 'monospace',
+  letterSpacing: '.2rem',
+  fontWeight: 500,
+  height: theme.appbar.height - 1, // Subtract 1px for the divider
+  [theme.breakpoints.down('sm')]: {
+    height: theme.appbar.heightCondensed - 1, // Subtract 1px for the divider
+  },
+  '& svg': {
+    color: 'inherit',
+    marginRight: isSidebarOpen ? theme.spacing(1) : 0,
+  },
+}));
 export const SidebarFooter = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
-  padding: '8px 0',
 }));
 
-export const MainContentBox = styled(({ isSidebarOpen, ...rest }) => 
   <Box component='main' {...rest} />
 )(({ theme, isSidebarOpen, padding = theme.spacing(2, 2, 0, 2) }) => ({
   display: 'flex',
@@ -247,7 +273,6 @@ export const TitleBreadcrumbLink = styled(Button)(({ theme }) => ({
   },
 }));
 
-export const StyledChip = styled(({ color, ...rest }) => 
   <Chip {...rest} />
 )(({ theme, color }) => ({
   backgroundColor: theme.palette[color]?.main || theme.palette.grey[600],
@@ -267,7 +292,6 @@ export const ActionBox = styled(Box)(({ theme }) => ({
   marginBottom: theme.spacing(2),
 }));
 
-export const ActionButton = styled(({ color, ...rest }) => 
   <Button variant='contained' {...rest} />
 )(({ theme, color }) => ({
   color: color,
