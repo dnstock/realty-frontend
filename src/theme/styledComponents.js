@@ -1,8 +1,24 @@
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { alpha, styled } from '@mui/system';
-import { Box, Button, Drawer, ListItemButton, TableCell, TableContainer, TableHead, TableRow, Container, IconButton, Chip, AppBar } from '@mui/material';
 import { DataGrid, gridClasses } from '@mui/x-data-grid';
+import {
+  Box,
+  Button,
+  Drawer,
+  ListItemButton,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Container,
+  IconButton,
+  Chip,
+  Typography,
+  MenuItem,
+  AppBar,
+  Menu,
+} from '@mui/material';
 
 export const PageFrameBox = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -23,21 +39,76 @@ export const HeaderAppBar = styled(({ ...rest }) =>
     height: theme.appbar.heightCondensed,
   },
 }));
+
 export const HeaderBox = styled(Box)(({ theme }) => ({
   display: 'flex',
-  gap: theme.spacing(2),
+  gap: theme.spacing(1),
   justifyContent: 'space-between',
   alignItems: 'center',
 }));
 
-export const SidebarDrawer = styled(Drawer)(({ theme, open, variant }) => ({
+export const HeaderTitle = styled(({ ...rest }) =>
+  <Typography variant='h5' component='div' noWrap {...rest} />
+)(({ theme }) => ({
+  flexGrow: 1,
+  fontFamily: 'monospace',
+  // fontWeight: 700,
+  letterSpacing: '.2rem',
+}));
 
+export const HeaderMenu = styled(({ isMobile, ...rest }) =>
+  <Menu id='account-menu' {...rest} />
+)(({ theme, isMobile }) => ({
+  '& .MuiPaper-root': {
+    elevation: 0,
+    overflow: 'visible',
+    filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+    marginTop: theme.spacing(1.5),
+    minWidth: isMobile ? 140 : 180,
+    '& hr': {
+      marginBottom: theme.spacing(0.5),
+    },
+    '&::before': {
+      content: '""',
+      display: 'block',
+      position: 'absolute',
+      top: 0,
+      right: 14,
+      width: 10,
+      height: 10,
+      backgroundColor: theme.palette.background.paper,
+      transform: 'translateY(-50%) rotate(45deg)',
+      zIndex: 0,
+    },
+  },
+}));
+
+export const HeaderMenuHeader = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  padding: theme.spacing(1),
+  '& .MuiAvatar-root': {
+    width: 32,
+    height: 32,
+    marginRight: theme.spacing(0.5),
+    marginTop: theme.spacing(-0.5),
+    fontSize: '0.875rem',
+  },
+  '& .MuiTypography-root': {
+    marginLeft: theme.spacing(1),
+    fontWeight: 600,
+    color: 'gray',
+    textTransform: 'uppercase',
+    fontSize: '0.875rem',
+  }
+}));
+
+export const SidebarDrawer = styled(Drawer)(({ theme, open }) => ({
   width: open ? theme.sidebar.fullWidth : theme.sidebar.collapsedWidth,
   flexShrink: 0,
   whiteSpace: 'nowrap',
   boxSizing: 'border-box',
   transition: 'width 0.3s', // Smooth transition
-  // height: 'calc(100vh - 64px)',
   '& .MuiDrawer-paper': {
     width: open ? theme.sidebar.fullWidth : theme.sidebar.collapsedWidth,
     backgroundColor: '#f5f5f5', // Light grey
@@ -46,6 +117,7 @@ export const SidebarDrawer = styled(Drawer)(({ theme, open, variant }) => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
+    height: '100vh',
   },
 }));
 
@@ -79,19 +151,28 @@ export const SidebarHeader = styled(({ isSidebarOpen, ...rest }) =>
     marginRight: isSidebarOpen ? theme.spacing(1) : 0,
   },
 }));
+
 export const SidebarFooter = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
+  padding: theme.spacing(1, 0),
 }));
 
+export const MainContentBox = styled(({ isAuthenticated, isSidebarOpen, ...rest }) =>
   <Box component='main' {...rest} />
-)(({ theme, isSidebarOpen, padding = theme.spacing(2, 2, 0, 2) }) => ({
+)(({ theme,
+  isAuthenticated,
+  isSidebarOpen,
+  padding = theme.spacing(2, 2, 0, 2),
+}) => ({
   display: 'flex',
   flexDirection: 'column',
   flex: 1,
   padding: padding,
   backgroundColor: '#ffffff',
-  marginLeft: isSidebarOpen ? theme.sidebar.fullWidth : theme.sidebar.collapsedWidth,
+  marginLeft: isAuthenticated
+    ? (isSidebarOpen ? theme.sidebar.fullWidth: theme.sidebar.collapsedWidth)
+    : 0,
   transition: 'margin 0.3s',
   [theme.breakpoints.down('sm')]: {
     marginLeft: 0,  // Reset margin on mobile screens
@@ -144,8 +225,9 @@ export const StyledGridContainer = styled(Container)(({ theme }) => ({
 }));
 
 export const HeaderButton = styled(({ ...rest }) => (
-  <Button component={RouterLink} variant='text' color='inherit' {...rest} />
-))(({ theme }) => ({
+  <Button component={RouterLink} variant='outlined' color='inherit' {...rest} />
+))(({ theme, selected }) => ({
+  border: `1px solid ${selected ? 'white' : 'transparent'}`,
   '&:hover': {
     backgroundColor: theme.palette.primary.dark,
   },
@@ -153,10 +235,18 @@ export const HeaderButton = styled(({ ...rest }) => (
 
 export const HeaderIconButton = styled(({ ...rest }) => (
   <IconButton component={RouterLink} color='inherit' {...rest} />
-))(({ theme }) => ({
+))(({ theme, selected }) => ({
+  border: selected ? '1px solid white' : 'none',
+  borderRadius: theme.shape.borderRadius,
   '&:hover': {
     backgroundColor: theme.palette.primary.dark,
   },
+}));
+
+export const HeaderMenuItem = styled(({ ...rest }) => (
+  <MenuItem component={RouterLink} {...rest} />
+))(({ theme }) => ({
+
 }));
 
 // Generalized Button with customizable padding
@@ -273,6 +363,7 @@ export const TitleBreadcrumbLink = styled(Button)(({ theme }) => ({
   },
 }));
 
+export const StyledChip = styled(({ color, ...rest }) =>
   <Chip {...rest} />
 )(({ theme, color }) => ({
   backgroundColor: theme.palette[color]?.main || theme.palette.grey[600],
@@ -292,6 +383,7 @@ export const ActionBox = styled(Box)(({ theme }) => ({
   marginBottom: theme.spacing(2),
 }));
 
+export const ActionButton = styled(({ color, ...rest }) =>
   <Button variant='contained' {...rest} />
 )(({ theme, color }) => ({
   color: color,
