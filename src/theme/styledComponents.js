@@ -38,6 +38,15 @@ export const HeaderAppBar = styled(({ ...rest }) =>
   [theme.breakpoints.down('sm')]: {
     height: theme.appbar.heightCondensed,
   },
+  '& #header-logo': {
+    height: theme.spacing(5),
+    marginRight: theme.spacing(2),
+    filter: 'brightness(0) invert(1)', // Overlay with white color
+    [theme.breakpoints.down('sm')]: {
+      height: theme.spacing(3.8),
+      marginRight: theme.spacing(1),
+    },
+  },
 }));
 
 export const HeaderBox = styled(Box)(({ theme }) => ({
@@ -54,17 +63,23 @@ export const HeaderTitle = styled(({ ...rest }) =>
   fontFamily: 'monospace',
   // fontWeight: 700,
   letterSpacing: '.2rem',
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '1.25rem',
+  },
 }));
 
-export const HeaderMenu = styled(({ isMobile, ...rest }) =>
+export const HeaderMenu = styled(({ ...rest }) =>
   <Menu id='account-menu' {...rest} />
-)(({ theme, isMobile }) => ({
+)(({ theme }) => ({
   '& .MuiPaper-root': {
     elevation: 0,
     overflow: 'visible',
     filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
     marginTop: theme.spacing(1.5),
-    minWidth: isMobile ? 140 : 180,
+    minWidth: 180,
+    [theme.breakpoints.down('sm')]: {
+      minWidth: 140,
+    },
     '& hr': {
       marginBottom: theme.spacing(0.5),
     },
@@ -238,6 +253,7 @@ export const HeaderIconButton = styled(({ ...rest }) => (
 ))(({ theme, selected }) => ({
   border: selected ? '1px solid white' : 'none',
   borderRadius: theme.shape.borderRadius,
+  marginRight: theme.spacing(1),
   '&:hover': {
     backgroundColor: theme.palette.primary.dark,
   },

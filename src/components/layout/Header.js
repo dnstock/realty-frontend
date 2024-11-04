@@ -34,7 +34,6 @@ const Header = () => {
   const navHeader = ['Dashboard', 'Reports', 'Analytics'];
   const navMenu = ['Profile', 'Account', 'Logout']
 
-
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -100,7 +99,8 @@ const Header = () => {
             {isSidebarOpen ? <Icons.SidebarOpened /> : <Icons.SidebarClosed /> }
           </HeaderIconButton>
         )}
-        <Icons.LogoV1 sx={{ marginRight: 1 }} color='inherit' />
+        {/* <Icons.LogoV1 sx={{ marginRight: 1 }} color='inherit' /> */}
+        <img src='logo192.png' alt='Logo' id='header-logo' />
         <HeaderTitle>
           Realty.AI
         </HeaderTitle>
@@ -129,7 +129,6 @@ const Header = () => {
             onClick={handleCloseUserMenu}
             transformOrigin={{ horizontal: 'right', vertical: 'top' }}
             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-            isMobile={isMobile}
           >
             <HeaderMenuHeader>
               <Avatar {...stringAvatar(user.name)} />
