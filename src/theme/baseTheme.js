@@ -1,6 +1,10 @@
 export default {
   palette: {
     primary: {
+      main: '#123456',  // Dark blue for primary color
+      contrastText: '#ffffff',  // Ensure white text on primary backgrounds
+    },
+    primaryAlt: {
       main: '#0D47A1',  // Dark blue for primary color
       contrastText: '#ffffff',  // Ensure white text on primary backgrounds
     },
@@ -23,10 +27,6 @@ export default {
     success: {
       main: '#388E3C',  // Green for success messages
       contrastText: '#ffffff',
-    },
-    alt1: {
-      main: '#123456',  // Dark blue for primary color
-      contrastText: '#ffffff',  // Ensure white text on primary backgrounds
     },
     alt2: {
       main: '#1976d2',  // Lighter blue for alternate color 1
