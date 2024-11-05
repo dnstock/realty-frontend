@@ -1,6 +1,6 @@
 import { BrowserRouter as Router } from 'react-router-dom';
 import './App.css'; // Component-specific styles
-import { AuthProvider, SidebarProvider } from 'context';
+import { AuthProvider, SidebarProvider, DialogProvider } from 'context';
 import { AppRoutes } from 'config';
 import { SnackbarProvider } from 'notistack';
 
@@ -9,9 +9,11 @@ const App = () => {
     <SnackbarProvider maxSnack={3}>
       <Router>
         <AuthProvider>
-          <SidebarProvider>
-            <AppRoutes />
-          </SidebarProvider>
+          <DialogProvider>
+            <SidebarProvider>
+              <AppRoutes />
+            </SidebarProvider>
+          </DialogProvider>
         </AuthProvider>
       </Router>
     </SnackbarProvider>
