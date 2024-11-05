@@ -17,7 +17,7 @@ export const SidebarProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    // Store the sidebar state in localStorage whenever it changes
+    // Store the sidebar state so it persists across pages
     localStorage.setItem('isSidebarOpen', JSON.stringify(isSidebarOpen));
   }, [isSidebarOpen]);
 

@@ -391,7 +391,7 @@ export const StyledContainer = styled(Box)({
   backgroundColor: '#f5f5f5',
 });
 
-export const ActionBox = styled(Box)(({ theme }) => ({
+export const ContentActionBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   direction: 'row',
   gap: theme.spacing(2),
@@ -399,7 +399,7 @@ export const ActionBox = styled(Box)(({ theme }) => ({
   marginBottom: theme.spacing(2),
 }));
 
-export const ActionButton = styled(({ color, ...rest }) =>
+export const ContentActionButton = styled(({ color, ...rest }) =>
   <Button variant='contained' {...rest} />
 )(({ theme, color }) => ({
   color: color,

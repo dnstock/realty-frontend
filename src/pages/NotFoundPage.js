@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { Typography, Stack } from '@mui/material';
 import { CardBox, PaddedButton, SecondaryButton } from 'theme';
-import { ContentWrapper } from 'components';
+import { Content } from 'components';
 import { useAuth } from 'context';
 
 const NotFoundPage = () => {
@@ -9,7 +9,7 @@ const NotFoundPage = () => {
   const { user, isAuthenticated } = useAuth();
 
   return (
-    <ContentWrapper title='Hmmm...'>
+    <Content title='Hmmm...'>
     <CardBox>
       <Stack spacing={3} direction="column" alignItems="center">
         <Typography variant='h2' component='h1' gutterBottom>
@@ -48,7 +48,7 @@ const NotFoundPage = () => {
         )}
       </Stack>
     </CardBox>
-  </ContentWrapper>
+  </Content>
   );
 };
 

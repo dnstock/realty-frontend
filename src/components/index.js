@@ -7,11 +7,10 @@ export { default as ViewDialog } from './dialogs/ViewDialog';
 export { default as EditForm } from './forms/EditForm';
 export { default as PropertyForm } from './forms/PropertyForm';
 
-export { default as ActionBar } from './layout/ActionBar';
 export { default as Header } from './layout/Header';
 export { default as Sidebar } from './layout/Sidebar';
 export { default as Frame } from './layout/Frame';
-export { default as ContentWrapper } from './layout/ContentWrapper';
+export { default as Content } from './layout/Content';
 export { default as useToast } from './layout/ToastNotification';
 
 export { default as AdminRoute } from './routing/AdminRoute';

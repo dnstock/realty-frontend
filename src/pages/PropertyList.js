@@ -3,7 +3,7 @@ import { useEffect, useReducer, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import debounce from 'lodash/debounce';
 import { apiService } from 'services';
-import { ContentWrapper, ResourceTable } from 'components';
+import { Content, ResourceTable } from 'components';
 
 const initialState = {
   data: [],
@@ -108,7 +108,7 @@ const PropertyDataGrid = () => {
   const actionButtons = [{ label: 'Add Property', color: 'primary', onClick: () => navigate('/properties/create') }];
 
   return (
-    <ContentWrapper title="Properties" actionButtons={actionButtons}>
+    <Content title="Properties" actionButtons={actionButtons}>
       {state.loading ? (
         <CircularProgress />
       ) : state.error ? (
@@ -123,7 +123,7 @@ const PropertyDataGrid = () => {
           onDelete={handleDelete}
         />
       )}
-    </ContentWrapper>
+    </Content>
   );
 };
 

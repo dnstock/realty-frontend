@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Box, TextField, Button, Typography, CircularProgress, Stack } from '@mui/material';
-import { ContentWrapper, useToast } from 'components';
+import { Content, useToast } from 'components';
 import { useAuth } from 'context';
 import { apiService } from 'services';
-import { ActionButton } from 'theme';
+import { ContentActionButton } from 'theme';
 
 const Profile = () => {
   const { user } = useAuth();
@@ -39,7 +39,7 @@ const Profile = () => {
   };
 
   return (
-    <ContentWrapper title='Profile'>
+    <Content title='Profile'>
       <Stack spacing={2}>
         <TextField
           fullWidth
@@ -70,12 +70,12 @@ const Profile = () => {
         )}
 
         <Box display='flex' justifyContent='flex-end'>
-          <ActionButton onClick={handleSave} variant='contained' disabled={loading}>
+          <ContentActionButton onClick={handleSave} variant='contained' disabled={loading}>
             {loading ? <CircularProgress size={24} /> : 'Save Changes'}
-          </ActionButton>
+          </ContentActionButton>
         </Box>
       </Stack>
-    </ContentWrapper>
+    </Content>
   );
 };
 

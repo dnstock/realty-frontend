@@ -1,6 +1,6 @@
 import { useEffect, useCallback } from 'react';
 import { CircularProgress } from '@mui/material';
-import { ContentWrapper, useToast } from 'components';
+import { Content, useToast } from 'components';
 import { useAuth } from 'context';
 
 const Logout = () => {
@@ -17,9 +17,9 @@ const Logout = () => {
   }, [performLogout]);
 
   return (
-    <ContentWrapper title="Logging out...">
+    <Content title="Logging out...">
         <CircularProgress />
-    </ContentWrapper>
+    </Content>
   );
 };
 

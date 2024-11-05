@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
 import { CircularProgress, Box, Typography } from '@mui/material';
-import { ContentWrapper, useToast } from 'components';
+import { Content, useToast } from 'components';
 import { FlexBox } from 'theme';
 import { apiService } from 'services';
 
@@ -28,7 +28,7 @@ const Dashboard = () => {
   }, [fetchData]);
 
   return (
-    <ContentWrapper title="Dashboard">
+    <Content title="Dashboard">
       {loading ? (
         <CircularProgress />
       ) : error ? (
@@ -38,7 +38,7 @@ const Dashboard = () => {
           {JSON.stringify(dashboardData, null, 2)}
         </Box>
       )}
-    </ContentWrapper>
+    </Content>
   );
 };
 

@@ -2,14 +2,14 @@ import { useNavigate } from 'react-router-dom';
 import { Typography, Stack } from '@mui/material';
 import { CardBox, PaddedButton, SecondaryButton } from 'theme';
 import { useAuth } from 'context';
-import { ContentWrapper } from 'components';
+import { Content } from 'components';
 
 const Home = () => {
   const navigate = useNavigate();
   const { user, isAuthenticated } = useAuth();
 
   return (
-    <ContentWrapper title='Realty Platform'>
+    <Content title='Realty Platform'>
       <CardBox>
         <Stack spacing={3} direction="column" alignItems="center">
           <Typography variant='h2' component='h1' gutterBottom>
@@ -44,7 +44,7 @@ const Home = () => {
           )}
         </Stack>
       </CardBox>
-    </ContentWrapper>
+    </Content>
   );
 };
 

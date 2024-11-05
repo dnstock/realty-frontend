@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, TextField, Typography, CircularProgress } from '@mui/material';
-import { ContentWrapper, useToast } from 'components';
+import { Content, useToast } from 'components';
 import { CardBox, PaddedButton } from 'theme';
 import { useAuth } from 'context';
 
@@ -48,7 +48,7 @@ const Login = () => {
   };
 
   return (
-    <ContentWrapper title='Login to Your Account'>
+    <Content title='Login to Your Account'>
       <CardBox>
         <form onSubmit={handleSubmit} style={{ width: '100%' }}>
           <Box mb={2}>
@@ -100,7 +100,7 @@ const Login = () => {
           </Box>
         </form>
       </CardBox>
-    </ContentWrapper>
+    </Content>
   );
 };
 
