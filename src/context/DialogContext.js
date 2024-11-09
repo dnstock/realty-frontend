@@ -2,7 +2,7 @@ import { createContext, useContext, useState, useCallback, Suspense, lazy } from
 
 const DialogContext = createContext();
 
-export const useDialogContext = () => useContext(DialogContext);
+export const useDialog = () => useContext(DialogContext);
 
 export const DialogProvider = ({ children }) => {
   const [dialogState, setDialogState] = useState({
@@ -20,9 +20,9 @@ export const DialogProvider = ({ children }) => {
     setDialogState({ open: false, type: null, data: null, handlers: {} });
   }, []);
 
-  // Dynamically import the dialog component based on `type`
+  // Dynamically import the dialog component
   const DialogComponent = dialogState.type
-    ? lazy(() => import(`components/dialogs/${dialogState.type.charAt(0).toUpperCase() + dialogState.type.slice(1)}Dialog`))
+    ? lazy(() => import(`components/dialogs/${dialogState.type}Dialog`))
     : null;
 
   return (

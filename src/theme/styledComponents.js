@@ -413,6 +413,20 @@ export const ContentActionDivider = styled(({ ...rest }) =>
   marginLeft: theme.spacing(2),
 }));
 
+export const RowActionsBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignContent: 'center',
+}));
+
+export const RowActionIconButton = styled(IconButton)(({ theme }) => ({
+  // minWidth: 'unset',
+  '& svg': {
+    // fontSize: '1rem',
+    // padding: 0,
+    // lineHeight: 1,
+  },
+}));
+
 const ODD_OPACITY = 0.2;
 
 export const StripedDataGrid = styled(DataGrid)(({ theme }) => ({

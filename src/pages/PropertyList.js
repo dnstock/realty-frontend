@@ -64,6 +64,7 @@ const fetchProperties = async (page, pageSize, dispatch, cacheRef, totalCount) =
 
 const PropertyList = () => {
   const { setTitle, addActions } = useContent();
+  const { openDialog } = useDialog();
   const [state, dispatch] = useReducer(reducer, initialState);
   const cacheRef = useRef({}); // Ref to store cache and prevent re-fetches
   const navigate = useNavigate();
@@ -83,7 +84,7 @@ const PropertyList = () => {
     debouncedFetch(state.page, state.pageSize);
   }, [state.page, state.pageSize, debouncedFetch]);
 
-  const baseColumns = [
+  const columns = [
     { field: 'id', headerName: 'ID', flex: 0.5, minWidth: 50 },
     { field: 'name', headerName: 'Name', flex: 2, minWidth: 100 },
     { field: 'address', headerName: 'Address', flex: 2.5, minWidth: 150 },
@@ -99,21 +100,14 @@ const PropertyList = () => {
   const handleView = (id) => {
     navigate(`/properties/${id}`);
   };
-  
+
   const handleEdit = (id) => {
-    console.log('Edit item with ID:', id);
-    // Add your edit logic here
-  };
-  
-  const handleDelete = (id) => {
-    console.log('Delete item with ID:', id);
-    // Add your delete logic here
+    navigate(`/properties/edit/${id}`);
   };
 
-  const handleQuickView = (id) => {
-    console.log('Quick view item with ID:', id);
-    // Add your quick view logic here
-  }
+  const handleDelete = (params) => {
+    openDialog('ConfirmDelete', params.row, { onConfirmDelete: () => console.log('Deleted!') });
+  };
 
   return (
     <>
@@ -122,13 +116,13 @@ const PropertyList = () => {
       ) : state.error ? (
         <Typography color="error">{state.error}</Typography>
       ) : (
-        <ResourceTable 
-          baseColumns={baseColumns}
+        <ResourceTable
+          columns={columns}
           state={state}
           dispatch={dispatch}
-          onView={handleView}
-          onEdit={handleEdit}
-          onDelete={handleDelete}
+          handlers={{ handleView, handleEdit, handleDelete }}
+          flaggable
+          noteable
         />
       )}
     </>

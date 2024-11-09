@@ -1,9 +1,3 @@
-export { default as ActionButtons } from './actions/ActionButtons';
-
-export { default as DeleteDialog } from './dialogs/DeleteDialog';
-export { default as EditDialog } from './dialogs/EditDialog';
-export { default as ViewDialog } from './dialogs/ViewDialog';
-
 export { default as EditForm } from './forms/EditForm';
 export { default as PropertyForm } from './forms/PropertyForm';
 
