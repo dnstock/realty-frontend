@@ -464,6 +464,9 @@ export const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
 
 export const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
   border: 0,
+  '& .MuiDataGrid-row:hover': {
+    cursor: 'pointer',
+  },
   '& .MuiDataGrid-columnHeaderTitle': {
     fontWeight: 600,
   },
