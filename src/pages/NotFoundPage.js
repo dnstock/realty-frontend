@@ -1,15 +1,20 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Typography, Stack } from '@mui/material';
 import { CardBox, PaddedButton, SecondaryButton } from 'theme';
-import { Content } from 'components';
-import { useAuth } from 'context';
+import { useAuth, useContent } from 'context';
 
 const NotFoundPage = () => {
+  const { setTitle } = useContent();
+  const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
-  const { user, isAuthenticated } = useAuth();
+
+  useEffect(() => {
+    setTitle('Hmmm...');
+  }, []);
 
   return (
-    <Content title='Hmmm...'>
+    <>
     <CardBox>
       <Stack spacing={3} direction="column" alignItems="center">
         <Typography variant='h2' component='h1' gutterBottom>
@@ -48,7 +53,7 @@ const NotFoundPage = () => {
         )}
       </Stack>
     </CardBox>
-  </Content>
+  </>
   );
 };
 

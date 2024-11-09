@@ -1,10 +1,12 @@
 import { useEffect, useState, useCallback } from 'react';
 import { CircularProgress, Box, Typography } from '@mui/material';
-import { Content, useToast } from 'components';
+import { useContent } from 'context';
+import { useToast } from 'hooks';
 import { FlexBox } from 'theme';
 import { apiService } from 'services';
 
 const Dashboard = () => {
+  const { setTitle } = useContent();
   const [dashboardData, setDashboardData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -27,8 +29,12 @@ const Dashboard = () => {
     fetchData();
   }, [fetchData]);
 
+  useEffect(() => {
+    setTitle('Dashboard');
+  }, []);
+
   return (
-    <Content title="Dashboard">
+    <>
       {loading ? (
         <CircularProgress />
       ) : error ? (
@@ -38,7 +44,7 @@ const Dashboard = () => {
           {JSON.stringify(dashboardData, null, 2)}
         </Box>
       )}
-    </Content>
+    </>
   );
 };
 

@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
 import { CircularProgress, Box, Typography } from '@mui/material';
-import { useToast } from 'components';
+import { useToast } from 'hooks';
 import { FlexBox } from 'theme';
 import { apiService } from 'services';
 

@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import { CircularProgress } from '@mui/material';
 import { FlexBox } from 'theme';
 import { useAuth } from 'context';
-import { Frame } from 'components';
+import { PageFrame } from 'components';
 import PublicRoutes from './routes/publicRoutes';
 import UnsecureRoutes from './routes/unsecureRoutes';
 import SecureRoutes from './routes/secureRoutes';
@@ -22,7 +22,7 @@ const AppRoutes = () => {
 
   return (
     <Routes>
-      <Route path="/" element={<Frame />}>
+      <Route path="/" element={<PageFrame />}>
         {PublicRoutes}
         {UnsecureRoutes}
         {SecureRoutes}

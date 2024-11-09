@@ -3,15 +3,7 @@ import { useAuth, useSidebar } from 'context';
 import { useDeviceType } from 'hooks';
 import { stringToColor } from 'utils';
 import { useLocation } from 'react-router-dom';
-import {
-  Toolbar,
-  Typography,
-  Avatar,
-  Tooltip,
-  IconButton,
-  ListItemIcon,
-  Divider
-} from '@mui/material';
+import { Toolbar, Typography, Avatar, Tooltip, IconButton, ListItemIcon, Divider } from '@mui/material';
 import {
   HeaderAppBar,
   HeaderTitle,

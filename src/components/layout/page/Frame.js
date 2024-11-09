@@ -3,8 +3,7 @@ import { Outlet } from 'react-router-dom';
 import { PageFrameBox, MainContentBox } from 'theme';
 import { useDeviceType } from 'hooks';
 import { useAuth, useSidebar } from 'context';
-import Sidebar from './Sidebar';
-import Header from './Header';
+import { PageHeader, PageSidebar, ContentHeader } from 'components';
 
 const Frame = () => {
   const { isMobile } = useDeviceType();
@@ -17,9 +16,10 @@ const Frame = () => {
 
   return (
     <PageFrameBox>
-      <Header/>
-      {isAuthenticated && <Sidebar/>}
+      <PageHeader />
+      {isAuthenticated && <PageSidebar />}
       <MainContentBox isAuthenticated={isAuthenticated} isSidebarOpen={isSidebarOpen}>
+        <ContentHeader />
         <Outlet />
       </MainContentBox>
     </PageFrameBox>

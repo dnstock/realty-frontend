@@ -1,3 +1,4 @@
 export { AuthProvider, useAuth } from './AuthContext';
 export { SidebarProvider, useSidebar } from './SidebarContext';
-export { DialogProvider, useDialogContext } from './DialogContext';
+export { DialogProvider, useDialog } from './DialogContext';
+export { ContentProvider, useContent } from './ContentContext';

@@ -2,8 +2,10 @@ import { CircularProgress, Typography } from '@mui/material';
 import { useEffect, useReducer, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import debounce from 'lodash/debounce';
+import { useDialog, useContent } from 'context';
 import { apiService } from 'services';
-import { Content, ResourceTable } from 'components';
+import { ResourceTable } from 'components';
+import { Icons } from 'theme';
 
 const initialState = {
   data: [],
@@ -60,10 +62,18 @@ const fetchProperties = async (page, pageSize, dispatch, cacheRef, totalCount) =
   }
 };
 
-const PropertyDataGrid = () => {
+const PropertyList = () => {
+  const { setTitle, addActions } = useContent();
   const [state, dispatch] = useReducer(reducer, initialState);
   const cacheRef = useRef({}); // Ref to store cache and prevent re-fetches
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setTitle('Properties');
+    addActions([
+      { label: 'Add Property', icon: Icons.Add, onClick: () => navigate('/properties/create') },
+    ]);
+  }, []);
 
   const debouncedFetch = useRef(
     debounce((page, pageSize) => fetchProperties(page, pageSize, dispatch, cacheRef, state.totalCount), 300)
@@ -105,10 +115,8 @@ const PropertyDataGrid = () => {
     // Add your quick view logic here
   }
 
-  const actionButtons = [{ label: 'Add Property', color: 'primary', onClick: () => navigate('/properties/create') }];
-
   return (
-    <Content title="Properties" actionButtons={actionButtons}>
+    <>
       {state.loading ? (
         <CircularProgress />
       ) : state.error ? (
@@ -123,8 +131,8 @@ const PropertyDataGrid = () => {
           onDelete={handleDelete}
         />
       )}
-    </Content>
+    </>
   );
 };
 
-export default PropertyDataGrid;
+export default PropertyList;

@@ -1,1 +1,2 @@
-export { default as AppRoutes } from './routes';
+export { default as AppRoutes } from './AppRoutes';
+export { default as AppProviders } from './AppProviders';

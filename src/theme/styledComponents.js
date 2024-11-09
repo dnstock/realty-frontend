@@ -18,6 +18,7 @@ import {
   MenuItem,
   AppBar,
   Menu,
+  Divider,
 } from '@mui/material';
 
 export const PageFrameBox = styled(Box)(({ theme }) => ({
@@ -394,17 +395,21 @@ export const StyledContainer = styled(Box)({
 export const ContentActionBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   direction: 'row',
-  gap: theme.spacing(2),
+  // gap: theme.spacing(2),
   justifyContent: 'flex-end',
   marginBottom: theme.spacing(2),
 }));
 
-export const ContentActionButton = styled(({ color, ...rest }) =>
+export const ContentActionButton = styled(({ ...rest }) =>
   <Button variant='contained' {...rest} />
-)(({ theme, color }) => ({
-  color: color,
-  fontWeight: 500,
-  padding: theme.spacing(1, 4),
+)(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  marginLeft: theme.spacing(2),
+}));
+
+export const ContentActionDivider = styled(({ ...rest }) =>
+  <Divider orientation='vertical' variant='middle' flexItem {...rest} />
+)(({ theme }) => ({
   marginLeft: theme.spacing(2),
 }));
 

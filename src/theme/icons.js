@@ -1,3 +1,4 @@
+import Box from '@mui/material/Box';
 import {
   Domain, // Same as Business icon
   LocationCity,
@@ -7,9 +8,9 @@ import {
   ChevronLeft,
   ChevronRight,
   ViewSidebar,
-  More,
   MoreHoriz,
   MoreVert,
+  Visibility,
 
   Home,
   Dashboard,
@@ -27,10 +28,37 @@ import {
   BarChart,
   Assessment,
   AccountBox,
+  Add,
+  AddCircle,
+  Flag,
+  FlagOutlined,
+
+  Note,
+  NoteAdd,
+  NoteAlt,
+  DescriptionOutlined,
+  NoteOutlined,
+  AddComment,
 } from '@mui/icons-material';
 
+const NoteVert = (props) => (
+  <Box sx={{ transform: 'rotate(90deg) scaleX(-1)' }}>
+    <Note {...props} />
+  </Box>
+);
+
 const Icons = {
-  // Base Icons
+  // Generic Icons
+  More: MoreVert,
+  MoreHoriz: MoreHoriz,
+  Add: AddCircle,             // Alt: Add
+  NoteAdd: NoteAdd,           // Alt: NoteAlt
+  Note: DescriptionOutlined,  // Alt: NoteOutlined
+  FlagInactive: FlagOutlined,
+  FlagActive: Flag,
+  View: Visibility,
+
+  // Interface Icons
   LogoV1: Domain,
   LogoV2: LocationCity,
 

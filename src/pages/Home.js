@@ -1,15 +1,20 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Typography, Stack } from '@mui/material';
 import { CardBox, PaddedButton, SecondaryButton } from 'theme';
-import { useAuth } from 'context';
-import { Content } from 'components';
+import { useAuth, useContent } from 'context';
 
 const Home = () => {
-  const navigate = useNavigate();
+  const { setTitle } = useContent();
   const { user, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setTitle('Realty Platform');
+  }, []);
 
   return (
-    <Content title='Realty Platform'>
+    <>
       <CardBox>
         <Stack spacing={3} direction="column" alignItems="center">
           <Typography variant='h2' component='h1' gutterBottom>
@@ -44,7 +49,7 @@ const Home = () => {
           )}
         </Stack>
       </CardBox>
-    </Content>
+    </>
   );
 };
 

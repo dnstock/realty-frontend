@@ -1,9 +1,10 @@
 import { useEffect, useCallback } from 'react';
 import { CircularProgress } from '@mui/material';
-import { Content, useToast } from 'components';
-import { useAuth } from 'context';
+import { useToast } from 'hooks';
+import { useAuth, useContent } from 'context';
 
 const Logout = () => {
+  const { setTitle } = useContent();
   const { logout } = useAuth();
   const { showSuccess } = useToast();
 
@@ -16,11 +17,11 @@ const Logout = () => {
     performLogout();
   }, [performLogout]);
 
-  return (
-    <Content title="Logging out...">
-        <CircularProgress />
-    </Content>
-  );
+  useEffect(() => {
+    setTitle('Logging out...');
+  }, []);
+
+  return <CircularProgress />;
 };
 
 export default Logout;

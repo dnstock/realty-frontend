@@ -1,11 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, TextField, Typography, CircularProgress } from '@mui/material';
-import { Content, useToast } from 'components';
+import { useToast } from 'hooks';
 import { CardBox, PaddedButton } from 'theme';
-import { useAuth } from 'context';
+import { useAuth, useContent } from 'context';
 
 const Login = () => {
+  const { setTitle } = useContent();
   const [credentials, setCredentials] = useState({ email: '', password: '' });
   const [errors, setErrors] = useState({ email: null, password: null, general: null });
   const [loading, setLoading] = useState(false);
@@ -47,8 +48,12 @@ const Login = () => {
     });
   };
 
+  useEffect(() => {
+    setTitle('Login to Your Account');
+  }, []);
+
   return (
-    <Content title='Login to Your Account'>
+    <>
       <CardBox>
         <form onSubmit={handleSubmit} style={{ width: '100%' }}>
           <Box mb={2}>
@@ -100,7 +105,7 @@ const Login = () => {
           </Box>
         </form>
       </CardBox>
-    </Content>
+    </>
   );
 };
 
