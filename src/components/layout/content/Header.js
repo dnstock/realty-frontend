@@ -1,15 +1,20 @@
 import { Typography } from '@mui/material';
-import { ContentHeader, ContentActionBox, ContentActionButton, ContentActionDivider } from 'theme';
+import { ContentHeader, ContentTitleBox, ContentActionBox, ContentActionButton, ContentActionDivider } from 'theme';
 import { useContent } from 'context';
 
 const Header = () => {
-  const { title, actionButtons } = useContent();
+  const { title, titleIcon: TitleIcon, actionButtons } = useContent();
 
   return (
     <>
     {(title || actionButtons.length > 0) && (
       <ContentHeader>
-        {title && <Typography variant="h4" gutterBottom>{title}</Typography>}
+        {title && (
+          <ContentTitleBox>
+            {TitleIcon && <TitleIcon />}
+            <Typography variant="h4">{title}</Typography>
+          </ContentTitleBox>
+        )}
         <ContentActionBox>
           {actionButtons.map((action, index) => (
             action === 'hr' && <ContentActionDivider key={index} /> ||

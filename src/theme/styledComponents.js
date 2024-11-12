@@ -392,6 +392,22 @@ export const StyledContainer = styled(Box)({
   backgroundColor: '#f5f5f5',
 });
 
+export const ContentTitleBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  direction: 'row',
+  gap: theme.spacing(1.5),
+  alignItems: 'center',
+  paddingBottom: theme.spacing(1), // gutterBottom
+  '& svg': {
+    fontSize: theme.typography.h4.fontSize,
+    color: theme.palette.text.secondary,
+    marginBottom: '4px',
+  },
+  '& h4': {
+    fontWeight: 300,
+  },
+}));
+
 export const ContentActionBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   direction: 'row',

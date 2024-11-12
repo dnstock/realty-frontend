@@ -6,6 +6,7 @@ export const useContent = () => useContext(ContentContext);
 
 export const ContentProvider = ({ children }) => {
   const [title, setTitle] = useState('');
+  const [titleIcon, setTitleIcon] = useState(null);
   const [actionButtons, setActionButtons] = useState([]);
 
   const clearActions = () => setActionButtons([]);
@@ -38,6 +39,8 @@ export const ContentProvider = ({ children }) => {
   const value = {
     title,
     setTitle,
+    titleIcon,
+    setTitleIcon,
     actionButtons,
     clearActions,
     addActions,
