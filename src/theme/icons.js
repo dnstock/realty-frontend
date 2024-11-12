@@ -11,6 +11,7 @@ import {
   MoreHoriz,
   MoreVert,
   Visibility,
+  LockPerson,
 
   Home,
   Dashboard,
@@ -69,6 +70,7 @@ const Icons = {
   SidebarCollapsed: Menu,     // Alt: ChevronRight
   Login: Login,
   Logout: Logout,
+  Restricted: LockPerson,
 
   // User Icons
   Dashboard: Dashboard,

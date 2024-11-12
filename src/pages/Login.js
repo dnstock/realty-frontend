@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, TextField, Typography, CircularProgress } from '@mui/material';
 import { useToast } from 'hooks';
-import { CardBox, PaddedButton } from 'theme';
+import { Icons, CardBox, PaddedButton } from 'theme';
 import { useAuth, useContent } from 'context';
 
 const Login = () => {
-  const { setTitle } = useContent();
+  const { setTitle, setTitleIcon } = useContent();
   const [credentials, setCredentials] = useState({ email: '', password: '' });
   const [errors, setErrors] = useState({ email: null, password: null, general: null });
   const [loading, setLoading] = useState(false);
@@ -50,6 +50,7 @@ const Login = () => {
 
   useEffect(() => {
     setTitle('Login to Your Account');
+    setTitleIcon(Icons.Restricted);
   }, []);
 
   return (

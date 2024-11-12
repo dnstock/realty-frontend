@@ -17,8 +17,8 @@ const Home = () => {
     <>
       <CardBox>
         <Stack spacing={3} direction="column" alignItems="center">
-          <Typography variant='h2' component='h1' gutterBottom>
-            {isAuthenticated ? `Hi ${user.name}, welcome back!` : 'The #1 property management solution.'}
+          <Typography variant='h3' gutterBottom>
+            {isAuthenticated ? `Hi ${user.name}, welcome back!` : 'Smart property management.'}
           </Typography>
           <Typography variant='body1' gutterBottom>
             {isAuthenticated
