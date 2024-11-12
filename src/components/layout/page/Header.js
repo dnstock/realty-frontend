@@ -23,8 +23,11 @@ const Header = () => {
   const [anchorElUser, setAnchorElUser] = useState(null);
   const isUserMenuOpen = Boolean(anchorElUser);
   const location = useLocation();
-  const navHeader = ['Dashboard', 'Reports', 'Analytics'];
-  const navMenu = ['Profile', 'Account', 'Logout']
+  const nav = {
+    loggedOut: [['Home', '/'], 'Login'],
+    loggedIn: [['Dashboard', '/'], 'Reports', 'Analytics'],
+  };
+  const userMenu = ['Profile', 'Account', 'Logout']
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -83,6 +86,11 @@ const Header = () => {
     );
   };
 
+  const headerItemsFromArray = (items) =>
+    items.map(page => getHeaderItem(
+      ...(Array.isArray(page) ? page : [page])
+    ))
+
   return (
     <HeaderAppBar>
       <Toolbar disableGutters={isMobile}>
@@ -99,7 +107,7 @@ const Header = () => {
         {isAuthenticated && (
           <>
           <HeaderBox>
-            {navHeader.map((page) => getHeaderItem(page))}
+            {headerItemsFromArray(nav.loggedIn)}
             <Tooltip title="Account settings">
               <IconButton
                 onClick={handleOpenUserMenu}
@@ -129,13 +137,12 @@ const Header = () => {
               </Typography>
             </HeaderMenuHeader>
             <Divider />
-            {navMenu.map((page) => getMenuItem(page))}
+            {userMenu.map((page) => getMenuItem(page))}
           </HeaderMenu>
           </>
         ) || (
           <HeaderBox>
-            {getHeaderItem('Home', '/')}
-            {getHeaderItem('Login')}
+            {headerItemsFromArray(nav.loggedOut)}
           </HeaderBox>
         )}
       </Toolbar>

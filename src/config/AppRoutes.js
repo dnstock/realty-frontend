@@ -9,7 +9,7 @@ import SecureRoutes from './routes/secureRoutes';
 import AdminRoutes from './routes/adminRoutes';
 
 const AppRoutes = () => {
-  const { loading: authLoading } = useAuth();
+  const { loading: authLoading, isAuthenticated } = useAuth();
 
   // Wait until auth loading is complete
   if (authLoading) {
@@ -23,9 +23,9 @@ const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<PageFrame />}>
-        {PublicRoutes}
+        {PublicRoutes(!isAuthenticated)}
         {UnsecureRoutes}
-        {SecureRoutes}
+        {SecureRoutes(isAuthenticated)}
         {AdminRoutes}
       </Route>
     </Routes>

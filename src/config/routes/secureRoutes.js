@@ -3,7 +3,7 @@ import { SecureRoute } from 'components';
 import Pages from 'pages';
 
 const routes = [
-  { path: "/dashboard", element: Pages.Dashboard },
+  { path: "/dashboard", element: Pages.Dashboard, index: true },
   { path: "/profile", element: Pages.Profile },
   { path: "/properties", element: Pages.PropertyList },
   { path: "/properties/:id", element: Pages.PropertyDetails },
@@ -17,16 +17,18 @@ const routes = [
 
 ];
 
-const SecureRoutes = routes.map(({ path, element: Component }) => (
-  <Route
-    key={path}
-    path={path}
-    element={
-      <SecureRoute>
-        <Component />
-      </SecureRoute>
-    }
-  />
-));
+const SecureRoutes = (withIndex) =>
+  routes.map(({ path, element: Component, index }) => (
+    <Route
+      key={path}
+      path={index && withIndex ? undefined : path}
+      index={index && withIndex || undefined}
+      element={
+        <SecureRoute>
+          <Component />
+        </SecureRoute>
+      }
+    />
+  ));
 
 export default SecureRoutes;
