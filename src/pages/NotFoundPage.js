@@ -1,17 +1,13 @@
-import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Typography, Stack } from '@mui/material';
 import { CardBox, PaddedButton, SecondaryButton } from 'theme';
 import { useAuth, useContent } from 'context';
 
 const NotFoundPage = () => {
-  const { setTitle } = useContent();
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    setTitle('Hmmm...');
-  }, []);
+  useContent({ title: 'Page Not Found' });
 
   return (
     <>

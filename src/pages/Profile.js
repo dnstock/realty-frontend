@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Box, TextField, Typography, CircularProgress, Stack } from '@mui/material';
 import { useToast } from 'hooks';
 import { useAuth, useContent } from 'context';
@@ -6,7 +6,6 @@ import { apiService } from 'services';
 import { ContentActionButton } from 'theme';
 
 const Profile = () => {
-  const { setTitle } = useContent();
   const { user } = useAuth();
   const { showError, showSuccess } = useToast();
   const [profileData, setProfileData] = useState(user || {});
@@ -39,9 +38,7 @@ const Profile = () => {
     }
   };
 
-  useEffect(() => {
-    setTitle('Profile');
-  }, []);
+  useContent({ title: 'Profile' });
 
   return (
     <>

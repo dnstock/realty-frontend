@@ -4,7 +4,6 @@ import { useToast } from 'hooks';
 import { useAuth, useContent } from 'context';
 
 const Logout = () => {
-  const { setTitle } = useContent();
   const { logout } = useAuth();
   const { showSuccess } = useToast();
 
@@ -17,9 +16,7 @@ const Logout = () => {
     performLogout();
   }, [performLogout]);
 
-  useEffect(() => {
-    setTitle('Logging out...');
-  }, []);
+  useContent({ title: 'Logging out...' });
 
   return <CircularProgress />;
 };

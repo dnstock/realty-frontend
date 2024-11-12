@@ -1,17 +1,15 @@
-import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Typography, Stack } from '@mui/material';
 import { CardBox, PaddedButton, SecondaryButton } from 'theme';
 import { useAuth, useContent } from 'context';
 
 const Home = () => {
-  const { setTitle } = useContent();
   const { user, isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    setTitle('Realty Platform');
-  }, []);
+  useContent({
+    title: 'Realty Platform',
+  });
 
   return (
     <>

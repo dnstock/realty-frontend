@@ -6,7 +6,6 @@ import { FlexBox } from 'theme';
 import { apiService } from 'services';
 
 const Dashboard = () => {
-  const { setTitle } = useContent();
   const [dashboardData, setDashboardData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -29,9 +28,7 @@ const Dashboard = () => {
     fetchData();
   }, [fetchData]);
 
-  useEffect(() => {
-    setTitle('Dashboard');
-  }, []);
+  useContent({ title: 'Dashboard' });
 
   return (
     <>

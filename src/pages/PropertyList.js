@@ -63,18 +63,17 @@ const fetchProperties = async (page, pageSize, dispatch, cacheRef, totalCount) =
 };
 
 const PropertyList = () => {
-  const { setTitle, addActions } = useContent();
   const { openDialog } = useDialog();
   const [state, dispatch] = useReducer(reducer, initialState);
   const cacheRef = useRef({}); // Ref to store cache and prevent re-fetches
   const navigate = useNavigate();
 
-  useEffect(() => {
-    setTitle('Properties');
-    addActions([
+  useContent({
+    title: 'Properties',
+    actions: [
       { label: 'Add Property', icon: Icons.Add, onClick: () => navigate('/properties/create') },
-    ]);
-  }, []);
+    ]
+  });
 
   const debouncedFetch = useRef(
     debounce((page, pageSize) => fetchProperties(page, pageSize, dispatch, cacheRef, state.totalCount), 300)

@@ -1,8 +1,21 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 
 const ContentContext = createContext();
 
-export const useContent = () => useContext(ContentContext);
+export const useContent = (config) => {
+  const context = useContext(ContentContext);
+  if (!context) {
+    throw new Error('useContent must be used within a ContentProvider');
+  }
+
+  useEffect(() => {
+    config?.title && context.setTitle(config.title);
+    config?.titleIcon && context.setTitleIcon(config.titleIcon);
+    config?.actions && context.addActions(config.actions);
+  }, []);
+
+  return context;
+};
 
 export const ContentProvider = ({ children }) => {
   const [title, setTitle] = useState('');
@@ -11,13 +24,12 @@ export const ContentProvider = ({ children }) => {
 
   const clearActions = () => setActionButtons([]);
 
-  const addActions = (actions, position) => {
+  const addActions = (actions, position) =>
     setActionButtons((prev) => {
-      // Remove actions that already exist
+      // Omit actions that already exist
       const newActions = actions.filter((action) => !prev.some((btn) => btn.label === action.label));
       return position === 'start' ? [...newActions, ...prev] : [...prev, ...newActions];
     });
-  }
 
   const removeActions = (indicesOrLabels) =>
     setActionButtons((prev) => prev.filter((btn, i) =>
@@ -47,9 +59,9 @@ export const ContentProvider = ({ children }) => {
     removeActions,
     updateActions,
     actions: {
-      add: addActions,
-      remove: removeActions,
-      update: updateActions,
+      add: (action, position) => addActions([action], position),
+      remove: (indexOrLabel) => removeActions([indexOrLabel]),
+      update: (indexOrLabel, updatedAction) => updateActions([indexOrLabel], updatedAction),
     },
   };
 
