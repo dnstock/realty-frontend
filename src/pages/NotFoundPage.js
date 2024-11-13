@@ -13,7 +13,7 @@ const NotFoundPage = () => {
     <>
     <CardBox>
       <Stack spacing={3} direction="column" alignItems="center">
-        <Typography variant='h2' component='h1' gutterBottom>
+        <Typography variant='h3' component='h1' gutterBottom>
           Page Not Found
         </Typography>
         <Typography variant='body1' gutterBottom>
