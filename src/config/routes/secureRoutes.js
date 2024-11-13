@@ -1,20 +1,18 @@
 import { Route } from 'react-router-dom';
 import { SecureRoute } from 'components';
 import Pages from 'pages';
+import { AppResources } from 'config';
+
+const propertyRoutes = AppResources.Property.routes;
 
 const routes = [
   { path: "/dashboard", element: Pages.Dashboard, index: true },
   { path: "/profile", element: Pages.Profile },
-  { path: "/properties", element: Pages.PropertyList },
-  { path: "/properties/:id", element: Pages.PropertyDetails },
-  { path: "/properties/create", element: Pages.CreateProperty },
-  { path: "/properties/edit/:id", element: Pages.EditProperty },
 
-  { path: "/resources", element: Pages.ResourceListPage },
-  { path: "/resources/create", element: Pages.ResourceCreatePage },
-  { path: "/resources/:id", element: Pages.ResourceDetailPage },
-  { path: "/resources/:id/edit", element: Pages.ResourceUpdatePage },
-
+  { path: propertyRoutes.list, element: Pages.PropertyList },
+  { path: propertyRoutes.view, element: Pages.PropertyDetails },
+  { path: propertyRoutes.create, element: Pages.CreateProperty },
+  { path: propertyRoutes.edit, element: Pages.EditProperty },
 ];
 
 const SecureRoutes = (withIndex) =>
