@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  ui:
+    build:
+      context: ./
+      target: development
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/app
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - NODE_ENV=development

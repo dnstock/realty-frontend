@@ -25,6 +25,12 @@ case $APP in
   "eject")
     docker rm $APP
     ;;
+  "compose")
+    docker compose up --build
+    ;;
+  "uncompose")
+    docker compose down
+    ;;
   *)
     echo "Invalid command"
     ;;
