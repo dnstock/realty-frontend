@@ -1,7 +1,7 @@
 import { useEffect, useCallback } from 'react';
-import { CircularProgress } from '@mui/material';
 import { useToast } from 'hooks';
 import { useAuth, useContent } from 'context';
+import { ContentLoadingBox } from 'theme';
 
 const Logout = () => {
   const { logout } = useAuth();
@@ -18,7 +18,7 @@ const Logout = () => {
 
   useContent({ title: 'Logging out...' });
 
-  return <CircularProgress />;
+  return <ContentLoadingBox />;
 };
 
 export default Logout;

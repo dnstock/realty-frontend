@@ -1,6 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { CircularProgress } from '@mui/material';
-import { FlexBox } from 'theme';
+import { ContentLoadingBox } from 'theme';
 import { useAuth } from 'context';
 import { PageFrame } from 'components';
 import PublicRoutes from './routes/publicRoutes';
@@ -14,9 +13,7 @@ const AppRoutes = () => {
   // Wait until auth loading is complete
   if (authLoading) {
     return (
-      <FlexBox>
-        <CircularProgress />
-      </FlexBox>
+      <ContentLoadingBox />
     );
   }
 

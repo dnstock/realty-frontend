@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Box, TextField, Typography, CircularProgress } from '@mui/material';
+import { Box, TextField, Typography } from '@mui/material';
 import { useToast } from 'hooks';
-import { Icons, CardBox, PaddedButton } from 'theme';
+import { Icons, CardBox, PaddedButton, ContentLoadingText } from 'theme';
 import { useAuth, useContent } from 'context';
 
 const Login = () => {
@@ -100,7 +100,7 @@ const Login = () => {
               color='primary'
               disabled={loading}
             >
-              {loading ? <CircularProgress size={24} /> : 'Login'}
+              {loading ? <ContentLoadingText /> : 'Login'}
             </PaddedButton>
           </Box>
         </form>

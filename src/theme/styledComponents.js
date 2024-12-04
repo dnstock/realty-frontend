@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { alpha, styled } from '@mui/system';
 import { DataGrid, gridClasses } from '@mui/x-data-grid';
 import {
+  alpha,
+  styled,
   Box,
   Button,
   Drawer,
@@ -19,6 +20,7 @@ import {
   AppBar,
   Menu,
   Divider,
+  CircularProgress,
 } from '@mui/material';
 
 export const PageFrameBox = styled(Box)(({ theme }) => ({
@@ -206,6 +208,27 @@ export const ContentHeader = styled(Box)(({ theme }) => ({
   paddingBottom: theme.spacing(1),
   // alignItems: 'center',
 }));
+
+// Do not export. Use directly in the `ContentLoadingBox` component.
+const ContentLoadingBoxWrapper = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  minHeight: theme.spacing(25),
+  backgroundColor: theme.palette.background.default,
+}));
+
+export const ContentLoadingText = styled(CircularProgress)(({ theme, size = 24 }) => ({
+  width: `${size}px !important`,
+  height: `${size}px !important`,
+}));
+
+export const ContentLoadingBox = ({ children }) => (
+  <ContentLoadingBoxWrapper>
+    <CircularProgress color="primary" />
+    {children}
+  </ContentLoadingBoxWrapper>
+);
 
 export const FlexBox = styled(Box)(({ theme,
   justifyContent = 'center',
@@ -427,6 +450,7 @@ export const ContentActionDivider = styled(({ ...rest }) =>
   <Divider orientation='vertical' variant='middle' flexItem {...rest} />
 )(({ theme }) => ({
   marginLeft: theme.spacing(2),
+  borderColor: '#636363',
 }));
 
 export const RowActionsBox = styled(Box)(({ theme }) => ({

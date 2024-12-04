@@ -1,8 +1,8 @@
 import { useEffect, useState, useCallback } from 'react';
-import { CircularProgress, Box, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { useContent } from 'context';
 import { useToast } from 'hooks';
-import { FlexBox } from 'theme';
+import { ContentLoadingBox } from 'theme';
 import { apiService } from 'services';
 
 const Dashboard = () => {
@@ -18,7 +18,7 @@ const Dashboard = () => {
       setDashboardData(data);
     } catch (error) {
       setError('Failed to fetch dashboard data');
-      showError('Failed to fetch dashboard data');
+      // showError('Failed to fetch dashboard data');
     } finally {
       setLoading(false);
     }
@@ -33,7 +33,7 @@ const Dashboard = () => {
   return (
     <>
       {loading ? (
-        <CircularProgress />
+        <ContentLoadingBox />
       ) : error ? (
         <Typography color="error">{error}</Typography>
       ) : (

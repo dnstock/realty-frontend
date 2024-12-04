@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from 'react';
-import { CircularProgress, Box, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { useToast } from 'hooks';
-import { FlexBox } from 'theme';
+import { FlexBox, ContentLoadingBox } from 'theme';
 import { apiService } from 'services';
 
 const Dashboard = () => {
@@ -29,9 +29,7 @@ const Dashboard = () => {
 
   if (loading) {
     return (
-      <FlexBox>
-        <CircularProgress />
-      </FlexBox>
+      <ContentLoadingBox />
     );
   }
 
