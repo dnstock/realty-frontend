@@ -53,6 +53,8 @@ src/
 ├── assets/         # Static assets
 ├── components/     # Reusable UI components
 ├── config/         # Configuration files
+│ ├── resources/    # Resource models
+│ └── routes/       # Routing handlers
 ├── context/        # React context providers
 ├── hooks/          # Custom React hooks
 ├── pages/          # Page components
