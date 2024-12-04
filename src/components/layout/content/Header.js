@@ -17,7 +17,7 @@ const Header = () => {
         )}
         <ContentActionBox>
           {actionButtons.map((action, index) => (
-            action === 'hr' && <ContentActionDivider key={index} /> ||
+            action === 'divider' && <ContentActionDivider key={index} /> ||
             <ContentActionButton
               key={index}
               color={action.color || 'primary'}

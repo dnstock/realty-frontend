@@ -4,7 +4,7 @@ import { useAuth } from 'context';
 const UnsecureRoute = ({ children }) => {
   const { isAuthenticated } = useAuth();
 
-  return isAuthenticated ? <Navigate to="/dashboard" /> : children;
+  return isAuthenticated ? <Navigate to="/" /> : children;
 };
 
 export default UnsecureRoute;

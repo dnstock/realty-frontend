@@ -28,7 +28,7 @@ const Home = () => {
               <PaddedButton
                 variant='contained'
                 color='primary'
-                onClick={() => navigate('/dashboard')}
+                onClick={() => navigate('/')}
               >
                 Go to Dashboard
               </PaddedButton>
