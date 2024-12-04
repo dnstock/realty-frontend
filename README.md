@@ -1,70 +1,104 @@
-# Getting Started with Create React App
+# Realty.AI Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Frontend UI for real estate property management platform.
 
-## Available Scripts
+## Description
 
-In the project directory, you can run:
+Realty.AI is an enterprise platform for commercial real estate developers and property managers. This repository contains the React-based frontend UI implementation.
 
-### `npm start`
+## Prerequisites
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Node.js
+- npm or yarn
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Installation
 
-### `npm test`
+1. Clone the repository
+2. Install dependencies:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```sh
+npm install
+```
 
-### `npm run build`
+## Development
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+To start the development server:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```sh
+npm start
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The application will be available at `http://localhost:3000`.
 
-### `npm run eject`
+## Building
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+To create a production build:
+```sh
+npm run build
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Technology Stack
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- React 18.x
+- Material-UI (MUI) 6.x
+- React Router 6.x
+- Formik + Yup
+- Axios
+- Day.js
+- More...
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Project Structure
+```
+src/
+├── assets/         # Static assets
+├── components/     # Reusable UI components
+├── config/         # Configuration files
+├── context/        # React context providers
+├── hooks/          # Custom React hooks
+├── pages/          # Page components
+├── services/       # API services
+├── theme/          # MUI theme customization
+└── utils/          # Utility functions
+```
 
-## Learn More
+## Features
+- User authentication
+- Dashboard view
+- Property management
+- Unit tracking
+- Tenant management
+- Lease administration
+- Insurance tracking
+- Reporting and analytics
+- More...
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Docker Support
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Development and production Docker configurations are available:
 
-### Code Splitting
+```sh
+# Development
+docker-compose -f docker-compose.dev.yml up
+# or
+npm docker:dev
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+# Production
+docker-compose -f docker-compose.prod.yml up
+# or
+npm docker:prod
+```
 
-### Analyzing the Bundle Size
+## Environment Variables
+Create a `.env` file in the root directory:
+```sh
+REACT_APP_API_URL=http://localhost:8000
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Testing
+```sh
+npm test
+```
 
-### Making a Progressive Web App
+## License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Private and Confidential. All rights reserved.
