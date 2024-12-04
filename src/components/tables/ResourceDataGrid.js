@@ -3,7 +3,7 @@ import { useContent } from 'context';
 import { Icons, StyledDataGrid } from 'theme';
 import withRowActions from './withRowActions';
 
-const ResourceTable = ({ columns, state, dispatch, handlers }) => {
+const ResourceDataGrid = ({ columns, state, dispatch, handlers }) => {
   const { addActions, updateActions } = useContent();
   const [selectedRows, setSelectedRows] = useState([]);
 
@@ -19,7 +19,7 @@ const ResourceTable = ({ columns, state, dispatch, handlers }) => {
       { label: 'Add Note', icon: Icons.NoteAdd, color: 'secondary', onClick: () => {},
         props: { disabled: selectedRows.length === 0 },
       },
-      'hr',
+      'divider',
     ], 'start');
   }, []);
 
@@ -64,4 +64,4 @@ const ResourceTable = ({ columns, state, dispatch, handlers }) => {
   );
 };
 
-export default withRowActions(ResourceTable);
+export default withRowActions(ResourceDataGrid);

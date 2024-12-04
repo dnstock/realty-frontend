@@ -10,4 +10,4 @@ export { default as AdminRoute } from './routing/AdminRoute';
 export { default as UnsecureRoute } from './routing/UnsecureRoute';
 export { default as SecureRoute } from './routing/SecureRoute';
 
-export { default as ResourceTable } from './tables/ResourceTable';
+export { default as ResourceDataGrid } from './tables/ResourceDataGrid';

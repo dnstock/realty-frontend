@@ -3,27 +3,38 @@ import { SecureRoute } from 'components';
 import Pages from 'pages';
 import { AppResources } from 'config';
 
-const propertyRoutes = AppResources.Property.routes;
+const resources = ['Property'];
 
-const routes = [
+const staticRoutes = [
   { path: "/dashboard", element: Pages.Dashboard, index: true },
   { path: "/profile", element: Pages.Profile },
+];
 
-  { path: propertyRoutes.list, element: Pages.PropertyList },
-  { path: propertyRoutes.view, element: Pages.PropertyDetails },
-  { path: propertyRoutes.create, element: Pages.CreateProperty },
-  { path: propertyRoutes.edit, element: Pages.EditProperty },
+const generateResourceRoutes = (resource) => {
+  const routes = AppResources[resource].routes;
+
+  return [
+    { path: routes.index, element: Pages.ResourceIndex, resource: AppResources[resource] },
+    { path: routes.view, element: Pages.ResourceView, resource: AppResources[resource] },
+    // { path: routes.create, element: Pages.ResourceCreate, resource: AppResources[resource] },
+    // { path: routes.edit, element: Pages.ResourceEdit, resource: AppResources[resource] },
+  ];
+};
+
+const allRoutes = [
+  ...staticRoutes,
+  ...resources.flatMap(generateResourceRoutes),
 ];
 
 const SecureRoutes = (withIndex) =>
-  routes.map(({ path, element: Component, index }) => (
+  allRoutes.map(({ path, element: Component, resource, index }) => (
     <Route
       key={path}
       path={index && withIndex ? undefined : path}
       index={index && withIndex || undefined}
       element={
         <SecureRoute>
-          <Component />
+          {resource ? <Component resource={resource} /> : <Component />}
         </SecureRoute>
       }
     />

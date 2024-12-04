@@ -12,4 +12,3 @@ const pages = ctx.keys().reduce((modules, path) => {
 }, {});
 
 export default pages;
-

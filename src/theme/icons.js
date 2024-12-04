@@ -33,6 +33,10 @@ import {
   AddCircle,
   Flag,
   FlagOutlined,
+  ArrowBack,
+  ArrowBackIos,
+  Edit,
+  Delete,
 
   Note,
   NoteAdd,
@@ -58,6 +62,9 @@ const Icons = {
   FlagInactive: FlagOutlined,
   FlagActive: Flag,
   View: Visibility,
+  Back: ArrowBack,            // Alt: ArrowBackIos
+  Edit: Edit,
+  Delete: Delete,            // Alt: DeleteOutline
 
   // Interface Icons
   LogoV1: Domain,
