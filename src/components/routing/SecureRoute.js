@@ -2,9 +2,13 @@ import { Navigate } from 'react-router-dom';
 import { useAuth } from 'context';
 
 const SecureRoute = ({ children }) => {
-  const { isAuthenticated } = useAuth();
+  const auth = useAuth();
 
-  return isAuthenticated ? children : <Navigate to="/login" />;
+  if (auth.loading) {
+    return null;
+  }
+
+  return auth.isAuthenticated ? children : <Navigate to="/login" />;
 };
 
 export default SecureRoute;
