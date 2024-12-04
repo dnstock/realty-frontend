@@ -100,7 +100,7 @@ const Header = () => {
           </HeaderIconButton>
         )}
         {/* <Icons.LogoV1 sx={{ marginRight: 1 }} color='inherit' /> */}
-        <img src='logo192.png' alt='Logo' id='header-logo' />
+        <img src='/logo192.png' alt='Logo' id='header-logo' />
         <HeaderTitle>
           Realty.AI
         </HeaderTitle>
