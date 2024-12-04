@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 APP='realty-ui'
 CMD=$1
@@ -25,13 +25,17 @@ case $APP in
   "eject")
     docker rm $APP
     ;;
-  "compose")
-    docker compose up --build
+  "up-dev")
+    docker compose -f docker-compose.dev.yml up --build
     ;;
-  "uncompose")
+  "up-prod")
+    docker compose -f docker-compose.prod.yml up --build
+    ;;
+  "down")
     docker compose down
     ;;
   *)
     echo "Invalid command"
+    echo "Usage: ./doc.sh [build|run|start|stop|attach|restart|eject|up-dev|up-prod|down]"
     ;;
 esac
