@@ -31,7 +31,7 @@ const SecureRoutes = (withIndex) =>
     <Route
       key={path}
       path={index && withIndex ? undefined : path}
-      index={index && withIndex || undefined}
+      index={(index && withIndex) || undefined}
       element={
         <SecureRoute>
           {resource ? <Component resource={resource} /> : <Component />}

@@ -52,13 +52,13 @@ const withRowActions = (WrappedComponent) => {
       props = {}
     }) => {
       if (!columnsWithActions.find((c) => c.field === key)) {
-        const IconComponent = toggleable && iconInactive || icon;
+        const IconComponent = (toggleable && iconInactive) || icon;
         columnsWithActions.push({
           field: key,
           headerName: header,
           flex: props.flex || 0.5,
           minWidth: props.minWidth || 50,
-          icons: toggleable && { active: iconActive, inactive: iconInactive } || {},
+          icons: (toggleable && { active: iconActive, inactive: iconInactive }) || {},
           renderCell: (params) => (
             <RowActionIconButton
               onClick={(e) => {

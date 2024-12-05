@@ -12,7 +12,7 @@ const PublicRoutes = (withIndex) =>
     <Route
       key={path}
       path={index && withIndex ? undefined : path}
-      index={index && withIndex || undefined}
+      index={(index && withIndex) || undefined}
       element={<Component />}
     />
   ));
