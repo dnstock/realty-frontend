@@ -458,15 +458,6 @@ export const RowActionsBox = styled(Box)(({ theme }) => ({
   alignContent: 'center',
 }));
 
-export const RowActionIconButton = styled(IconButton)(({ theme }) => ({
-  // minWidth: 'unset',
-  '& svg': {
-    // fontSize: '1rem',
-    // padding: 0,
-    // lineHeight: 1,
-  },
-}));
-
 const ODD_OPACITY = 0.2;
 
 export const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
@@ -520,5 +511,9 @@ export const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
   '& .MuiDataGrid-virtualScroller': {
     overflowX: 'hidden',
     width: '100%',
+  },
+  '& .MuiDataGrid-cell.row-action-cell': {
+    overflow: 'inherit',
+    textOverflow: 'clip',
   },
 }));

@@ -1,9 +1,10 @@
 import { capitalize } from '@mui/material/utils';
-import { Icons, RowActionIconButton } from 'theme';
+import { IconButton } from '@mui/material';
+import { Icons } from 'theme';
 import { useDialog } from 'context';
 
 const withRowActions = (WrappedComponent) => {
-  return function WithRowActions({ columns, flaggable, noteable, ...props }) {
+  return function _({ columns, flaggable, noteable, ...props }) {
     const { openDialog } = useDialog();
 
     // Define row actions and their configurations.
@@ -54,20 +55,23 @@ const withRowActions = (WrappedComponent) => {
       if (!columnsWithActions.find((c) => c.field === key)) {
         const IconComponent = (toggleable && iconInactive) || icon;
         columnsWithActions.push({
+          cellClassName: 'row-action-cell',
           field: key,
           headerName: header,
+          align: 'center',
+          headerAlign: 'center',
           flex: props.flex || 0.5,
           minWidth: props.minWidth || 50,
           icons: (toggleable && { active: iconActive, inactive: iconInactive }) || {},
           renderCell: (params) => (
-            <RowActionIconButton
+            <IconButton
               onClick={(e) => {
                 e.stopPropagation(); // Prevent row click event
                 handler(params.row);
               }}
             >
               <IconComponent />
-            </RowActionIconButton>
+            </IconButton>
           ),
         });
       }
