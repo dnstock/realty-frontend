@@ -49,18 +49,23 @@ npm run build
 
 ## Project Structure
 ```
-src/
-├── assets/         # Static assets
-├── components/     # Reusable UI components
-├── config/         # Configuration files
-│ ├── resources/    # Resource models
-│ └── routes/       # Routing handlers
-├── context/        # React context providers
-├── hooks/          # Custom React hooks
-├── pages/          # Page components
-├── services/       # API services
-├── theme/          # MUI theme customization
-└── utils/          # Utility functions
+.
+├── src/
+│   ├── index.js        # Application entry point
+│   ├── App.js          # Root application component
+│   ├── assets/         # Static assets
+│   ├── components/     # Reusable UI components
+│   ├── config/         # Configuration files
+│   │   ├── resources/  # Resource models
+│   │   └── routes/     # Routing handlers
+│   ├── context/        # React context providers
+│   ├── hooks/          # Custom React hooks
+│   ├── pages/          # Page components
+│   ├── services/       # API services
+│   ├── theme/          # MUI theme customization
+│   └── utils/          # Utility functions
+└── public/
+    └── index.html      # HTML entry point
 ```
 
 ## Features
