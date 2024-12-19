@@ -1,14 +1,13 @@
-import { Link as RouterLink, useLocation } from 'react-router-dom';
-import { List, ListItem, ListItemIcon, ListItemText, IconButton, Tooltip, Box, Divider } from '@mui/material';
+import { List, IconButton, Tooltip, Box, Divider } from '@mui/material';
 import { useAuth, useSidebar } from 'context';
 import { useDeviceType } from 'hooks';
-import { Icons, SidebarDrawer, SidebarLink, SidebarHeader, SidebarFooter } from 'theme';
+import { Icons, SidebarDrawer, SidebarHeader, SidebarFooter } from 'theme';
+import SidebarItem from './SideBarItem';
 
 const Sidebar = () => {
   const { isSidebarOpen, toggleSidebar } = useSidebar();
   const { isMobile } = useDeviceType();
   const { isAuthenticated } = useAuth();
-  const location = useLocation();
 
   const menuItems = isAuthenticated
     ? [
@@ -41,29 +40,13 @@ const Sidebar = () => {
         <Divider />
         <List>
           {menuItems.map((item) => (
-            <Tooltip
-              title={isSidebarOpen ? '' : item.text} // Show tooltip only when collapsed
-              placement="right"
-              arrow
+            <SidebarItem
               key={item.text}
-            >
-              <ListItem disablePadding>
-                <SidebarLink
-                  open={isSidebarOpen}
-                  component={RouterLink}
-                  to={item.path}
-                  selected={location.pathname === item.path}
-                  onClick={isMobile ? toggleSidebar : undefined}
-                >
-                  <ListItemIcon>
-                    <item.icon />
-                  </ListItemIcon>
-                  {isSidebarOpen && (
-                    <ListItemText primary={item.text} />
-                  )}
-                </SidebarLink>
-              </ListItem>
-            </Tooltip>
+              item={item}
+              isSidebarOpen={isSidebarOpen}
+              isMobile={isMobile}
+              toggleSidebar={toggleSidebar}
+            />
           ))}
         </List>
       </Box>

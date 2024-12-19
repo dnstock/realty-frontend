@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useAuth, useSidebar } from 'context';
 import { useDeviceType } from 'hooks';
 import { stringToColor } from 'utils';
-import { useLocation } from 'react-router-dom';
+import { useMatch } from 'react-router-dom';
 import { Toolbar, Typography, Avatar, Tooltip, IconButton, ListItemIcon, Divider } from '@mui/material';
 import {
   HeaderAppBar,
@@ -22,7 +22,6 @@ const Header = () => {
   const { isMobile } = useDeviceType();
   const [anchorElUser, setAnchorElUser] = useState(null);
   const isUserMenuOpen = Boolean(anchorElUser);
-  const location = useLocation();
   const nav = {
     loggedOut: [['Home', '/'], 'Login'],
     loggedIn: [['Dashboard', '/'], 'Reports', 'Analytics'],
@@ -46,14 +45,15 @@ const Header = () => {
     };
   }
 
-  const getHeaderItem = (text, to, icon) => {
+  const HeaderItem = (text, to, icon) => {
     to = to || '/' + text.toLowerCase();
+    const isSelected = !!useMatch(to);
     const IconComponent = icon || Icons[text];
     return isMobile ? (
       <HeaderIconButton
         key={text}
         to={to}
-        selected={location.pathname === to}
+        selected={isSelected}
       >
         <IconComponent />
       </HeaderIconButton>
@@ -61,7 +61,7 @@ const Header = () => {
       <HeaderButton
         key={text}
         to={to}
-        selected={location.pathname === to}
+        selected={isSelected}
         startIcon={<IconComponent />}
       >
         {text}
@@ -69,14 +69,15 @@ const Header = () => {
     );
   };
 
-  const getMenuItem = (text, to, icon) => {
+  const MenuItem = (text, to, icon) => {
     to = to || '/' + text.toLowerCase();
+    const isSelected = !!useMatch(to);
     const IconComponent = icon || Icons[text];
     return (
       <HeaderMenuItem
         to={to}
         key={text}
-        selected={location.pathname === to}
+        selected={isSelected}
       >
         <ListItemIcon>
           <IconComponent fontSize="small" />
@@ -87,7 +88,7 @@ const Header = () => {
   };
 
   const headerItemsFromArray = (items) =>
-    items.map(page => getHeaderItem(
+    items.map(page => HeaderItem(
       ...(Array.isArray(page) ? page : [page])
     ))
 
@@ -137,7 +138,7 @@ const Header = () => {
               </Typography>
             </HeaderMenuHeader>
             <Divider />
-            {userMenu.map((page) => getMenuItem(page))}
+            {userMenu.map((page) => MenuItem(page))}
           </HeaderMenu>
           </>
         ) || (
