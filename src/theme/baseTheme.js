@@ -46,15 +46,6 @@ export default {
     },
   },
   typography: {
-    h1: { fontSize: '3.9rem', fontWeight: 500 },
-    h2: { fontSize: '3.3rem', fontWeight: 500 },
-    h3: { fontSize: '2.7rem', fontWeight: 500 },
-    h4: { fontSize: '2.1rem', fontWeight: 500 },
-    h5: { fontSize: '1.5rem', fontWeight: 500 },
-    h6: { fontSize: '0.8rem', fontWeight: 600 },
-    body1: { fontSize: '1rem' },
-    subtitle1: { fontSize: '1.2rem', fontWeight: 500, color: '#ffffff' },  // For sidebar items
-    button: { textTransform: 'none' },  // Avoid automatic uppercase for buttons
     pre: { whiteSpace: 'pre-wrap', wordWrap: 'break-word', fontFamily: 'monospace' },
   },
   breakpoints: {
@@ -83,12 +74,8 @@ export default {
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: 5,  // Match the global border radius
+          borderRadius: 5,  // Global border radius for buttons
           textTransform: 'none',  // Avoid automatic uppercase for buttons
-          boxShadow: 'none',  // Remove default button shadow
-          '&:hover': {
-            boxShadow: 'none',
-          },
         },
       },
     },
