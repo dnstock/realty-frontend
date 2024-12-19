@@ -4,6 +4,7 @@
 import { generatePath } from 'react-router-dom';
 import startCase from 'lodash.startcase';
 import pluralize from 'pluralize';
+import { capitalize } from '@mui/material';
 
 // Display error message on screen (move to util function if needed elsewhere)
 const displayError = (message, sanitize) => {
@@ -28,8 +29,8 @@ const displayError = (message, sanitize) => {
   document.body.appendChild(errorDiv);
 }
 
-// Avoid duplication (e.g. './Property.js' and 'resources/Property.js')
-const ctx = require.context('./resources', false, /^\.\/[A-Z].+\.js$/);
+// Avoid duplication (e.g. './property.js' and 'resources/property.js')
+const ctx = require.context('./resources', false, /^\.\/[a-z].+\.js$/);
 
 const AppResources = ctx.keys().reduce((modules, path) => {
    // Remove filename artifacts
@@ -51,7 +52,12 @@ const AppResources = ctx.keys().reduce((modules, path) => {
   }
 
   // Set model name
-  module.model = { singular: moduleName, plural: moduleNamePlural };
+  module.name = {
+    singular: moduleName,
+    plural: moduleNamePlural,
+    singularTitle: capitalize(moduleName),
+    pluralTitle: capitalize(moduleNamePlural),
+  };
 
   // Set default database table name
   module.dbTable = module.dbTable || moduleNamePlural.toLowerCase();

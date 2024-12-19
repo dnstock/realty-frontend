@@ -52,9 +52,9 @@ const ResourceIndex = ({ resource }) => {
   ).current;
 
   useContent({
-    title: resource.model.plural,
+    title: resource.name.pluralTitle,
     actions: [
-      { label: `Add ${resource.model.singular}`, icon: Icons.Add, onClick: () => navigate(resource.routes.create) },
+      { label: `New ${resource.name.singularTitle}`, icon: Icons.Add, onClick: () => navigate(resource.routes.create) },
     ],
   });
 

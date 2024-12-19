@@ -1,12 +1,12 @@
-export const Property = {
-  // '..' is a variable for the plural lowercase resource name
+export const property = {
+  // '..' is a placeholder for the plural lowercase resource name
   // See AppResources.js for more details and examples
   routes: {
-    index: '/..',
-    view: '/../:id',
-    edit: '/../edit/:id',
-    create: '/../create',
-    delete: '/../delete/:id',
+    index: '/../',
+    view: '/../:id/',
+    edit: '/../edit/:id/',
+    create: '/../create/',
+    delete: '/../delete/:id/',
   },
   columns: [
     { field: 'id', flex: 0.5, minWidth: 50 },
