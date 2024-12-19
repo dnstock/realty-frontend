@@ -264,8 +264,9 @@ export const StyledGridContainer = styled(Container)(({ theme }) => ({
 }));
 
 export const HeaderButton = styled(({ ...rest }) => (
-  <Button component={RouterLink} variant='outlined' color='inherit' {...rest} />
+  <Button component={RouterLink} variant='outlined' size='inherit' color='inherit' {...rest} />
 ))(({ theme, selected }) => ({
+  textTransform: 'uppercase',
   border: `1px solid ${selected ? 'white' : 'transparent'}`,
   '&:hover': {
     backgroundColor: theme.palette.primary.dark,
