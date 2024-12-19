@@ -59,8 +59,9 @@ const Icons = {
   Add: AddCircle,             // Alt: Add
   NoteAdd: NoteAdd,           // Alt: NoteAlt
   Note: DescriptionOutlined,  // Alt: NoteOutlined
-  FlagInactive: FlagOutlined,
-  FlagActive: Flag,
+  NoteOff: NoteAdd,
+  Flag: Flag,
+  FlagOff: FlagOutlined,
   View: Visibility,
   Back: ArrowBack,            // Alt: ArrowBackIos
   Edit: Edit,

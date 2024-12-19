@@ -2,34 +2,45 @@ import { capitalize } from '@mui/material/utils';
 import { IconButton } from '@mui/material';
 import { Icons } from 'theme';
 import { useDialog } from 'context';
+import { apiService } from 'services';
 
 const withRowActions = (WrappedComponent) => {
-  return function _({ columns, flaggable, noteable, ...props }) {
+  return function _({ resource, flaggable, noteable, ...props }) {
+    const { columns } = resource;
     const { openDialog } = useDialog();
 
     // Define row actions and their configurations.
     const rowActionsConfig = {
       noteable: {
         key: 'note',
-        toggleable: true,
-        handler: async (row) => {
-          openDialog('QuickNotes', row);
+        isActionOn: (row) => {
+          return row.notes?.length > 0;
+        },
+        handler: async (params, isActionOn) => {
+          try {
+            const { api: grid, row } = params;
+            openDialog('QuickNotes', row);
+
+            const updatedStatus = isActionOn(row);
+          } catch (error) {
+            console.error('Failed to toggle notes icon:', error);
+          }
         },
       },
       flaggable: {
         key: 'flag',
-        toggleable: true,
-        handler: async (row) => {
+        color: 'warning',
+        isActionOn: (row) => {
+          return row.is_flagged;
+        },
+        handler: async (params, isActionOn) => {
           try {
-            const updatedStatus = !row.isFlagged; // Toggle status
-            // await api.updateRowActionStatus('flag', row.id, updatedStatus);
-
-            // Optimistically update the row in state or re-fetch data if necessary
-            // setSelectedRows((prevRows) =>
-            //   prevRows.map((r) => (r.id === row.id ? { ...r, isFlagged: updatedFlagStatus } : r))
-            // );
+            const { api: grid, row } = params;
+            const updatedStatus = !isActionOn(row);
+            await apiService.resourceUpdate(resource, row.id, { is_flagged: updatedStatus });
+            grid.updateRows([{ ...row, is_flagged: updatedStatus }]);
           } catch (error) {
-            console.error('Failed to toggle flag:', error);
+            console.error('Failed to toggle flag icon:', error);
           }
         },
       },
@@ -46,14 +57,14 @@ const withRowActions = (WrappedComponent) => {
       key,
       handler,
       header = capitalize(key),
-      toggleable = false,
-      icon = Icons[header],
-      iconActive = Icons[header+'Active'],
-      iconInactive = Icons[header+'Inactive'],
+      isActionOn = () => true, // always "on" if undefined in row action config
+      Icon = Icons[header],
+      color = 'primary',
+      IconOff = Icons[header+'Off'],
+      colorOff = 'disabled',
       props = {}
     }) => {
       if (!columnsWithActions.find((c) => c.field === key)) {
-        const IconComponent = (toggleable && iconInactive) || icon;
         columnsWithActions.push({
           cellClassName: 'row-action-cell',
           field: key,
@@ -62,22 +73,22 @@ const withRowActions = (WrappedComponent) => {
           headerAlign: 'center',
           flex: props.flex || 0.5,
           minWidth: props.minWidth || 50,
-          icons: (toggleable && { active: iconActive, inactive: iconInactive }) || {},
           renderCell: (params) => (
             <IconButton
+              color={isActionOn(params.row) ? color : colorOff}
               onClick={(e) => {
-                e.stopPropagation(); // Prevent row click event
-                handler(params.row);
+                e.stopPropagation();
+                handler(params, isActionOn);
               }}
             >
-              <IconComponent />
+              {isActionOn(params.row) ? <Icon /> : <IconOff />}
             </IconButton>
           ),
         });
       }
     });
 
-    return <WrappedComponent columns={columnsWithActions} {...props} />;
+    return <WrappedComponent columnsWithActions={columnsWithActions} resource={resource} {...props} />;
   };
 };
 

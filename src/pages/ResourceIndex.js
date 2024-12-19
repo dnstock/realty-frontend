@@ -92,7 +92,7 @@ const ResourceIndex = ({ resource }) => {
         <Typography color="error">{state.error}</Typography>
       ) : (
         <ResourceDataGrid
-          columns={resource.columns}
+          resource={resource}
           state={state}
           dispatch={dispatch}
           handlers={{

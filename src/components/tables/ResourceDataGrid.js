@@ -3,14 +3,14 @@ import { useContent } from 'context';
 import { Icons, StyledDataGrid } from 'theme';
 import withRowActions from './withRowActions';
 
-const ResourceDataGrid = ({ columns, state, dispatch, handlers }) => {
+const ResourceDataGrid = ({ columnsWithActions, resource, state, dispatch, handlers }) => {
   const { addActions, updateActions } = useContent();
   const [selectedRows, setSelectedRows] = useState([]);
 
   // Add buttons to the toolbar
   useEffect(() => {
     addActions([
-      { label: 'Flag', icon: Icons.FlagOn, color: 'secondary', onClick: () => {},
+      { label: 'Flag', icon: Icons.Flag, color: 'secondary', onClick: () => {},
         props: { disabled: selectedRows.length === 0 },
       },
       { label: 'Unflag', icon: Icons.FlagOff, color: 'secondary', onClick: () => {},
@@ -42,7 +42,7 @@ const ResourceDataGrid = ({ columns, state, dispatch, handlers }) => {
   return (
     <StyledDataGrid
       rows={state.data}
-      columns={columns}
+      columns={columnsWithActions}
       checkboxSelection
       disableRowSelectionOnClick
       loading={state.loading}
