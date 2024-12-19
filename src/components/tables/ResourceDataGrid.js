@@ -3,7 +3,7 @@ import { useContent } from 'context';
 import { Icons, StyledDataGrid } from 'theme';
 import withRowActions from './withRowActions';
 
-const ResourceDataGrid = ({ columnsWithActions, resource, state, dispatch, handlers }) => {
+const ResourceDataGrid = ({ columnsWithActions, resource, state, dispatchers, handlers }) => {
   const { addActions, updateActions } = useContent();
   const [selectedRows, setSelectedRows] = useState([]);
 
@@ -55,8 +55,8 @@ const ResourceDataGrid = ({ columnsWithActions, resource, state, dispatch, handl
         rowCount: state.totalCount,
       }}
       onPaginationModelChange={(params) => {
-        dispatch({ type: 'SET_PAGE', payload: params.page });
-        dispatch({ type: 'SET_PAGE_SIZE', payload: params.pageSize });
+        dispatchers.setPage(params.page);
+        dispatchers.setPageSize(params.pageSize);
       }}
       onRowSelectionModelChange={handleSelectionChange}
       onRowClick={handleRowClick}
