@@ -3,7 +3,8 @@ import { createTheme } from '@mui/material/styles';
 import baseTheme from './baseTheme';
 import fbPalette from './fbPalette';
 
-const theme = createTheme(deepmerge(baseTheme, fbPalette));
-export default theme;
+export const theme = createTheme(deepmerge(baseTheme, fbPalette));
 export * from './styledComponents';
 export { default as Icons } from './icons';
+
+export default theme;
