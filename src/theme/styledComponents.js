@@ -181,7 +181,7 @@ export const MainContentBox = styled(({ isAuthenticated, isSidebarOpen, ...rest 
 )(({ theme,
   isAuthenticated,
   isSidebarOpen,
-  padding = theme.spacing(2, 2, 0, 2),
+  padding = theme.spacing(1, 2, 0, 2),
 }) => ({
   display: 'flex',
   flexDirection: 'column',
@@ -420,7 +420,6 @@ export const ContentTitleBox = styled(Box)(({ theme }) => ({
   direction: 'row',
   gap: theme.spacing(1.5),
   alignItems: 'center',
-  paddingBottom: theme.spacing(1), // gutterBottom
   '& svg': {
     fontSize: theme.typography.h4.fontSize,
     color: theme.palette.text.secondary,
@@ -434,22 +433,28 @@ export const ContentTitleBox = styled(Box)(({ theme }) => ({
 export const ContentActionBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   direction: 'row',
-  // gap: theme.spacing(2),
+  gap: theme.spacing(2),
   justifyContent: 'flex-end',
-  marginBottom: theme.spacing(2),
+  alignItems: 'center',
 }));
 
 export const ContentActionButton = styled(({ ...rest }) =>
-  <Button variant='contained' {...rest} />
+  <Button variant='outlined' {...rest} />
 )(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  marginLeft: theme.spacing(2),
+  height: theme.spacing(4.5),
+}));
+
+export const ContentIconButton = styled(({ ...rest }) =>
+  <IconButton {...rest} />
+)(({ theme }) => ({
+  // ":hover": {
+  //   backgroundColor: 'inherit',
+  // },
 }));
 
 export const ContentActionDivider = styled(({ ...rest }) =>
   <Divider orientation='vertical' variant='middle' flexItem {...rest} />
 )(({ theme }) => ({
-  marginLeft: theme.spacing(2),
   borderColor: '#636363',
 }));
 
