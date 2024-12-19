@@ -1,5 +1,4 @@
 export default {
-  fbPalette: {
     fdsBlack: '#000000',
     fdsBlackAlpha05: 'rgba(0, 0, 0, 0.05)',
     fdsBlackAlpha10: 'rgba(0, 0, 0, 0.1)',
@@ -495,5 +494,4 @@ export default {
     yellowPrimary: 'rgb(161, 132, 0)',
     yellowSecondary: 'rgb(72, 59, 12)',
     yellowTertiary: 'rgb(255, 246, 161)',
-  }
 };
