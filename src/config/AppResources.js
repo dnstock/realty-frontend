@@ -73,6 +73,12 @@ const AppResources = ctx.keys().reduce((modules, path) => {
     routes[key + 'Path'] = (params = {}) => generatePath(routes[key], params);
     return routes;
   }, {});
+  // Endpoints are similar to routes, but are used for API calls
+  module.endpoints = Object.keys(module.endpoints).reduce((endpoints, key) => {
+    endpoints[key] = module.endpoints[key].replace('..', moduleNamePlural.toLowerCase());
+    endpoints[key + 'Path'] = (params = {}) => generatePath(endpoints[key], params);
+    return endpoints;
+  }, {});
 
   // Normalize column header names (don't rely on DataGrid to do this)
   module.columns = module.columns.map((column) => ({

@@ -68,7 +68,7 @@ const ResourceIndex = ({ resource }) => {
     dispatch({ type: 'SET_LOADING', payload: true });
 
     try {
-      const { rows, totalCount } = await apiService.get(resource.routes.index, {
+      const { rows, totalCount } = await apiService.resourceIndex(resource, {
         skip: page * pageSize,
         limit: pageSize,
       });

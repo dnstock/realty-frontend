@@ -12,7 +12,7 @@ class ApiService {
   get = async (url, params) => this.client.get(url, { params: params }).then(response => response.data);
 
   post = async (url, data) => this.client.post(url, data).then(response => response.data);
-  
+
   put = async (url, data) => this.client.put(url, data).then(response => response.data);
 
   delete = async (url) => this.client.delete(url).then(response => response.data);
@@ -32,6 +32,18 @@ class ApiService {
   updateUserProfile = async (userProfileData) => this.client.put('/user', userProfileData).then(response => response.data);
 
   fetchDashboardData = async () => this.client.get('/dashboard').then(response => response.data);
+
+  // Resource-specific functions
+
+  resourceIndex = async (resource, params) => this.client.get(resource.endpoints.index, { params }).then(response => response.data);
+
+  resourceCreate = async (resource, data) => this.client.post(resource.endpoints.create, data).then(response => response.data);
+
+  resourceRead = async (resource, id) => this.client.get(resource.endpoints.readPath({ id })).then(response => response.data);
+
+  resourceUpdate = async (resource, id, data) => this.client.put(resource.endpoints.updatePath({ id }), data).then(response => response.data);
+
+  resourceDelete = async (resource, id) => this.client.delete(resource.endpoints.deletePath({ id })).then(response => response.data);
 }
 
 const apiService = new ApiService();

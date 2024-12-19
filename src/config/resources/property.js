@@ -8,6 +8,13 @@ export const property = {
     create: '/../create/',
     delete: '/../delete/:id/',
   },
+  endpoints: {
+    index: '/../',
+    create: '/../',
+    read: '/../:id/',
+    update: '/../:id/',
+    delete: '/../:id/',
+  },
   columns: [
     { field: 'id', flex: 0.5, minWidth: 50 },
     { field: 'name', flex: 2, minWidth: 100 },
