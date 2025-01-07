@@ -8,7 +8,7 @@ import { useGridData } from 'hooks';
 const ResourceIndex = ({ resource }) => {
   const navigate = useNavigate();
   const { openDialog } = useDialog();
-  const { state, setPage, setPageSize } = useGridData(resource);
+  const { state, setPage, setPageSize } = useGridData({resource});
 
   useContent({
     title: resource.name.pluralTitle,
@@ -29,15 +29,14 @@ const ResourceIndex = ({ resource }) => {
         <Typography color="error">{state.error}</Typography>
       ) : (
         <ResourceDataGrid
-          resource={resource}
           state={state}
           dispatchers={{
             setPage,
             setPageSize,
           }}
           handlers={{
-            handleView: (id) => navigate(resource.routes.viewPath({ id })),
-            handleEdit: (id) => navigate(resource.routes.editPath({ id })),
+            handleView: (id) => navigate(state.resource.routes.viewPath({ id })),
+            handleEdit: (id) => navigate(state.resource.routes.editPath({ id })),
             handleDelete: ({ row }) => openDialog('ConfirmDelete', row),
           }}
           bulkActions

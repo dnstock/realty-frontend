@@ -3,7 +3,7 @@ import { useContent } from 'context';
 import { Icons, StyledDataGrid } from 'theme';
 import withRowActions from './withRowActions';
 
-const ResourceDataGrid = ({ columnsWithActions, resource, state, dispatchers, handlers, bulkActions }) => {
+const ResourceDataGrid = ({ columnsWithActions, state, dispatchers, handlers, bulkActions }) => {
   const { addActions, updateActions } = useContent();
   const [selectedRows, setSelectedRows] = useState([]);
 
