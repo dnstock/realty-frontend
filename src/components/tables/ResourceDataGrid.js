@@ -3,32 +3,36 @@ import { useContent } from 'context';
 import { Icons, StyledDataGrid } from 'theme';
 import withRowActions from './withRowActions';
 
-const ResourceDataGrid = ({ columnsWithActions, resource, state, dispatchers, handlers }) => {
+const ResourceDataGrid = ({ columnsWithActions, resource, state, dispatchers, handlers, bulkActions }) => {
   const { addActions, updateActions } = useContent();
   const [selectedRows, setSelectedRows] = useState([]);
 
-  // Add buttons to the toolbar
+  // Add buttons to the page content toolbar
   useEffect(() => {
-    addActions([
-      { label: 'Flag', icon: Icons.Flag, color: 'secondary', onClick: () => {},
-        props: { disabled: selectedRows.length === 0 },
-      },
-      { label: 'Unflag', icon: Icons.FlagOff, color: 'secondary', onClick: () => {},
-        props: { disabled: selectedRows.length === 0 },
-      },
-      { label: 'Add Note', icon: Icons.NoteAdd, color: 'secondary', onClick: () => {},
-        props: { disabled: selectedRows.length === 0 },
-      },
-      'divider',
-    ], 'start');
+    if(bulkActions) {
+      addActions([
+        { label: 'Flag', icon: Icons.Flag, color: 'secondary', onClick: () => {},
+          props: { disabled: selectedRows.length === 0 },
+        },
+        { label: 'Unflag', icon: Icons.FlagOff, color: 'secondary', onClick: () => {},
+          props: { disabled: selectedRows.length === 0 },
+        },
+        { label: 'Add Note', icon: Icons.NoteAdd, color: 'secondary', onClick: () => {},
+          props: { disabled: selectedRows.length === 0 },
+        },
+        'divider',
+      ], 'start');
+    }
   }, []);
 
-  // Update button state when selected rows change
+  // Update state of page content buttons when selected rows change
   useEffect(() => {
-    updateActions(
-      ['Flag', 'Unflag', 'Add Note'],
-      { props: { disabled: selectedRows.length === 0 }}
-    );
+    if(bulkActions) {
+      updateActions(
+        ['Flag', 'Unflag', 'Add Note'],
+        { props: { disabled: selectedRows.length === 0 }}
+      );
+    }
   }, [selectedRows]);
 
   const handleRowClick = (params) => {
@@ -43,7 +47,7 @@ const ResourceDataGrid = ({ columnsWithActions, resource, state, dispatchers, ha
     <StyledDataGrid
       rows={state.data}
       columns={columnsWithActions}
-      checkboxSelection
+      onRowClick={handleRowClick}
       disableRowSelectionOnClick
       loading={state.loading}
       autoHeight
@@ -58,8 +62,8 @@ const ResourceDataGrid = ({ columnsWithActions, resource, state, dispatchers, ha
         dispatchers.setPage(params.page);
         dispatchers.setPageSize(params.pageSize);
       }}
-      onRowSelectionModelChange={handleSelectionChange}
-      onRowClick={handleRowClick}
+      checkboxSelection={!!bulkActions}
+      onRowSelectionModelChange={bulkActions && handleSelectionChange}
     />
   );
 };

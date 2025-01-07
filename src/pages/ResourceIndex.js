@@ -40,6 +40,7 @@ const ResourceIndex = ({ resource }) => {
             handleEdit: (id) => navigate(resource.routes.editPath({ id })),
             handleDelete: ({ row }) => openDialog('ConfirmDelete', row),
           }}
+          bulkActions
           flaggable
           noteable
         />
