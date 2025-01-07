@@ -37,7 +37,9 @@ class ApiService {
 
   resourceIndex = async (resource, params) => this.client.get(resource.endpoints.index, { params }).then(response => response.data);
 
-  resourceCreate = async (resource, data) => this.client.post(resource.endpoints.create, data).then(response => response.data);
+  resourceSubindex = async (resource, parentName, parentId, params) => this.client.get(resource.endpoints.subindexPath({ parentName, parentId }), { params }).then(response => response.data);
+
+  resourceCreate = async (resource, parentName, parentId, data) => this.client.post(resource.endpoints.createPath({ parentName, parentId }), data).then(response => response.data);
 
   resourceRead = async (resource, id) => this.client.get(resource.endpoints.readPath({ id })).then(response => response.data);
 
