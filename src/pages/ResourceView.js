@@ -4,8 +4,9 @@ import { apiService } from 'services';
 import { useContent, useDialog } from 'context';
 import { Icons, ContentLoadingBox } from 'theme';
 import { Typography, Box, Paper, Stack, Divider, TextField, Button, IconButton, Switch, FormControlLabel } from '@mui/material';
+import { AppResources } from 'config';
+import { useGridData } from 'hooks';
 import { ResourceDataGrid } from 'components';
-import { useDemoData } from '@mui/x-data-grid-generator';
 
 const ResourceView = ({ resource }) => {
   const { id } = useParams();
@@ -14,11 +15,24 @@ const ResourceView = ({ resource }) => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [isFlagged, setIsFlagged] = useState(data?.is_flagged || false);
+  const { state: childDataState, setPage, setPageSize } = useGridData({
+    resource: data?.configs.child,
+    parentName: data?.configs.resource.name.plural,
+    parentId: data?.id,
+  });
 
   useEffect(() => {
     const fetchResource = async () => {
       try {
-        setData( await apiService.get(resource.routes.viewPath({ id })) );
+        const response = await apiService.resourceRead(resource, id);
+        setData({
+          ...response,
+          configs: {
+            resource: AppResources[response.resource_info.name],
+            parent: AppResources[response.resource_info.parent],
+            child: AppResources[response.resource_info.child],
+          },
+        });
       } catch (error) {
         const errorMsg = `Failed to fetch ${resource.model.singular} data`;
         setError(errorMsg);
@@ -37,12 +51,6 @@ const ResourceView = ({ resource }) => {
       { label: `Back to ${resource.model.plural}`, icon: Icons.Back, onClick: () => navigate(resource.routes.index) },
     ],
   });
-
-  // const gridFiller = useDemoData({
-  //   dataSet: 'Commodity',
-  //   rowLength: 13,
-  //   maxColumns: 9,
-  // });
 
   const toggleFlag = async () => {
     try {
