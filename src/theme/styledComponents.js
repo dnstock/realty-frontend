@@ -459,6 +459,12 @@ export const ContentActionDivider = styled(({ ...rest }) =>
   borderColor: '#636363',
 }));
 
+export const PaginationFooterDivider = styled(({ ...rest }) =>
+  <Divider orientation='vertical' variant='middle' flexItem {...rest} />
+)(({ theme }) => ({
+
+}));
+
 export const RowActionsBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignContent: 'center',
@@ -516,9 +522,18 @@ export const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
   '& .MuiDataGrid-footerContainer': {
     borderTop: `3px solid ${theme.palette.divider}`,
   },
-  '& .MuiTablePagination-toolbar p, .MuiSelect-select': {
-    // fontWeight: 600,
-    color: theme.palette.grey[800],
+  '& .MuiTablePagination-toolbar': {
+    padding: 0,
+    margin: 0,
+    marginLeft: theme.spacing(1),
+  },
+  '& .MuiTablePagination-toolbar div, & .MuiTablePagination-toolbar p': {
+    padding: 0,
+    marginRight: 0,
+    color: theme.palette.grey[600],
+  },
+  '& .MuiTablePagination-actions': {
+    display: 'none',
   },
   '& .MuiDataGrid-virtualScroller': {
     overflowX: 'hidden',

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useContent } from 'context';
 import { Icons, StyledDataGrid, StyledDataGridContainer } from 'theme';
 import withRowActions from './withRowActions';
+import CustomPagination from './CustomPagination';
 
 const ResourceDataGrid = ({ columnsWithActions, state, dispatchers, handlers, bulkActions }) => {
   const { addActions, updateActions } = useContent();
@@ -52,7 +53,9 @@ const ResourceDataGrid = ({ columnsWithActions, state, dispatchers, handlers, bu
         disableRowSelectionOnClick
         loading={state.loading}
         pagination
-        pageSizeOptions={[10, 25, 50, 100]}
+        paginationMode='server'
+        rowCount={state.totalCount}
+        pageSizeOptions={[10, 25, 50]}
         paginationModel={{
           page: state.page,
           pageSize: state.pageSize,
@@ -63,6 +66,9 @@ const ResourceDataGrid = ({ columnsWithActions, state, dispatchers, handlers, bu
         }}
         checkboxSelection={!!bulkActions}
         onRowSelectionModelChange={bulkActions && handleSelectionChange}
+        slots={{
+          pagination: () => <CustomPagination state={state} dispatchers={dispatchers} />
+        }}
       />
     </StyledDataGridContainer>
   );
