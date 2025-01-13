@@ -10,7 +10,8 @@ export const property = {
   },
   endpoints: {
     index: '/../',
-    create: '/../',
+    subindex: '/:parentName/:parentId/../',
+    create: '/:parentName/:parentId/../',
     read: '/../:id/',
     update: '/../:id/',
     delete: '/../:id/',
@@ -24,6 +25,6 @@ export const property = {
     { field: 'zip_code', flex: 1, minWidth: 90 },
     { field: 'type', flex: 2, minWidth: 130 },
     { field: 'manager', flex: 1.5, minWidth: 100,
-      valueGetter: (params) => params.name || '[ Error ]', },
+      valueGetter: (params={}) => params.name || '[ Error ]', },
   ],
 };

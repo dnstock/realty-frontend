@@ -2,19 +2,22 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { apiService } from 'services';
 import { useContent, useDialog } from 'context';
-import { Icons, ContentLoadingBox } from 'theme';
-import { Typography, Box, Paper, Stack, Divider, TextField, Button, IconButton, Switch, FormControlLabel } from '@mui/material';
+import { theme, Icons, ContentLoadingBox, ContentActionButton, ContentIconButton } from 'theme';
+import { Typography, Link, Box, Paper, Stack, TextField, Button } from '@mui/material';
 import { AppResources } from 'config';
-import { useGridData } from 'hooks';
+import { useDeviceType, useGridData, useToast } from 'hooks';
 import { ResourceDataGrid } from 'components';
 
 const ResourceView = ({ resource }) => {
   const { id } = useParams();
+  const { isMobile } = useDeviceType();
+  const { showError, showSuccess } = useToast();
   const navigate = useNavigate();
   const { openDialog } = useDialog();
+  const { addActions, updateActions } = useContent();
   const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
-  const [isFlagged, setIsFlagged] = useState(data?.is_flagged || false);
+  const [loadingError, setLoadingError] = useState(null);
+  const [notes, setNotes] = useState('');
   const { state: childDataState, setPage, setPageSize } = useGridData({
     resource: data?.configs.child,
     parentName: data?.configs.resource.name.plural,
@@ -22,9 +25,10 @@ const ResourceView = ({ resource }) => {
   });
 
   useEffect(() => {
-    const fetchResource = async () => {
-      try {
-        const response = await apiService.resourceRead(resource, id);
+    let mounted = true;
+    apiService.resourceRead(resource, id)
+      .then(response => {
+        if(!mounted) return;
         setData({
           ...response,
           configs: {
@@ -33,122 +37,286 @@ const ResourceView = ({ resource }) => {
             child: AppResources[response.resource_info.child],
           },
         });
-      } catch (error) {
-        const errorMsg = `Failed to fetch ${resource.model.singular} data`;
-        setError(errorMsg);
+        setNotes(response.notes);
+        addActions([
+          {
+            key: 'flag',
+            icon: response.is_flagged ? Icons.Flag : Icons.FlagOff,
+            color: response.is_flagged ? 'warning' : 'default',
+            onClick: toggleFlag,
+          },
+          {
+            key: 'edit',
+            label: 'Edit',
+            icon: Icons.Edit,
+            color: 'secondary',
+            onClick: () => navigate(resource.routes.editPath({ id })),
+          },
+          {
+            key: 'delete',
+            label: 'Delete',
+            icon: Icons.Delete,
+            color: 'secondary',
+            onClick: () => openDialog('ConfirmDelete', data),
+          },
+          'divider',
+        ], 'start');
+      })
+      .catch(error => {
+        if(!mounted) return;
+        const errorMsg = `Failed to fetch ${resource.name.singular} data`;
+        setLoadingError(errorMsg);
         console.error(errorMsg + ':', error);
-      }
-    };
-    fetchResource();
-  }, [id]);
+      });
 
-  useContent({
-    title: resource.model.singular + ' Details',
-    actions: [
-      { label: `Edit ${resource.model.singular}`, icon: Icons.Edit, color: 'info', onClick: () => navigate(resource.routes.editPath({ id })) },
-      { label: `Delete ${resource.model.singular}`, icon: Icons.Delete, color: 'error', onClick: () => openDialog('ConfirmDelete', data) },
-      'divider',
-      { label: `Back to ${resource.model.plural}`, icon: Icons.Back, onClick: () => navigate(resource.routes.index) },
-    ],
-  });
+    return () => mounted = false;
+  }, [id, resource]);
 
   const toggleFlag = async () => {
     try {
-      const newFlagStatus = !isFlagged;
-      await apiService.patch(resource.routes.viewPath({ id }), { is_flagged: newFlagStatus });
-      setIsFlagged(newFlagStatus);
-      console.log(`Resource flag status updated to: ${newFlagStatus}`);
+      setData(prev => {
+        const updated = {
+          ...prev,
+          is_flagged: !prev.is_flagged
+        };
+        apiService.resourceUpdate(resource, id, { is_flagged: updated.is_flagged });
+        updateActions('flag', {
+          icon: updated.is_flagged ? Icons.Flag : Icons.FlagOff,
+          color: updated.is_flagged ? 'warning' : 'default',
+        });
+        showSuccess(`${resource.name.singularTitle} has been ${updated.is_flagged ? 'flagged' : 'unflagged'}`);
+        return updated;
+      });
     } catch (error) {
+      showError('Failed to update flag status');
       console.error('Failed to update flag status:', error);
     }
   };
+
+  useContent({
+    title: resource.name.singularTitle + ' Details',
+    actions: [
+      {
+        key: 'back',
+        label: `All ${resource.name.pluralTitle}`,
+        icon: Icons.Back,
+        onClick: () => navigate(resource.routes.index)
+      },
+    ],
+  });
 
   return (
     <>
       {!data ? (
         <ContentLoadingBox />
-      ) : error ? (
-        <Typography color="error">{error}</Typography>
+      ) : loadingError ? (
+        <Typography color="error">{loadingError}</Typography>
       ) : (
-        <>
-          <Box p={0} display="flex" flexDirection={{ xs: 'column', md: 'row' }} gap={2}>
-            <Paper sx={{ flex: 1, padding: 2, boxShadow: 'none' }}>
-              <Stack direction="row" spacing={0} justifyContent="flex-start">
-                <IconButton color="primary" sx={{ marginTop: -1 }} > {/* onClick={toggleFlag} > */}
-                  {isFlagged ? <Icons.FlagActive /> : <Icons.FlagInactive />}
-                </IconButton>
-                <Typography variant="h5" gutterBottom>
+
+        <Stack
+          spacing={2}
+          flex={1}
+          // border={'3px solid gray;'} // For Debugging
+        >
+          <Box
+            display='flex'
+            flexDirection={{ xs: 'column', md: 'row' }}
+            gap={2}
+            // border={'3px solid teal;'} // For Debugging
+          >
+            <Stack
+              spacing={1}
+              // border={'3px solid red;'} // For Debugging
+              flex={1}
+            >
+              <Box
+                display='flex'
+                flexDirection='row'
+                justifyContent='space-between'
+                borderBottom={1}
+                borderColor={theme.fdsGray30}
+                // border={'3px solid green;'} // For Debugging
+              >
+                <Typography variant="h5">
                   {data.name}
                 </Typography>
-              </Stack>
-              <Stack spacing={1}>
-                <Typography variant="body1">
-                  <strong>Address:</strong> {data.address}
-                </Typography>
-                <Typography variant="body1">
-                  <strong>City:</strong> {data.city}
-                </Typography>
-                <Typography variant="body1">
-                  <strong>State:</strong> {data.state}
-                </Typography>
-                <Typography variant="body1">
-                  <strong>Zip:</strong> {data.zip_code}
-                </Typography>
-                <Typography variant="body1">
-                  <strong>Type:</strong> {data.type}
-                </Typography>
-              </Stack>
-            </Paper>
-            <Divider orientation="vertical" flexItem />
-            <Paper sx={{ flex: 1, padding: 2, boxShadow: 'none' }}>
-              <Stack spacing={2}>
-                <FormControlLabel
-                  control={
-                    <Switch
-                      checked={isFlagged}
-                      onChange={toggleFlag}
-                      color="primary"
-                    />
-                  }
-                  label="Flag this record"
-                />
-                <TextField
-                  fullWidth
-                  multiline
-                  minRows={5}
-                  maxRows={10}
+                <Button
+                  variant='text'
+                  color='secondary'
+                  size='large'
+                  sx={{ minWidth: 0, height: 'fit-content', lineHeight: 'inherit' }}
+                  startIcon={<Icons.Edit sx={{ width: 17, height: 17 }} />}
+                >
+                  Edit
+                </Button>
+              </Box>
+              <Box
+                display='flex'
+                flexDirection={{ xs: 'column', md: 'row' }}
+                gap={2}
+                alignItems='flex-start'
+                // border={'3px solid orange;'} // For Debugging
+              >
+                <Stack flex={1}
+                  // border={'3px solid pink;'} // For Debugging
+                >
+                  <Stack direction="row" spacing={2}>
+                    <Typography variant="body1" sx={{ fontWeight: 'bold', minWidth: 80 }}>
+                      Address:
+                    </Typography>
+                    <Typography variant="body1">{data.address}</Typography>
+                  </Stack>
+
+                  <Stack direction="row" spacing={2}>
+                    <Typography variant="body1" sx={{ fontWeight: 'bold', minWidth: 80 }}>
+                      City:
+                    </Typography>
+                    <Typography variant="body1">{data.city}</Typography>
+                  </Stack>
+
+                  <Stack direction="row" spacing={2}>
+                    <Typography variant="body1" sx={{ fontWeight: 'bold', minWidth: 80 }}>
+                      State:
+                    </Typography>
+                    <Typography variant="body1">{data.state}</Typography>
+                  </Stack>
+
+                  <Stack direction="row" spacing={2}>
+                    <Typography variant="body1" sx={{ fontWeight: 'bold', minWidth: 80 }}>
+                      Zip:
+                    </Typography>
+                    <Typography variant="body1">{data.zip_code}</Typography>
+                  </Stack>
+
+                  <Stack direction="row" spacing={2}>
+                    <Typography variant="body1" sx={{ fontWeight: 'bold', minWidth: 80 }}>
+                      Type:
+                    </Typography>
+                    <Typography variant="body1">{data.type}</Typography>
+                  </Stack>
+                </Stack>
+                <Paper
                   variant="outlined"
-                  label="Your Notes"
-                  value={data.notes || ''}
-                  onChange={(e) => setData({ ...data, notes: e.target.value })}
-                />
-                <Box display="flex" justifyContent="flex-end">
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={async () => {
-                      try {
-                        await apiService.patch(resource.routes.viewPath({ id }), { notes: data.notes });
-                        console.log('Notes updated successfully');
-                      } catch (error) {
-                        console.error('Failed to save notes:', error);
-                      }
-                    }}
+                  sx={{
+                    display: 'flex',
+                    borderRadius: .8,
+                  }}
+                >
+                  <Stack
+                    direction="row"
+                    spacing={0}
+                    padding={0}
                   >
-                    Save Notes
-                  </Button>
-                </Box>
-              </Stack>
-            </Paper>
+                    <Box
+                      sx={{
+                        bgcolor: 'grey.100',
+                        px: 2,
+                        py: .8,
+                        borderRight: 1,
+                        borderColor: 'divider',
+                      }}
+                    >
+                      <Typography variant="body1">
+                        {data.configs.parent.name.singularTitle}
+                      </Typography>
+                    </Box>
+                    <Box
+                      sx={{
+                        px: 2,
+                        py: .8,
+                      }}
+                    >
+                      <Typography variant='body1'>
+                        <Link href="">
+                          {data.manager.name}
+                        </Link>
+                      </Typography>
+                    </Box>
+                  </Stack>
+                </Paper>
+              </Box>
+            </Stack>
+            <Stack
+              spacing={2}
+              flex={1}
+              // border={'3px solid orange;'} // For Debugging
+            >
+              <TextField
+                fullWidth
+                multiline
+                minRows={5}
+                maxRows={10}
+                variant="outlined"
+                label="Your Notes"
+                value={notes}
+                onChange={(e) => setNotes(e.target.value)}
+                onBlur={async (e) => {
+                  try {
+                    await apiService.resourceUpdate(resource, id, { notes: e.target.value });
+                    showSuccess('Notes saved successfully');
+                  } catch (error) {
+                    showError('Failed to save notes');
+                    console.error('Failed to save notes:', error);
+                  }
+                }}
+              />
+            </Stack>
           </Box>
-          <Divider sx={{ my: 3 }} />
-          <Box sx={{ height: 400, width: '100%' }}>
-            <Typography variant="h5" gutterBottom>
-              Related Data
-            </Typography>
-            {/* <ResourceDataGrid loading={gridFiller.loading} data={gridFiller.data} /> */}
-          </Box>
-        </>
+          <Stack
+            spacing={1}
+            flex={1}
+            // border={'3px solid blue;'} // For Debugging
+          >
+            <Box
+              display='flex'
+              flexDirection='row'
+              justifyContent='space-between'
+              // border={'3px solid green;'} // For Debugging
+            >
+              <Typography variant="h5">
+                {data.configs.child.name.pluralTitle}
+              </Typography>
+              {isMobile && (
+                <ContentIconButton
+                  color='primary'
+                  onClick={() => navigate(data.configs.child.routes.create)}
+                  sx={{ marginTop: -1 }}
+                >
+                  <Icons.Add />
+                </ContentIconButton>
+              ) || (
+                <ContentActionButton
+                  color='primary'
+                  startIcon={<Icons.Add />}
+                  onClick={() => navigate(data.configs.child.routes.create)}
+                  sx={{ marginTop: -1 }}
+                >
+                  New {data.configs.child.name.singularTitle}
+                </ContentActionButton>
+              )}
+            </Box>
+            {childDataState.loading ? (
+              <ContentLoadingBox />
+            ) : childDataState.error ? (
+              <Typography color="error">{childDataState.error}</Typography>
+            ) : (
+              <ResourceDataGrid
+                state={childDataState}
+                dispatchers={{
+                  setPage,
+                  setPageSize,
+                }}
+                handlers={{
+                  handleView: (id) => navigate(childDataState.resource.routes.viewPath({ id })),
+                  handleEdit: (id) => navigate(childDataState.resource.routes.editPath({ id })),
+                  handleDelete: ({ row }) => openDialog('ConfirmDelete', row),
+                }}
+                flaggable
+                noteable
+              />
+            )}
+          </Stack>
+        </Stack>
       )}
     </>
   );
