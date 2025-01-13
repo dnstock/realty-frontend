@@ -1,5 +1,5 @@
 import { useLocation } from 'react-router-dom';
-import { SnackbarProvider } from 'notistack';
+import { Toaster } from 'sonner';
 import { ContentLoadingBox } from 'theme';
 import {
   useAuth,
@@ -15,7 +15,8 @@ const AppProviders = ({ children }) => {
   return (
     // Wait until auth loading is complete
     authLoading ? <ContentLoadingBox /> :
-    <SnackbarProvider maxSnack={3}>
+    <>
+      <Toaster position='bottom-left' />
       <DialogProvider>
         <SidebarProvider>
           <ContentProvider key={pathname}> {/* reset on route changes */}
@@ -23,7 +24,7 @@ const AppProviders = ({ children }) => {
           </ContentProvider>
         </SidebarProvider>
       </DialogProvider>
-    </SnackbarProvider>
+    </>
   );
 };
 
