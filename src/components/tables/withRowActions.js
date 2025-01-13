@@ -13,6 +13,7 @@ const withRowActions = (WrappedComponent) => {
     const rowActionsConfig = {
       noteable: {
         key: 'note',
+        color: 'violet',
         isActionOn: (row) => {
           return row.notes?.length > 0;
         },
