@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useContent } from 'context';
-import { Icons, StyledDataGrid } from 'theme';
+import { Icons, StyledDataGrid, StyledDataGridContainer } from 'theme';
 import withRowActions from './withRowActions';
 
 const ResourceDataGrid = ({ columnsWithActions, state, dispatchers, handlers, bulkActions }) => {
@@ -44,27 +44,27 @@ const ResourceDataGrid = ({ columnsWithActions, state, dispatchers, handlers, bu
   };
 
   return (
-    <StyledDataGrid
-      rows={state.data}
-      columns={columnsWithActions}
-      onRowClick={handleRowClick}
-      disableRowSelectionOnClick
-      loading={state.loading}
-      autoHeight
-      pagination
-      pageSizeOptions={[10, 25, 50, 100]}
-      paginationModel={{
-        page: state.page,
-        pageSize: state.pageSize,
-        rowCount: state.totalCount,
-      }}
-      onPaginationModelChange={(params) => {
-        dispatchers.setPage(params.page);
-        dispatchers.setPageSize(params.pageSize);
-      }}
-      checkboxSelection={!!bulkActions}
-      onRowSelectionModelChange={bulkActions && handleSelectionChange}
-    />
+    <StyledDataGridContainer>
+      <StyledDataGrid
+        rows={state.data}
+        columns={columnsWithActions}
+        onRowClick={handleRowClick}
+        disableRowSelectionOnClick
+        loading={state.loading}
+        pagination
+        pageSizeOptions={[10, 25, 50, 100]}
+        paginationModel={{
+          page: state.page,
+          pageSize: state.pageSize,
+        }}
+        onPaginationModelChange={(params) => {
+          dispatchers.setPage(params.page);
+          dispatchers.setPageSize(params.pageSize);
+        }}
+        checkboxSelection={!!bulkActions}
+        onRowSelectionModelChange={bulkActions && handleSelectionChange}
+      />
+    </StyledDataGridContainer>
   );
 };
 

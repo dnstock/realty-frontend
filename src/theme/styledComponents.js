@@ -499,6 +499,12 @@ export const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
   },
 }));
 
+export const StyledDataGridContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  height: '100%',
+}));
+
 export const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
   border: 0,
   '& .MuiDataGrid-row:hover': {
