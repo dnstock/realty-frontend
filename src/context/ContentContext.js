@@ -24,25 +24,31 @@ export const ContentProvider = ({ children }) => {
 
   const clearActions = () => setActionButtons([]);
 
+  // Example usage:
+  //  addActions([action1, action2], 'start');
+  //  addActions([action3, action4], 'end'); // Default position
   const addActions = (actions, position) =>
     setActionButtons((prev) => {
       // Omit actions that already exist
-      const newActions = actions.filter((action) => !prev.some((btn) => btn.label === action.label));
+      const newActions = actions.filter((action) => !prev.some((btn) => btn.key === action.key));
       return position === 'start' ? [...newActions, ...prev] : [...prev, ...newActions];
     });
 
-  const removeActions = (indicesOrLabels) =>
+  // Example usage:
+  //  removeActions([0, 1]);
+  //  removeActions(['add', 'edit']);
+  const removeActions = (indicesOrKeys) =>
     setActionButtons((prev) => prev.filter((btn, i) =>
-      !indicesOrLabels.includes(i) && !indicesOrLabels.includes(btn.label)
+      !indicesOrKeys.includes(i) && !indicesOrKeys.includes(btn.key)
     ));
 
   // Example usage:
   //  updateActions([0, 1], { disabled: true });
-  //  updateActions(['Add', 'Edit'], { color: 'secondary' });
-  const updateActions = (indicesOrLabels, updatedAction) =>
+  //  updateActions(['add', 'edit'], { color: 'secondary' });
+  const updateActions = (indicesOrKeys, updatedAction) =>
     setActionButtons((prev) =>
       prev.map((btn, i) => (
-        indicesOrLabels.includes(i) || indicesOrLabels.includes(btn.label)
+        indicesOrKeys.includes(i) || indicesOrKeys.includes(btn.key)
           ? { ...btn, ...updatedAction }
           : btn
       ))
@@ -60,8 +66,8 @@ export const ContentProvider = ({ children }) => {
     updateActions,
     actions: {
       add: (action, position) => addActions([action], position),
-      remove: (indexOrLabel) => removeActions([indexOrLabel]),
-      update: (indexOrLabel, updatedAction) => updateActions([indexOrLabel], updatedAction),
+      remove: (indexOrKey) => removeActions([indexOrKey]),
+      update: (indexOrKey, updatedAction) => updateActions([indexOrKey], updatedAction),
     },
   };
 

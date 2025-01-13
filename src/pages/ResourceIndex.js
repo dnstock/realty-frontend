@@ -14,6 +14,7 @@ const ResourceIndex = ({ resource }) => {
     title: resource.name.pluralTitle,
     actions: [
       {
+        key: 'new',
         label: `New ${resource.name.singularTitle}`,
         icon: Icons.Add,
         onClick: () => navigate(resource.routes.create),
