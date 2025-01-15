@@ -3,10 +3,28 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { apiService } from 'services';
 import { useContent, useDialog } from 'context';
 import { theme, Icons, ContentLoadingBox, ContentActionButton, ContentIconButton } from 'theme';
-import { Typography, Link, Box, Paper, Stack, TextField, Button } from '@mui/material';
+import { useFormControl, Typography, Link, Box, Paper, Stack, TextField, Button } from '@mui/material';
 import { AppResources } from 'config';
 import { useDeviceType, useToast } from 'hooks';
 import { ResourceDataGrid } from 'components';
+
+const NotesHelperTextWithFocus = () => {
+  const formControl = useFormControl();
+
+  return (
+    <Typography
+      variant="caption"
+      sx={{
+        position: 'absolute',
+        opacity: formControl?.focused ? 1 : 0,
+        transition: 'opacity 200ms ease-in-out',
+        color: 'text.secondary',
+      }}
+    >
+      Notes are private and only visible to you
+    </Typography>
+  );
+};
 
 const ResourceView = ({ resource }) => {
   const { id } = useParams();
@@ -17,7 +35,7 @@ const ResourceView = ({ resource }) => {
   const { addActions, updateActions } = useContent();
   const [data, setData] = useState(null);
   const [loadingError, setLoadingError] = useState(null);
-  const [notes, setNotes] = useState('');
+  const [tempNotes, setTempNotes] = useState('');
 
   useEffect(() => {
     let mounted = true;
@@ -32,7 +50,7 @@ const ResourceView = ({ resource }) => {
             child: AppResources[response.resource_info.child],
           },
         });
-        setNotes(response.notes);
+        setTempNotes(response.notes);
         addActions([
           {
             key: 'flag',
@@ -239,13 +257,18 @@ const ResourceView = ({ resource }) => {
                 multiline
                 minRows={5}
                 maxRows={10}
-                value={notes}
-                onChange={(e) => setNotes(e.target.value)}
                 variant='outlined'
                 label='Notes'
+                placeholder='Type some notes...'
+                helperText={<NotesHelperTextWithFocus />}
+                value={tempNotes || ''}
+                onChange={(e) => setTempNotes(e.target.value)}
                 onBlur={async (e) => {
                   try {
-                    await apiService.resourceUpdate(resource, id, { notes: e.target.value });
+                    const notes = e.target.value.length ? e.target.value : null;
+                    if(notes === data.notes) return;
+                    await apiService.resourceUpdate(resource, id, { notes: notes });
+                    setData(prev => ({ ...prev, notes }));
                     showSuccess('Notes saved successfully');
                   } catch (error) {
                     showError('Failed to save notes');
