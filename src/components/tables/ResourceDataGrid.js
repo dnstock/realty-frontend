@@ -30,7 +30,7 @@ const ResourceDataGrid = ({ columnsWithActions, state, dispatchers, handlers, bu
   useEffect(() => {
     if(bulkActions) {
       updateActions(
-        ['Flag', 'Unflag', 'Add Note'],
+        ['flag', 'unflag', 'add-note'],
         { props: { disabled: selectedRows.length === 0 }}
       );
     }

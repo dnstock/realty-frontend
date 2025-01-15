@@ -31,6 +31,16 @@ export const ContentProvider = ({ children }) => {
     setActionButtons((prev) => {
       // Omit actions that already exist
       const newActions = actions.filter((action) => !prev.some((btn) => btn.key === action.key));
+
+      // Generate keys from labels unless set in action
+      // Example: 'Add New' -> 'add-new'
+      newActions.forEach((action, i) => {
+        if(typeof action === 'object' && !action.key) {
+          action.key = action.label ? action.label.toLowerCase().replace(/\s/g, '-') : `action-${i}`;
+        }
+      });
+
+      // Insert at the start or end of existing actions
       return position === 'start' ? [...newActions, ...prev] : [...prev, ...newActions];
     });
 

@@ -9,7 +9,7 @@ const Header = () => {
 
   const actionButton = (action, index) => (
     <ContentActionButton
-      key={index}
+      key={(action.key || '') + index}
       color={action.color || 'primary'}
       startIcon={action.icon ? <action.icon /> : null}
       onClick={action.onClick}
@@ -21,7 +21,7 @@ const Header = () => {
 
   const actionIcon = (action, index) => (
     <ContentIconButton
-      key={index}
+      key={(action.key || '') + index}
       color={action.color || 'primary'}
       onClick={action.onClick}
       size={isMobile ? 'medium' : 'large'}

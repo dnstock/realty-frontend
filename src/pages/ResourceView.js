@@ -46,14 +46,12 @@ const ResourceView = ({ resource }) => {
             onClick: toggleFlag,
           },
           {
-            key: 'edit',
             label: 'Edit',
             icon: Icons.Edit,
             color: 'secondary',
             onClick: () => navigate(resource.routes.editPath({ id })),
           },
           {
-            key: 'delete',
             label: 'Delete',
             icon: Icons.Delete,
             color: 'secondary',
