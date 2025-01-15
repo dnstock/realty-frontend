@@ -1,15 +1,22 @@
 import { useState, useEffect } from 'react';
 import { useContent } from 'context';
+import { useCaseInsensitiveSearchParams, useGridData } from 'hooks';
 import { Icons, StyledDataGrid, StyledDataGridContainer } from 'theme';
 import withRowActions from './withRowActions';
 import CustomPagination from './CustomPagination';
 
-const ResourceDataGrid = ({ columnsWithActions, state, dispatchers, handlers, bulkActions }) => {
+const ResourceDataGrid = ({ columnsWithActions, handlers, bulkActions, resource, resourceParent, initialPage=0, initialPageSize=10, pageSizeOptions=[10, 25, 50] }) => {
+  const { rows, rowCount, loading, fetchRows } = useGridData({ resource, parent: resourceParent });
   const { addActions, updateActions } = useContent();
+  const [searchParams, setSearchParams] = useCaseInsensitiveSearchParams();
   const [selectedRows, setSelectedRows] = useState([]);
+  const initialPagination = {
+    page: Number(searchParams.get('page')) > 0 ? Number(searchParams.get('page')) - 1 : initialPage, // 0-indexed
+    pageSize: pageSizeOptions.includes(Number(searchParams.get('page_size'))) ? Number(searchParams.get('page_size')) : initialPageSize,
+  };
 
-  // Add buttons to the page content toolbar
   useEffect(() => {
+    // Add buttons to the page content toolbar
     if(bulkActions) {
       addActions([
         { label: 'Flag', icon: Icons.Flag, color: 'secondary', onClick: () => {},
@@ -24,6 +31,8 @@ const ResourceDataGrid = ({ columnsWithActions, state, dispatchers, handlers, bu
         'divider',
       ], 'start');
     }
+    // Fetch initial data
+    handlePaginationModelChange(initialPagination);
   }, []);
 
   // Update state of page content buttons when selected rows change
@@ -36,38 +45,42 @@ const ResourceDataGrid = ({ columnsWithActions, state, dispatchers, handlers, bu
     }
   }, [selectedRows]);
 
-  const handleRowClick = (params) => {
-    handlers?.handleView && handlers.handleView(params.row.id);
+  const handlePaginationModelChange = ({ page, pageSize }) => {
+    // Validate page and page_size
+    if(Number(page) < 0 || !pageSizeOptions.includes(Number(pageSize))) return;
+
+    // Update URL first
+    setSearchParams({ page: page + 1, page_size: pageSize }); // 0-indexed
+
+    // Then update grid
+    fetchRows({ page, pageSize });
   };
 
-  const handleSelectionChange = (newSelection) => {
-    setSelectedRows(newSelection);
-  };
+  const handleRowClick = (params) => handlers?.handleView?.(params.row.id);
+
+  const handleSelectionChange = (newSelection) => setSelectedRows(newSelection);
 
   return (
     <StyledDataGridContainer>
       <StyledDataGrid
-        rows={state.data}
+        rows={rows}
         columns={columnsWithActions}
         onRowClick={handleRowClick}
         disableRowSelectionOnClick
-        loading={state.loading}
+        loading={loading}
         pagination
         paginationMode='server'
-        rowCount={state.totalCount}
-        pageSizeOptions={[10, 25, 50]}
-        paginationModel={{
-          page: state.page,
-          pageSize: state.pageSize,
+        // keepNonExistentRowsSelected // Prevents deselection of rows when page changes
+        rowCount={rowCount}
+        pageSizeOptions={pageSizeOptions}
+        initialState={{
+          pagination: { paginationModel: initialPagination }
         }}
-        onPaginationModelChange={(params) => {
-          dispatchers.setPage(params.page);
-          dispatchers.setPageSize(params.pageSize);
-        }}
+        onPaginationModelChange={handlePaginationModelChange}
         checkboxSelection={!!bulkActions}
         onRowSelectionModelChange={bulkActions && handleSelectionChange}
         slots={{
-          pagination: () => <CustomPagination state={state} dispatchers={dispatchers} />
+          pagination: () => CustomPagination({ pageSizeOptions }),
         }}
       />
     </StyledDataGridContainer>

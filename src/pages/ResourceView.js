@@ -5,7 +5,7 @@ import { useContent, useDialog } from 'context';
 import { theme, Icons, ContentLoadingBox, ContentActionButton, ContentIconButton } from 'theme';
 import { Typography, Link, Box, Paper, Stack, TextField, Button } from '@mui/material';
 import { AppResources } from 'config';
-import { useDeviceType, useGridData, useToast } from 'hooks';
+import { useDeviceType, useToast } from 'hooks';
 import { ResourceDataGrid } from 'components';
 
 const ResourceView = ({ resource }) => {
@@ -18,11 +18,6 @@ const ResourceView = ({ resource }) => {
   const [data, setData] = useState(null);
   const [loadingError, setLoadingError] = useState(null);
   const [notes, setNotes] = useState('');
-  const { state: childDataState, setPage, setPageSize } = useGridData({
-    resource: data?.configs.child,
-    parentName: data?.configs.resource.name.plural,
-    parentId: data?.id,
-  });
 
   useEffect(() => {
     let mounted = true;
@@ -108,7 +103,7 @@ const ResourceView = ({ resource }) => {
       {!data ? (
         <ContentLoadingBox />
       ) : loadingError ? (
-        <Typography color="error">{loadingError}</Typography>
+        <Typography color='error'>{loadingError}</Typography>
       ) : (
 
         <Stack
@@ -135,7 +130,7 @@ const ResourceView = ({ resource }) => {
                 borderColor={theme.fdsGray30}
                 // border={'3px solid green;'} // For Debugging
               >
-                <Typography variant="h5">
+                <Typography variant='h5'>
                   {data.name}
                 </Typography>
                 <Button
@@ -158,50 +153,50 @@ const ResourceView = ({ resource }) => {
                 <Stack flex={1}
                   // border={'3px solid pink;'} // For Debugging
                 >
-                  <Stack direction="row" spacing={2}>
-                    <Typography variant="body1" sx={{ fontWeight: 'bold', minWidth: 80 }}>
+                  <Stack direction='row' spacing={2}>
+                    <Typography variant='body1' sx={{ fontWeight: 'bold', minWidth: 80 }}>
                       Address:
                     </Typography>
-                    <Typography variant="body1">{data.address}</Typography>
+                    <Typography variant='body1'>{data.address}</Typography>
                   </Stack>
 
-                  <Stack direction="row" spacing={2}>
-                    <Typography variant="body1" sx={{ fontWeight: 'bold', minWidth: 80 }}>
+                  <Stack direction='row' spacing={2}>
+                    <Typography variant='body1' sx={{ fontWeight: 'bold', minWidth: 80 }}>
                       City:
                     </Typography>
-                    <Typography variant="body1">{data.city}</Typography>
+                    <Typography variant='body1'>{data.city}</Typography>
                   </Stack>
 
-                  <Stack direction="row" spacing={2}>
-                    <Typography variant="body1" sx={{ fontWeight: 'bold', minWidth: 80 }}>
+                  <Stack direction='row' spacing={2}>
+                    <Typography variant='body1' sx={{ fontWeight: 'bold', minWidth: 80 }}>
                       State:
                     </Typography>
-                    <Typography variant="body1">{data.state}</Typography>
+                    <Typography variant='body1'>{data.state}</Typography>
                   </Stack>
 
-                  <Stack direction="row" spacing={2}>
-                    <Typography variant="body1" sx={{ fontWeight: 'bold', minWidth: 80 }}>
+                  <Stack direction='row' spacing={2}>
+                    <Typography variant='body1' sx={{ fontWeight: 'bold', minWidth: 80 }}>
                       Zip:
                     </Typography>
-                    <Typography variant="body1">{data.zip_code}</Typography>
+                    <Typography variant='body1'>{data.zip_code}</Typography>
                   </Stack>
 
-                  <Stack direction="row" spacing={2}>
-                    <Typography variant="body1" sx={{ fontWeight: 'bold', minWidth: 80 }}>
+                  <Stack direction='row' spacing={2}>
+                    <Typography variant='body1' sx={{ fontWeight: 'bold', minWidth: 80 }}>
                       Type:
                     </Typography>
-                    <Typography variant="body1">{data.type}</Typography>
+                    <Typography variant='body1'>{data.type}</Typography>
                   </Stack>
                 </Stack>
                 <Paper
-                  variant="outlined"
+                  variant='outlined'
                   sx={{
                     display: 'flex',
                     borderRadius: .8,
                   }}
                 >
                   <Stack
-                    direction="row"
+                    direction='row'
                     spacing={0}
                     padding={0}
                   >
@@ -214,7 +209,7 @@ const ResourceView = ({ resource }) => {
                         borderColor: 'divider',
                       }}
                     >
-                      <Typography variant="body1">
+                      <Typography variant='body1'>
                         {data.configs.parent.name.singularTitle}
                       </Typography>
                     </Box>
@@ -225,7 +220,7 @@ const ResourceView = ({ resource }) => {
                       }}
                     >
                       <Typography variant='body1'>
-                        <Link href="">
+                        <Link href=''>
                           {data.manager.name}
                         </Link>
                       </Typography>
@@ -244,10 +239,10 @@ const ResourceView = ({ resource }) => {
                 multiline
                 minRows={5}
                 maxRows={10}
-                variant="outlined"
-                label="Your Notes"
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
+                variant='outlined'
+                label='Notes'
                 onBlur={async (e) => {
                   try {
                     await apiService.resourceUpdate(resource, id, { notes: e.target.value });
@@ -271,7 +266,7 @@ const ResourceView = ({ resource }) => {
               justifyContent='space-between'
               // border={'3px solid green;'} // For Debugging
             >
-              <Typography variant="h5">
+              <Typography variant='h5'>
                 {data.configs.child.name.pluralTitle}
               </Typography>
               {isMobile && (
@@ -293,26 +288,20 @@ const ResourceView = ({ resource }) => {
                 </ContentActionButton>
               )}
             </Box>
-            {childDataState.loading ? (
-              <ContentLoadingBox />
-            ) : childDataState.error ? (
-              <Typography color="error">{childDataState.error}</Typography>
-            ) : (
-              <ResourceDataGrid
-                state={childDataState}
-                dispatchers={{
-                  setPage,
-                  setPageSize,
-                }}
-                handlers={{
-                  handleView: (id) => navigate(childDataState.resource.routes.viewPath({ id })),
-                  handleEdit: (id) => navigate(childDataState.resource.routes.editPath({ id })),
-                  handleDelete: ({ row }) => openDialog('ConfirmDelete', row),
-                }}
-                flaggable
-                noteable
-              />
-            )}
+            <ResourceDataGrid
+              resource={data.configs.child}
+              resourceParent={{
+                name: data.configs.resource.name.plural,
+                id: data.id,
+              }}
+              handlers={{
+                handleView: (id) => navigate(data?.configs.child.routes.viewPath({ id })),
+                handleEdit: (id) => navigate(data?.configs.child.routes.editPath({ id })),
+                handleDelete: ({ row }) => openDialog('ConfirmDelete', row),
+              }}
+              flaggable
+              noteable
+            />
           </Stack>
         </Stack>
       )}

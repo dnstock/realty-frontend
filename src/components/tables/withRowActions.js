@@ -5,8 +5,8 @@ import { useDialog } from 'context';
 import { apiService } from 'services';
 
 const withRowActions = (WrappedComponent) => {
-  return function _({ state, flaggable, noteable, ...props }) {
-    const { columns } = state.resource;
+  return function _({ resource, flaggable, noteable, ...props }) {
+    const { columns } = resource;
     const { openDialog } = useDialog();
 
     // Define row actions and their configurations.
@@ -38,7 +38,7 @@ const withRowActions = (WrappedComponent) => {
           try {
             const { api: grid, row } = params;
             const updatedStatus = !isActionOn(row);
-            await apiService.resourceUpdate(state.resource, row.id, { is_flagged: updatedStatus });
+            await apiService.resourceUpdate(resource, row.id, { is_flagged: updatedStatus });
             grid.updateRows([{ ...row, is_flagged: updatedStatus }]);
           } catch (error) {
             console.error('Failed to toggle flag icon:', error);
@@ -89,7 +89,7 @@ const withRowActions = (WrappedComponent) => {
       }
     });
 
-    return <WrappedComponent columnsWithActions={columnsWithActions} state={state} {...props} />;
+    return <WrappedComponent columnsWithActions={columnsWithActions} resource={resource} {...props} />;
   };
 };
 
