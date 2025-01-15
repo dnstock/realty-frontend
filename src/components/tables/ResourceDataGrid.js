@@ -80,7 +80,7 @@ const ResourceDataGrid = ({ columnsWithActions, handlers, bulkActions, resource,
         checkboxSelection={!!bulkActions}
         onRowSelectionModelChange={bulkActions && handleSelectionChange}
         slots={{
-          pagination: () => CustomPagination({ pageSizeOptions }),
+          pagination: () => CustomPagination({ resource, pageSizeOptions }),
         }}
       />
     </StyledDataGridContainer>

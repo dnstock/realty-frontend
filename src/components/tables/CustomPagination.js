@@ -5,7 +5,7 @@ import { FirstPage, LastPage, NavigateBefore, NavigateNext } from '@mui/icons-ma
 import { PaginationFooterDivider } from 'theme';
 
 const CustomPagination = (props) => {
-  const { pageSizeOptions } = props;
+  const { resource, pageSizeOptions } = props;
   const apiRef = useGridApiContext();
   const pagination = useGridSelector(apiRef, gridPaginationSelector);
   const rowCount = useGridSelector(apiRef, gridRowCountSelector);
@@ -68,18 +68,28 @@ const CustomPagination = (props) => {
   };
 
   // Don't render initial pagination until state is ready
-  if (!pagination || totalRows === 0) {
+  if(loading && totalRows === 0) {
     return (
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', p: 2 }}>
         <Typography variant="body2" color="text.secondary">
-          Loading page data...
+          Loading {resource.name.singular} data...
+        </Typography>
+      </Box>
+    );
+  }
+
+  if(totalRows === 0) {
+    return (
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, px: 1 }}>
+        <Typography variant="body2" color="text.secondary" sx={{ fontStyle: 'italic' }}>
+          Add a new {resource.name.singularTitle} to get started!
         </Typography>
       </Box>
     );
   }
 
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, px: 1 }}>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
         <FormControl size="small" sx={{ minWidth: 60 }}>
           <InputLabel>Rows</InputLabel>
