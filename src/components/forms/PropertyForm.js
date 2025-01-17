@@ -52,8 +52,8 @@ const PropertyForm = ({ title, initialValues, onSubmit, serverErrors }) => {
           <FieldWrapper>
             <TextField
               fullWidth
-              name="name"
-              label="Property Name"
+              name='name'
+              label='Property Name'
               value={values.name}
               onChange={handleChange}
               error={Boolean(errors.name && touched.name) || Boolean(serverErrors.name)}
@@ -64,8 +64,8 @@ const PropertyForm = ({ title, initialValues, onSubmit, serverErrors }) => {
           <FieldWrapper>
             <TextField
               fullWidth
-              name="address"
-              label="Address"
+              name='address'
+              label='Address'
               value={values.address}
               onChange={handleChange}
               error={Boolean(errors.address && touched.address) || Boolean(serverErrors.address)}
@@ -77,8 +77,8 @@ const PropertyForm = ({ title, initialValues, onSubmit, serverErrors }) => {
             <FieldWrapper flex={2}>
               <TextField
                 fullWidth
-                name="city"
-                label="City"
+                name='city'
+                label='City'
                 value={values.city}
                 onChange={handleChange}
                 error={Boolean(errors.city && touched.city) || Boolean(serverErrors.city)}
@@ -89,8 +89,8 @@ const PropertyForm = ({ title, initialValues, onSubmit, serverErrors }) => {
             <FieldWrapper>
               <TextField
                 fullWidth
-                name="state"
-                label="State"
+                name='state'
+                label='State'
                 value={values.state}
                 onChange={handleChange}
                 error={Boolean(errors.state && touched.state) || Boolean(serverErrors.state)}
@@ -101,8 +101,8 @@ const PropertyForm = ({ title, initialValues, onSubmit, serverErrors }) => {
             <FieldWrapper>
               <TextField
                 fullWidth
-                name="zip"
-                label="Zip"
+                name='zip'
+                label='Zip'
                 value={values.zip}
                 onChange={handleChange}
                 error={Boolean(errors.zip && touched.zip) || Boolean(serverErrors.zip)}
@@ -114,9 +114,9 @@ const PropertyForm = ({ title, initialValues, onSubmit, serverErrors }) => {
           <FieldWrapper>
             <TextField
               fullWidth
-              name="unit_count"
-              label="Number of Units"
-              type="number"
+              name='unit_count'
+              label='Number of Units'
+              type='number'
               value={values.unit_count}
               onChange={handleChange}
               error={Boolean(errors.unit_count && touched.unit_count) || Boolean(serverErrors.unit_count)}
@@ -127,16 +127,16 @@ const PropertyForm = ({ title, initialValues, onSubmit, serverErrors }) => {
           <FieldWrapper>
             <TextField
               fullWidth
-              name="type"
-              label="Property Type"
+              name='type'
+              label='Property Type'
               value={values.type}
               onChange={handleChange}
               select
               error={Boolean(errors.type && touched.type) || Boolean(serverErrors.type)}
               helperText={errors.type && touched.type ? errors.type : serverErrors.type}
             >
-              <MenuItem value="Residential">Residential</MenuItem>
-              <MenuItem value="Commercial">Commercial</MenuItem>
+              <MenuItem value='Residential'>Residential</MenuItem>
+              <MenuItem value='Commercial'>Commercial</MenuItem>
             </TextField>
           </FieldWrapper>
 
@@ -145,13 +145,13 @@ const PropertyForm = ({ title, initialValues, onSubmit, serverErrors }) => {
             <Box sx={{ color: 'red', marginTop: '10px' }}>{serverErrors.general}</Box>
           )}
 
-          <Stack direction="row" spacing={2} mt={2}>
-            <PaddedButton type="submit" variant="contained" color="primary" disabled={isSubmitting}>
+          <Stack direction='row' spacing={2} mt={2}>
+            <PaddedButton type='submit' variant='contained' color='primary' disabled={isSubmitting}>
               Submit
             </PaddedButton>
             <SecondaryButton
-              variant="outlined"
-              color="secondary"
+              variant='outlined'
+              color='secondary'
               onClick={() => navigate('/properties')}
             >
               Cancel

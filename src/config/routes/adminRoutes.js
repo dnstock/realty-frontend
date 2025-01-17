@@ -3,7 +3,7 @@ import { AdminRoute } from 'components';
 import Pages from 'pages';
 
 const routes = [
-  { path: "/admin", element: Pages.AdminDashboard },
+  { path: '/admin', element: Pages.AdminDashboard },
 ];
 
 const AdminRoutes = routes.map(({ path, element: Component }) => (

@@ -8,7 +8,7 @@ const SidebarItem = ({ item, isSidebarOpen, isMobile, toggleSidebar }) => {
   return (
     <Tooltip
       title={isSidebarOpen ? '' : item.text} // Show tooltip only when collapsed
-      placement="right"
+      placement='right'
       arrow
     >
       <ListItem disablePadding>

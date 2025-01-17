@@ -71,7 +71,7 @@ const CustomPagination = (props) => {
   if(loading && totalRows === 0) {
     return (
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', p: 2 }}>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant='body2' color='text.secondary'>
           Loading {resource.name.singular} data...
         </Typography>
       </Box>
@@ -81,7 +81,7 @@ const CustomPagination = (props) => {
   if(totalRows === 0) {
     return (
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, px: 1 }}>
-        <Typography variant="body2" color="text.secondary" sx={{ fontStyle: 'italic' }}>
+        <Typography variant='body2' color='text.secondary' sx={{ fontStyle: 'italic' }}>
           Add a new {resource.name.singularTitle} to get started!
         </Typography>
       </Box>
@@ -91,11 +91,11 @@ const CustomPagination = (props) => {
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, px: 1 }}>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-        <FormControl size="small" sx={{ minWidth: 60 }}>
+        <FormControl size='small' sx={{ minWidth: 60 }}>
           <InputLabel>Rows</InputLabel>
           <Select
             value={pageSize}
-            label="Rows"
+            label='Rows'
             onChange={handlePageSizeChange}
             disabled={loading}
           >
@@ -113,9 +113,9 @@ const CustomPagination = (props) => {
 
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mx: 1 }}>
         <TextField
-          size="small"
-          type="number"
-          label="Page"
+          size='small'
+          type='number'
+          label='Page'
           slotProps={{
             input: {
               min: 1,
@@ -140,28 +140,28 @@ const CustomPagination = (props) => {
       <PaginationFooterDivider />
 
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 0 }}>
-        <Tooltip title="First page">
+        <Tooltip title='First page'>
           <span> {/* Workaround for tooltip positioning */}
             <IconButton onClick={() => goToPage(0)} disabled={loading || page === 0}>
               <FirstPage />
             </IconButton>
           </span>
         </Tooltip>
-        <Tooltip title="Previous page">
+        <Tooltip title='Previous page'>
           <span>
             <IconButton onClick={() => goToPage(page - 1)} disabled={loading || page === 0}>
               <NavigateBefore />
             </IconButton>
           </span>
         </Tooltip>
-        <Tooltip title="Next page">
+        <Tooltip title='Next page'>
           <span>
             <IconButton onClick={() => goToPage(page + 1)} disabled={loading || page >= totalPages - 1}>
               <NavigateNext />
             </IconButton>
           </span>
         </Tooltip>
-        <Tooltip title="Last page">
+        <Tooltip title='Last page'>
           <span>
             <IconButton onClick={() => goToPage(totalPages - 1)} disabled={loading || page >= totalPages - 1}>
               <LastPage />

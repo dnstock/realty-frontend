@@ -33,7 +33,7 @@ const QuickNotesDialog = ({ open, onClose, row }) => {
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>Cancel</Button>
-        <Button onClick={() => handleSaveNote(row)} color="secondary">Save</Button>
+        <Button onClick={() => handleSaveNote(row)} color='secondary'>Save</Button>
       </DialogActions>
     </Dialog>
   )

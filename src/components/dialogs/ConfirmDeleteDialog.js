@@ -46,7 +46,7 @@ const ConfirmDeleteDialog = ({ open, onClose, row, onConfirmDelete }) => {
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>Cancel</Button>
-        <Button onClick={() => handleConfirmDelete(row)} color="secondary">Confirm Delete</Button>
+        <Button onClick={() => handleConfirmDelete(row)} color='secondary'>Confirm Delete</Button>
       </DialogActions>
     </Dialog>
   )

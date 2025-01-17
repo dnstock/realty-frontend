@@ -13,7 +13,7 @@ const NotesHelperTextWithFocus = () => {
 
   return (
     <Typography
-      variant="caption"
+      variant='caption'
       sx={{
         position: 'absolute',
         opacity: formControl?.focused ? 1 : 0,

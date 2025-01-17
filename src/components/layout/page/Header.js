@@ -80,7 +80,7 @@ const Header = () => {
         selected={isSelected}
       >
         <ListItemIcon>
-          <IconComponent fontSize="small" />
+          <IconComponent fontSize='small' />
         </ListItemIcon>
         {text}
       </HeaderMenuItem>
@@ -109,14 +109,14 @@ const Header = () => {
           <>
           <HeaderBox>
             {headerItemsFromArray(nav.loggedIn)}
-            <Tooltip title="Account settings">
+            <Tooltip title='Account settings'>
               <IconButton
                 onClick={handleOpenUserMenu}
-                size="small"
+                size='small'
                 // sx={{ ml: 2 }}
                 sx={{ py: 0 }}
                 aria-controls={isUserMenuOpen ? 'account-menu' : undefined}
-                aria-haspopup="true"
+                aria-haspopup='true'
                 aria-expanded={isUserMenuOpen ? 'true' : undefined}
               >
                 <Avatar {...stringAvatar(user.name)} />
@@ -133,7 +133,7 @@ const Header = () => {
           >
             <HeaderMenuHeader>
               <Avatar {...stringAvatar(user.name)} />
-              <Typography noWrap variant="body1">
+              <Typography noWrap variant='body1'>
                 {user.name}
               </Typography>
             </HeaderMenuHeader>

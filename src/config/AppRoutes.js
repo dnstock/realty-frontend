@@ -19,7 +19,7 @@ const AppRoutes = () => {
 
   return (
     <Routes>
-      <Route path="/" element={<PageFrame />}>
+      <Route path='/' element={<PageFrame />}>
         {PublicRoutes(!isAuthenticated)}
         {UnsecureRoutes}
         {SecureRoutes(isAuthenticated)}

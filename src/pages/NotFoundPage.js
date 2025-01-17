@@ -12,7 +12,7 @@ const NotFoundPage = () => {
   return (
     <>
     <CardBox>
-      <Stack spacing={3} direction="column" alignItems="center">
+      <Stack spacing={3} direction='column' alignItems='center'>
         <Typography variant='h3' component='h1' gutterBottom>
           Page Not Found
         </Typography>
@@ -20,7 +20,7 @@ const NotFoundPage = () => {
           The page you are looking for does not exist.
         </Typography>
         {isAuthenticated ? (
-          <Stack direction="row" spacing={2}>
+          <Stack direction='row' spacing={2}>
             <PaddedButton
               variant='contained'
               color='primary'

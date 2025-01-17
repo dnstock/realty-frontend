@@ -3,7 +3,7 @@ import { UnsecureRoute } from 'components';
 import Pages from 'pages';
 
 const routes = [
-  { path: "/login", element: Pages.Login },
+  { path: '/login', element: Pages.Login },
 ];
 
 const UnsecureRoutes = routes.map(({ path, element: Component }) => (

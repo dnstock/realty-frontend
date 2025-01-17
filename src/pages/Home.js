@@ -14,7 +14,7 @@ const Home = () => {
   return (
     <>
       <CardBox>
-        <Stack spacing={3} direction="column" alignItems="center">
+        <Stack spacing={3} direction='column' alignItems='center'>
           <Typography variant='h3' gutterBottom>
             {isAuthenticated ? `Hi ${user.name}, welcome back!` : 'Smart property management.'}
           </Typography>
@@ -24,7 +24,7 @@ const Home = () => {
               : 'Please log in to access your account.'}
           </Typography>
           {isAuthenticated ? (
-            <Stack direction="row" spacing={2}>
+            <Stack direction='row' spacing={2}>
               <PaddedButton
                 variant='contained'
                 color='primary'

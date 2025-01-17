@@ -6,8 +6,8 @@ import { AppResources } from 'config';
 const resources = ['property'];
 
 const staticRoutes = [
-  { path: "/dashboard", element: Pages.Dashboard, index: true },
-  { path: "/profile", element: Pages.Profile },
+  { path: '/dashboard', element: Pages.Dashboard, index: true },
+  { path: '/profile', element: Pages.Profile },
 ];
 
 const generateResourceRoutes = (resource) => {

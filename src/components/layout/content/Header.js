@@ -38,7 +38,7 @@ const Header = () => {
         {title && (
           <ContentTitleBox>
             {TitleIcon && <TitleIcon />}
-            <Typography variant="h4">{title}</Typography>
+            <Typography variant='h4'>{title}</Typography>
           </ContentTitleBox>
         )}
         <ContentActionBox>

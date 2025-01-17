@@ -55,8 +55,8 @@ const Sidebar = () => {
         <>
         <Divider />
         <SidebarFooter>
-          <Tooltip title={isSidebarOpen ? 'Collapse Sidebar' : 'Expand Sidebar'} placement="right" arrow>
-            <IconButton size="small" onClick={toggleSidebar}>
+          <Tooltip title={isSidebarOpen ? 'Collapse Sidebar' : 'Expand Sidebar'} placement='right' arrow>
+            <IconButton size='small' onClick={toggleSidebar}>
               {isSidebarOpen ? <Icons.SidebarExtended /> : <Icons.SidebarCollapsed />}
             </IconButton>
           </Tooltip>

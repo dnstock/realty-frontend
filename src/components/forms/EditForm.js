@@ -26,7 +26,7 @@ const EditForm = ({ initialValues, onSubmit }) => {
   });
 
   return (
-    <form id="edit-form" onSubmit={formik.handleSubmit}>
+    <form id='edit-form' onSubmit={formik.handleSubmit}>
       <Box
         sx={{
           display: 'flex',
@@ -37,7 +37,7 @@ const EditForm = ({ initialValues, onSubmit }) => {
         }}
       >
         {Object.keys(formik.values).map((key) => {
-          // Skip rendering the "id" field as an editable field
+          // Skip rendering the 'id' field as an editable field
           if (key === 'id') return null;
 
           const value = formik.values[key];

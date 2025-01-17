@@ -8,7 +8,7 @@ const SecureRoute = ({ children }) => {
     return null;
   }
 
-  return auth.isAuthenticated ? children : <Navigate to="/login" />;
+  return auth.isAuthenticated ? children : <Navigate to='/login' />;
 };
 
 export default SecureRoute;

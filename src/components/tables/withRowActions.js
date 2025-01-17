@@ -58,7 +58,7 @@ const withRowActions = (WrappedComponent) => {
       key,
       handler,
       header = capitalize(key),
-      isActionOn = () => true, // always "on" if undefined in row action config
+      isActionOn = () => true, // always 'on' if undefined in row action config
       Icon = Icons[header],
       color = 'primary',
       IconOff = Icons[header+'Off'],

@@ -225,7 +225,7 @@ export const ContentLoadingText = styled(CircularProgress)(({ theme, size = 24 }
 
 export const ContentLoadingBox = ({ children }) => (
   <ContentLoadingBoxWrapper>
-    <CircularProgress color="primary" />
+    <CircularProgress color='primary' />
     {children}
   </ContentLoadingBoxWrapper>
 );
@@ -448,7 +448,7 @@ export const ContentActionButton = styled(({ ...rest }) =>
 export const ContentIconButton = styled(({ ...rest }) =>
   <IconButton {...rest} />
 )(({ theme }) => ({
-  // ":hover": {
+  // ':hover': {
   //   backgroundColor: 'inherit',
   // },
 }));

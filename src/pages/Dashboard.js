@@ -35,9 +35,9 @@ const Dashboard = () => {
       {loading ? (
         <ContentLoadingBox />
       ) : error ? (
-        <Typography color="error">{error}</Typography>
+        <Typography color='error'>{error}</Typography>
       ) : (
-        <Box component="pre">
+        <Box component='pre'>
           {JSON.stringify(dashboardData, null, 2)}
         </Box>
       )}

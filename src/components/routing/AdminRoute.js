@@ -6,7 +6,7 @@ const AdminRoute = ({ children }) => {
 
   const isAdmin = isAuthenticated && user?.role?.role === 'admin'
 
-  return isAdmin ? children : <Navigate to="/login" />;
+  return isAdmin ? children : <Navigate to='/login' />;
 };
 
 export default AdminRoute;

@@ -48,7 +48,7 @@ const Dashboard = () => {
       <Typography variant='h4' gutterBottom>
         Dashboard
       </Typography>
-      <Box component="pre">
+      <Box component='pre'>
         {JSON.stringify(dashboardData, null, 2)}
       </Box>
     </Box>
