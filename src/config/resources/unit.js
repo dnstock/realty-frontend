@@ -27,7 +27,7 @@ export const unit = {
     { field: 'bedrooms', flex: 1, minWidth: 90 },
     { field: 'bathrooms', flex: 1, minWidth: 90 },
     { field: 'sqft', headerName: 'Area', flex: 1, minWidth: 90,
-      valueFormatter: (val) => `${val} ft²` },
+      valueFormatter: (value) => `${value} ft²` },
     { field: 'is_vacant', headerName: 'Vacancy', flex: 1, minWidth: 90,
       renderCell: (params) => (
         <Chip
