@@ -1,3 +1,5 @@
+import { Typography } from '@mui/material';
+
 export const property = {
   // '..' is a placeholder for the plural lowercase resource name
   // See AppResources.js for more details and examples
@@ -10,8 +12,7 @@ export const property = {
   },
   endpoints: {
     index: '/../',
-    subindex: '/:parentName/:parentId/../',
-    create: '/:parentName/:parentId/../',
+    create: '/../',
     read: '/../:id/',
     update: '/../:id/',
     delete: '/../:id/',
@@ -25,6 +26,13 @@ export const property = {
     { field: 'zip_code', flex: 1, minWidth: 90 },
     { field: 'type', flex: 2, minWidth: 130 },
     { field: 'manager', flex: 1.5, minWidth: 100,
-      valueGetter: (params={}) => params.name || '[ Error ]', },
+      renderCell: (params) => (
+        <Typography variant='body2' component='span'
+          color={params.value ? 'textPrimary' : 'text.disabled'}
+        >
+          {params.value ? params.value : '[none]'}
+        </Typography>
+      )
+    },
   ],
 };
