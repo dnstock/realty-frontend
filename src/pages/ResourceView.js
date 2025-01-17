@@ -258,54 +258,62 @@ const ResourceView = ({ resource }) => {
               />
             </Stack>
           </Box>
-          <Stack
-            spacing={1}
-            flex={1}
-            // border={'3px solid blue;'} // For Debugging
-          >
-            <Box
-              display='flex'
-              flexDirection='row'
-              justifyContent='space-between'
-              // border={'3px solid green;'} // For Debugging
+          {data.configs.child && (
+            <Stack
+              spacing={1}
+              flex={1}
+              // border={'3px solid blue;'} // For Debugging
             >
-              <Typography variant='h5'>
-                {data.configs.child.name.pluralTitle}
+              <Box
+                display='flex'
+                flexDirection='row'
+                justifyContent='space-between'
+                // border={'3px solid green;'} // For Debugging
+              >
+                <Typography variant='h5'>
+                  {data.configs.child.name.pluralTitle}
+                </Typography>
+                {isMobile && (
+                  <ContentIconButton
+                    color='primary'
+                    onClick={() => navigate(data.configs.child.routes.create)}
+                    sx={{ marginTop: -1 }}
+                  >
+                    <Icons.Add />
+                  </ContentIconButton>
+                ) || (
+                  <ContentActionButton
+                    color='primary'
+                    startIcon={<Icons.Add />}
+                    onClick={() => navigate(data.configs.child.routes.create)}
+                    sx={{ marginTop: -1 }}
+                  >
+                    New {data.configs.child.name.singularTitle}
+                  </ContentActionButton>
+                )}
+              </Box>
+              <ResourceDataGrid
+                resource={data.configs.child}
+                resourceParent={{
+                  name: data.configs.resource.name.plural,
+                  id: data.id,
+                }}
+                handlers={{
+                  handleView: (id) => navigate(data?.configs.child.routes.viewPath({ id })),
+                  handleEdit: (id) => navigate(data?.configs.child.routes.editPath({ id })),
+                  handleDelete: ({ row }) => openDialog('ConfirmDelete', row),
+                }}
+                flaggable
+                noteable
+              />
+            </Stack>
+          ) || (
+            <Box flex={1}>
+              <Typography variant='body1' color='text.secondary'>
+                {data.configs.resource.name.singularTitle} has no sub-resources.
               </Typography>
-              {isMobile && (
-                <ContentIconButton
-                  color='primary'
-                  onClick={() => navigate(data.configs.child.routes.create)}
-                  sx={{ marginTop: -1 }}
-                >
-                  <Icons.Add />
-                </ContentIconButton>
-              ) || (
-                <ContentActionButton
-                  color='primary'
-                  startIcon={<Icons.Add />}
-                  onClick={() => navigate(data.configs.child.routes.create)}
-                  sx={{ marginTop: -1 }}
-                >
-                  New {data.configs.child.name.singularTitle}
-                </ContentActionButton>
-              )}
             </Box>
-            <ResourceDataGrid
-              resource={data.configs.child}
-              resourceParent={{
-                name: data.configs.resource.name.plural,
-                id: data.id,
-              }}
-              handlers={{
-                handleView: (id) => navigate(data?.configs.child.routes.viewPath({ id })),
-                handleEdit: (id) => navigate(data?.configs.child.routes.editPath({ id })),
-                handleDelete: ({ row }) => openDialog('ConfirmDelete', row),
-              }}
-              flaggable
-              noteable
-            />
-          </Stack>
+          )}
         </Stack>
       )}
     </>
