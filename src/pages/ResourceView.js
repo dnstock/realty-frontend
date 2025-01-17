@@ -73,6 +73,13 @@ const ResourceView = ({ resource }) => {
             color: 'secondary',
             onClick: () => openDialog('ConfirmDelete', data),
           },
+          ...(parent_id ? [{
+            key: 'parent',
+            label: `View ${configs.parent.name.singularTitle}`,
+            icon: Icons.Up,
+            color: 'secondary',
+            onClick: () => navigate(configs.parent.routes.viewPath({ id: parent_id })),
+          }] : []),
           'divider',
         ], 'start');
       })

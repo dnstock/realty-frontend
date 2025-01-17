@@ -37,6 +37,7 @@ import {
   ArrowBackIos,
   Edit,
   Delete,
+  KeyboardArrowUp,
 
   Note,
   NoteAdd,
@@ -66,6 +67,7 @@ const Icons = {
   Back: ArrowBack,            // Alt: ArrowBackIos
   Edit: Edit,
   Delete: Delete,            // Alt: DeleteOutline
+  Up: KeyboardArrowUp,
 
   // Interface Icons
   LogoV1: Domain,
@@ -87,7 +89,7 @@ const Icons = {
   Profile: AccountBox,        // Alt: AccountCircle
   Account: Settings,
 
-  // Platform Icons
+  // Resource Icons
   Properties: HomeWork,
   Buildings: Apartment,
   Units: MeetingRoom,
