@@ -42,13 +42,16 @@ const ResourceView = ({ resource }) => {
     apiService.resourceRead(resource, id)
       .then(response => {
         if(!mounted) return;
+        const parent_id = response.resource_info.parent ? response[response.resource_info.parent + '_id'] : null;
+        const configs = {
+          resource: AppResources[response.resource_info.name],
+          parent: response.resource_info.parent && AppResources[response.resource_info.parent] || null,
+          child: response.resource_info.child && AppResources[response.resource_info.child] || null,
+        }
         setData({
           ...response,
-          configs: {
-            resource: AppResources[response.resource_info.name],
-            parent: AppResources[response.resource_info.parent],
-            child: AppResources[response.resource_info.child],
-          },
+          configs,
+          parent_id,
         });
         setTempNotes(response.notes);
         addActions([
