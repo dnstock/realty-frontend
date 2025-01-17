@@ -215,46 +215,16 @@ const ResourceView = ({ resource }) => {
                     </Typography>
                     <Typography variant='body1'>{data.type}</Typography>
                   </Stack>
-                </Stack>
-                <Paper
-                  variant='outlined'
-                  sx={{
-                    display: 'flex',
-                    borderRadius: .8,
-                  }}
-                >
-                  <Stack
-                    direction='row'
-                    spacing={0}
-                    padding={0}
-                  >
-                    <Box
-                      sx={{
-                        bgcolor: 'grey.100',
-                        px: 2,
-                        py: .8,
-                        borderRight: 1,
-                        borderColor: 'divider',
-                      }}
-                    >
-                      <Typography variant='body1'>
-                        {data.configs.parent.name.singularTitle}
-                      </Typography>
-                    </Box>
-                    <Box
-                      sx={{
-                        px: 2,
-                        py: .8,
-                      }}
-                    >
-                      <Typography variant='body1'>
-                        <Link href=''>
-                          {data.manager.name}
-                        </Link>
-                      </Typography>
-                    </Box>
+
+                  <Stack direction='row' spacing={2}>
+                    <Typography variant='body1' sx={{ fontWeight: 'bold', minWidth: 80 }}>
+                      Manager:
+                    </Typography>
+                    <Typography variant='body1' sx={ data.manager ? 'inherit' : { color: 'text.disabled' } }>
+                      {data.manager || '[none]'}
+                    </Typography>
                   </Stack>
-                </Paper>
+                </Stack>
               </Box>
             </Stack>
             <Stack
