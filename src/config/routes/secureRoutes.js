@@ -3,7 +3,7 @@ import { SecureRoute } from 'components';
 import Pages from 'pages';
 import { AppResources } from 'config';
 
-const resources = ['property', 'building', 'unit'];
+const resources = ['property', 'building', 'unit', 'lease', 'tenant', 'insurance'];
 
 const staticRoutes = [
   { path: '/dashboard', element: Pages.Dashboard, index: true },

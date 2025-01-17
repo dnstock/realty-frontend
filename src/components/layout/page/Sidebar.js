@@ -16,7 +16,7 @@ const Sidebar = () => {
         { text: 'Units', path: '/units', icon: Icons.Units },
         { text: 'Tenants', path: '/tenants', icon: Icons.Tenants },
         { text: 'Leases', path: '/leases', icon: Icons.Leases },
-        { text: 'Insurance', path: '/insurance', icon: Icons.Insurance },
+        { text: 'Insurance', path: '/insurances', icon: Icons.Insurance },
       ]
     : [
         { text: 'Home', path: '/', icon: Icons.Home },
