@@ -4,7 +4,7 @@ Frontend UI for real estate property management platform.
 
 ## Description
 
-Realty.AI is an enterprise platform for commercial real estate developers and property managers. This repository contains the React-based frontend UI implementation.
+Realty.AI is an enterprise platform for commercial real estate developers and property managers. This repository contains the Frontend UI for the platform, built using React and Material-UI.
 
 ## Prerequisites
 
@@ -39,11 +39,13 @@ npm run build
 
 ## Technology Stack
 
-- React 18.x
-- Material-UI (MUI) 6.x
-- React Router 6.x
-- Formik + Yup
+- ReactJS
+- Material-UI (MUI)
+- Oauth2
 - Axios
+- Sonner
+- Formik
+- Yup
 - Day.js
 - More...
 
@@ -51,21 +53,28 @@ npm run build
 ```
 .
 ├── src/
-│   ├── index.js        # Application entry point
-│   ├── App.js          # Root application component
-│   ├── assets/         # Static assets
-│   ├── components/     # Reusable UI components
-│   ├── config/         # Configuration files
-│   │   ├── resources/  # Resource models
-│   │   └── routes/     # Routing handlers
-│   ├── context/        # React context providers
-│   ├── hooks/          # Custom React hooks
-│   ├── pages/          # Page components
-│   ├── services/       # API services
-│   ├── theme/          # MUI theme customization
-│   └── utils/          # Utility functions
+│   ├── index.js                # Application entry point
+│   ├── App.js                  # Root application component
+│   ├── assets/                 # Static assets
+│   ├── components/             # Reusable UI components
+│   │   ├── dialogs/            # Dialog components
+│   │   ├── forms/              # Form components
+│   │   ├── layouts/            # Layout components
+│   │   │   ├── content/        # Content layout components
+│   │   │   ├── page/           # Page layout components
+│   │   ├── routing/            # Routing components
+│   │   └── tables/             # Table components
+│   ├── config/                 # Configuration files
+│   │   ├── resources/          # Resource data models
+│   │   └── routes/             # Routing handlers
+│   ├── context/                # React context providers
+│   ├── hooks/                  # Custom React hooks
+│   ├── pages/                  # Page components
+│   ├── services/               # API services
+│   ├── theme/                  # MUI theme customization
+│   └── utils/                  # Utility functions
 └── public/
-    └── index.html      # HTML entry point
+    └── index.html              # HTML entry point
 ```
 
 ## Features
@@ -95,10 +104,10 @@ docker-compose -f docker-compose.prod.yml up
 npm docker:prod
 ```
 
-## Environment Variables
+## Environment Variables (optional)
 Create a `.env` file in the root directory:
 ```sh
-REACT_APP_API_URL=http://localhost:8000
+REACT_APP_API_BASE_URL="http://localhost:8000/api/v1"  # Default API base URL
 ```
 
 ## Testing
