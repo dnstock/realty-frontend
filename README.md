@@ -199,7 +199,7 @@ To contribute, please follow these steps:
 1. Fork the repository
 
 ```sh
-gh repo fork dnstock/realty-backend
+gh repo fork git@github.com:dnstock/realty-frontend.git
 ```
 
 2. Create a new branch
